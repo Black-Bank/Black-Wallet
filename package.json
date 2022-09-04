@@ -1,0 +1,14 @@
+{
+  "name": "BlackWallet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Black-Bank/Black-Wallet.git",
+  "author": "Cyro56 <cyrorenato56@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "AwesomeProject": "^0.0.1",
+    "create-react-app": "^5.0.1",
+    "init": "^0.1.2",
+    "react-native": "0.69.5"
+  }
+}
