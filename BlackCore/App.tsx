@@ -1,21 +1,16 @@
-import React from 'react';
-import {Button, SafeAreaView} from 'react-native';
+import * as React from 'react';
 import {ApolloProvider} from '@apollo/client';
 import {client} from './src/component/client/provider/clientprovider';
-import {Home} from './src/component/screen/HomeScreen/home';
+import {NavigationContainer} from '@react-navigation/native';
+import {Routes} from './src/component/routes/routes';
 
 const App = () => {
   return (
-    <SafeAreaView>
+    <NavigationContainer>
       <ApolloProvider client={client}>
-        <Home />
-        <Button
-          title="Enviar"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
+        <Routes />
       </ApolloProvider>
-    </SafeAreaView>
+    </NavigationContainer>
   );
 };
 
