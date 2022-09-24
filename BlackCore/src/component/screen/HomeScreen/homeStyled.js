@@ -16,7 +16,7 @@ export const RedContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  background-color: #3c0f69;
 `;
 
 export const Title = styled.Text`

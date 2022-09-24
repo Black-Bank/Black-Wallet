@@ -15,7 +15,7 @@ export function Routes() {
           title: 'BLACK',
           headerTitleAlign: 'center', //moved this from headerStyle property
           headerStyle: {
-            backgroundColor: '#121212',
+            backgroundColor: '#3c0f69',
           },
           headerTintColor: 'black',
           headerTitleStyle: {
