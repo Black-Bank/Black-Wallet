@@ -1,10 +1,11 @@
 import React from 'react';
 import {useQuery} from '@apollo/client';
 import {GET_WALLETS} from '../../client/queries/queries';
-import {Container, RedContainer, Title} from './homeStyled';
+import {RedContainer, Title} from '../../styles/styles';
 import {Button, View, StyleSheet, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
+import {Chart} from '../../chart/chart';
 
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -25,9 +26,8 @@ export function Home() {
 
   return (
     <View style={styles.height}>
-      <Container>
-        <Title>Grafico</Title>
-      </Container>
+      <Chart />
+
       <RedContainer>
         <Title>Carteiras</Title>
         <FlatList
