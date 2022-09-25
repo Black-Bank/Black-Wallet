@@ -6,11 +6,17 @@ import {Button, View, StyleSheet, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {Chart} from '../../chart/chart';
+import {AddEthWallet} from './addWallet/AddEthWallet';
+import config from '../../../../config';
 
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {data} = useQuery(GET_WALLETS);
-
+  const {data, loading, error} = useQuery(GET_WALLETS, {
+    variables: {
+      hashId: 'deg-hjags-123-212asdl',
+      key: config.KEY_SECRET_MONGODB,
+    },
+  });
   const DATA = data?.getWallets;
 
   const Item = ({name}: {name: string}) => (
@@ -35,11 +41,7 @@ export function Home() {
           renderItem={renderItem}
           keyExtractor={item => item.address}
         />
-        <Button
-          title="Criar Carteira"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
+        <AddEthWallet />
         <Button
           title="Go to Details"
           onPress={() => navigation.navigate('Details')}

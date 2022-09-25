@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-export const Box = styled.View``;
-
 export const Container = styled.View`
   display: flex;
   flex: 1;
@@ -24,10 +22,18 @@ export const RedContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #3c0f69;
+  background-color: #121212;
 `;
 
 export const Title = styled.Text`
   font-size: 28px;
   color: #fff;
+`;
+
+export const ButtonTitle = styled.Text`
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  align-self: center;
+  text-transform: uppercase;
 `;
