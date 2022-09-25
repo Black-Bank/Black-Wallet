@@ -3,7 +3,10 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {CREAT_ETH_WALLET} from '../../../client/queries/queries';
 import {ButtonTitle} from '../../../styles/styles';
+<<<<<<< HEAD
 import config from '../../../../../config';
+=======
+>>>>>>> ba39fece7e5be32b639b156d3c252992417bce84
 
 export function AddEthWallet() {
   const [addWallet, {data, loading, error}] = useMutation(CREAT_ETH_WALLET);
@@ -14,7 +17,11 @@ export function AddEthWallet() {
           variables: {
             hashId: 'deg-hjags-123-212asdl',
             name: 'create useMutation',
+<<<<<<< HEAD
             key: config.KEY_SECRET_MONGODB,
+=======
+            key: 'testeJarvis:segura25',
+>>>>>>> ba39fece7e5be32b639b156d3c252992417bce84
           },
         })
       }
