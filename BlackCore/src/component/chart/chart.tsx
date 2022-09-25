@@ -1,10 +1,71 @@
-import React from 'react';
-import {Button, Dimensions, TouchableOpacity} from 'react-native';
-import {Container, ContainerChartButton, Title} from '../styles/styles';
+import React, {useState} from 'react';
+import {Dimensions, TouchableOpacity} from 'react-native';
+import {ButtonTitle, Container, ContainerChartButton} from '../styles/styles';
 import {LineChart} from 'react-native-chart-kit';
 import {StyleSheet} from 'react-native';
 
 export function Chart() {
+  const obj = {
+    labelDay: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],
+    labelSem: ['sem1', 'sem2', 'sem3', 'sem4'],
+    labMensal: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Abr',
+      'Mai',
+      'Jun',
+      'Jul',
+      'ago',
+      'set',
+      'out',
+      'nov',
+      'dez',
+    ],
+    dataDay: [
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+    ],
+    dataSem: [
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+    ],
+    dataMen: [
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+      Math.random() * 100,
+    ],
+  };
+  const [period, setPeriod] = useState<string[]>(obj.labelDay);
+  const [periodData, setPeriodData] = useState<number[]>(obj.dataDay);
+
+  const ManagePeriod = (periode: string) => {
+    if (periode === 'diario') {
+      setPeriod(obj.labelDay);
+      setPeriodData(obj.dataDay);
+    } else if (periode === 'semanal') {
+      setPeriod(obj.labelSem);
+      setPeriodData(obj.dataSem);
+    } else if (periode === 'mensal') {
+    }
+  };
+
   const padding = 100;
   const defaultColor = '#121212';
   return (
@@ -12,17 +73,10 @@ export function Chart() {
       <Container>
         <LineChart
           data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            labels: period,
             datasets: [
               {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                ],
+                data: periodData,
               },
             ],
           }}
@@ -57,13 +111,17 @@ export function Chart() {
           <TouchableOpacity
             onPress={() => console.log('mensal')}
             style={styles.Button}>
-            <Title style={styles.appButtonText}>mensal</Title>
+            <ButtonTitle>mensal</ButtonTitle>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}>
-            <Title style={styles.appButtonText}>semanal</Title>
+          <TouchableOpacity
+            onPress={() => ManagePeriod('semanal')}
+            style={styles.Button}>
+            <ButtonTitle>semanal</ButtonTitle>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}>
-            <Title style={styles.appButtonText}>diario</Title>
+          <TouchableOpacity
+            onPress={() => ManagePeriod('diario')}
+            style={styles.Button}>
+            <ButtonTitle>diario</ButtonTitle>
           </TouchableOpacity>
         </ContainerChartButton>
       </Container>
@@ -80,12 +138,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: 'polevioletred',
     margin: 1,
-  },
-  appButtonText: {
-    fontSize: 12,
-    color: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
   },
 });
