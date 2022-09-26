@@ -7,21 +7,14 @@ import {useNavigation} from '@react-navigation/core';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {Chart} from '../../chart/chart';
 import {AddEthWallet} from './addWallet/AddEthWallet';
-<<<<<<< HEAD
 import config from '../../../../config';
-=======
->>>>>>> ba39fece7e5be32b639b156d3c252992417bce84
 
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {data, loading, error} = useQuery(GET_WALLETS, {
     variables: {
       hashId: 'deg-hjags-123-212asdl',
-<<<<<<< HEAD
       key: config.KEY_SECRET_MONGODB,
-=======
-      key: 'testeJarvis:segura25',
->>>>>>> ba39fece7e5be32b639b156d3c252992417bce84
     },
   });
   const DATA = data?.getWallets;
