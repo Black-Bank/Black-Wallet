@@ -90,15 +90,15 @@ export function Chart() {
             backgroundGradientFrom: defaultColor,
             backgroundGradientTo: defaultColor,
             decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(127, 255, 212, ${opacity})`,
+            color: (opacity = 1) => `rgba(153, 102, 204, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             style: {
               borderRadius: 16,
             },
             propsForDots: {
-              r: '1',
+              r: '0',
               strokeWidth: '2',
-              stroke: '#26ff80',
+              stroke: '#7226ff',
             },
           }}
           bezier

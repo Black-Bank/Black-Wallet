@@ -37,3 +37,32 @@ export const ButtonTitle = styled.Text`
   align-self: center;
   text-transform: uppercase;
 `;
+
+export const CardWalletContainer = styled.View`
+  display: flex;
+  margin-left: 10px;
+  margin-top: 10px;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+export const CardWallet = styled.View`
+  display: flex;
+  width: 220px;
+  flex-direction: row;
+`;
+
+export const BoxCardTitle = styled.View`
+  display: flex;
+  width: 320px;
+  margin-left: 5px;
+`;
+export const CardTitle = styled.Text`
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  align-self: flex-start;
+  margin-left: 43;
+  text-transform: uppercase;
+`;

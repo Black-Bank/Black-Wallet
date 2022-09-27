@@ -8,6 +8,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/type
 import {Chart} from '../../chart/chart';
 import {AddEthWallet} from './addWallet/AddEthWallet';
 import config from '../../../../config';
+import {WalletCard} from '../../walletCard/WalletCard';
 
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -19,16 +20,11 @@ export function Home() {
   });
   const DATA = data?.getWallets;
 
-  const Item = ({name}: {name: string}) => (
-    <>
-      <Title>{name}</Title>
-      <Title>Host</Title>
-    </>
-  );
-
-  const renderItem = ({item}: {item: {name: string; address: string}}) => (
-    <Item name={item.name} />
-  );
+  const renderIWalletCard = ({
+    item,
+  }: {
+    item: {name: string; address: string};
+  }) => <WalletCard name={item.name} coin={'ETH'} value={10} />;
 
   return (
     <View style={styles.height}>
@@ -38,7 +34,7 @@ export function Home() {
         <Title>Carteiras</Title>
         <FlatList
           data={DATA}
-          renderItem={renderItem}
+          renderItem={renderIWalletCard}
           keyExtractor={item => item.address}
         />
         <AddEthWallet />
