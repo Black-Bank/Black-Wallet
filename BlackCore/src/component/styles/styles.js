@@ -9,6 +9,21 @@ export const Container = styled.View`
   background-color: #121212;
 `;
 
+export const HeaderTitle = styled.Text`
+  display: flex;
+  height: 30px;
+  font-size: 18px;
+  font-family: 'Gill Sans';
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: 'transparent';
+`;
+
 export const ContainerChartButton = styled.View`
   display: flex;
   width: 100%;
@@ -63,6 +78,6 @@ export const CardTitle = styled.Text`
   color: #fff;
   font-weight: bold;
   align-self: flex-start;
-  margin-left: 43;
+  margin-left: 40px;
   text-transform: uppercase;
 `;

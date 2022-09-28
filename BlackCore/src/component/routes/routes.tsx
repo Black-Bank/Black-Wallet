@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home} from '../screen/HomeScreen/home';
 import {DetailsScreen} from '../screen/DetailsScreen/details';
+import {Header} from '../header/header';
 const Stack = createNativeStackNavigator();
 
 export function Routes() {
@@ -12,16 +13,7 @@ export function Routes() {
         name="Home"
         component={Home}
         options={{
-          title: 'BLACK',
-          headerTitleAlign: 'center', //moved this from headerStyle property
-          headerStyle: {
-            backgroundColor: '#3c0f69',
-          },
-          headerTintColor: 'black',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            color: '#fff',
-          },
+          header: () => <Header />,
         }}
       />
       <Stack.Screen name="Details" component={DetailsScreen} />
