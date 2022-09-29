@@ -25,7 +25,7 @@ export function Home() {
     item,
   }: {
     item: {name: string; address: string};
-  }) => <WalletCard name={item.name} coin={'ETH'} value={10} />;
+  }) => <WalletCard name={item.name} coin={'ETH'} value={1000.72} />;
 
   return (
     <View style={styles.height}>

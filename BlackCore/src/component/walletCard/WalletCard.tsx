@@ -8,6 +8,7 @@ import {
   CardWalletContainer,
   CardCoin,
 } from '../styles/styles';
+import {numberFormatter} from '../utils/functions/Format';
 
 export function WalletCard({
   name,
@@ -18,10 +19,6 @@ export function WalletCard({
   coin: string;
   value: number;
 }) {
-  const numberFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
   return (
     <TouchableOpacity style={styles.card}>
       <CardWallet>
@@ -32,7 +29,7 @@ export function WalletCard({
 
         <CardWalletContainer>
           <ButtonTitle>{name}</ButtonTitle>
-          <ButtonTitle>{numberFormatter.format(value)}</ButtonTitle>
+          <ButtonTitle>{numberFormatter(value)}</ButtonTitle>
         </CardWalletContainer>
       </CardWallet>
       <BoxCardTitle>
