@@ -46,7 +46,7 @@ export const Title = styled.Text`
 `;
 
 export const ButtonTitle = styled.Text`
-  font-size: 12px;
+  font-size: 15px;
   color: #fff;
   font-weight: bold;
   align-self: center;
@@ -70,11 +70,11 @@ export const CardWallet = styled.View`
 
 export const BoxCardTitle = styled.View`
   display: flex;
-  width: 320px;
-  margin-left: 5px;
+  margin-left: 10px;
+  flex-direction: row;
 `;
-export const CardTitle = styled.Text`
-  font-size: 12px;
+export const CardCoin = styled.Text`
+  font-size: 15px;
   color: #fff;
   font-weight: bold;
   align-self: flex-start;

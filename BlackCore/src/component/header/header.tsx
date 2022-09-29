@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {HeaderTitle} from '../styles/styles';
 import LinearGradient from 'react-native-linear-gradient';
+import {HEADER} from '../strings/pt-br';
 
 // Within your render function
 export function Header() {
@@ -11,7 +12,7 @@ export function Header() {
       useAngle={true}
       angle={45}
       style={styles.linearGradient}>
-      <HeaderTitle>black</HeaderTitle>
+      <HeaderTitle>{HEADER.home}</HeaderTitle>
     </LinearGradient>
   );
 }
