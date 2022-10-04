@@ -63,13 +63,11 @@ export const CardWalletContainer = styled.View`
 `;
 
 export const CardWallet = styled.View`
-  display: flex;
   width: 220px;
   flex-direction: row;
 `;
 
 export const BoxCardTitle = styled.View`
-  display: flex;
   margin-left: 10px;
   flex-direction: row;
 `;
