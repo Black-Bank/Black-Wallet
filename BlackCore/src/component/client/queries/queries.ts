@@ -15,9 +15,6 @@ export const CREAT_ETH_WALLET = gql`
   mutation ($hashId: String!, $name: String!, $key: String!, $type: String!) {
     createEthWallet(HashId: $hashId, name: $name, key: $key, type: $type) {
       name
-      type
-      address
-      privateKey
     }
   }
 `;

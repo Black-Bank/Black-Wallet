@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Button,
   StyleSheet,
@@ -36,8 +36,6 @@ export function ModalButton({title}: {title: string}) {
     });
     setIsModalVisible(() => !isModalVisible);
   };
-
-  console.log(data, loading, error, 'MARKER');
 
   const handleDecline = () => setIsModalVisible(() => !isModalVisible);
 

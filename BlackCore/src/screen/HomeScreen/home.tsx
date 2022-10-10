@@ -20,7 +20,7 @@ export function Home() {
     },
   });
   const DATA = data?.getWallets;
-  console.log(DATA);
+
   const renderIWalletCard = ({
     item,
   }: {
