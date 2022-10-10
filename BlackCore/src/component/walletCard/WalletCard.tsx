@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
+import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {
   ButtonTitle,
-  CardTitle,
   CardWallet,
   BoxCardTitle,
   CardWalletContainer,
@@ -22,10 +21,18 @@ export function WalletCard({
   return (
     <TouchableOpacity style={styles.card}>
       <CardWallet>
-        <Image
-          source={require('../../assets/bitcoinLogo.png')}
-          style={styles.image}
-        />
+        {coin === 'BTC' && (
+          <Image
+            source={require(`../../assets/BTCLogo.png`)}
+            style={styles.image}
+          />
+        )}
+        {coin === 'ETH' && (
+          <Image
+            source={require(`../../assets/ETHLogo.png`)}
+            style={styles.image}
+          />
+        )}
 
         <CardWalletContainer>
           <ButtonTitle>{name}</ButtonTitle>

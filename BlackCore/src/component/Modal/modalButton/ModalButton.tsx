@@ -11,13 +11,16 @@ import {ModalBody, ModalContainer, ModalFooter, ModalHeader} from '../Modal';
 
 import Modal from 'react-native-modal';
 import {ADD_WALLET} from '../../strings/pt-br';
-import {AddETHWallet} from '../../addWallet/useAddETHWallet';
+import {Card} from '../../../screen/selectScreen/SelectScreen';
 import {useMutation} from '@apollo/client';
 import {CREAT_ETH_WALLET} from '../../client/queries/queries';
 import config from '../../../../config';
+import {BoxCardTitle, ButtonTitle} from '../../styles/styles';
+
 export function ModalButton({title}: {title: string}) {
   const [addWallet, {data, loading, error}] = useMutation(CREAT_ETH_WALLET);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSelected, setIsSelected] = useState('BTC');
   const [name, setName] = useState('');
 
   const HandlerUp = () => {
@@ -27,6 +30,7 @@ export function ModalButton({title}: {title: string}) {
     addWallet({
       variables: {
         hashId: 'deg-hjags-123-212asdl',
+        type: isSelected,
         name: name,
         key: config.KEY_SECRET_MONGODB,
       },
@@ -34,6 +38,7 @@ export function ModalButton({title}: {title: string}) {
     setIsModalVisible(() => !isModalVisible);
   };
 
+  console.log(data, loading, error);
   const handleDecline = () => setIsModalVisible(() => !isModalVisible);
 
   return (
@@ -49,6 +54,20 @@ export function ModalButton({title}: {title: string}) {
               <ModalHeader title={ADD_WALLET.title} />
               <ModalBody>
                 <Text style={styles.text}>{ADD_WALLET.walletType}</Text>
+                <TouchableOpacity onPress={() => setIsSelected('ETH')}>
+                  <Card
+                    isClick={Boolean(isSelected === 'ETH')}
+                    isSelected={isSelected}
+                    text={'ETH'}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setIsSelected('BTC')}>
+                  <Card
+                    isClick={Boolean(isSelected === 'BTC')}
+                    isSelected={isSelected}
+                    text={'BTC'}
+                  />
+                </TouchableOpacity>
                 <TextInput
                   style={styles.input}
                   placeholder={ADD_WALLET.name}
