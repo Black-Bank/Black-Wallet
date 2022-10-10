@@ -6,6 +6,7 @@ export const GET_WALLETS = gql`
       name
       address
       privateKey
+      WalletType
     }
   }
 `;

@@ -5,7 +5,6 @@ import {ButtonTitle} from '../../component/styles/styles';
 export function Card({
   isClick,
   text,
-  isSelected,
 }: {
   isClick: boolean;
   text: string;

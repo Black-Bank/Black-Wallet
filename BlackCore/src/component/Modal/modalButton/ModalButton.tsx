@@ -15,7 +15,6 @@ import {Card} from '../../../screen/selectScreen/SelectScreen';
 import {useMutation} from '@apollo/client';
 import {CREAT_ETH_WALLET} from '../../client/queries/queries';
 import config from '../../../../config';
-import {BoxCardTitle, ButtonTitle} from '../../styles/styles';
 
 export function ModalButton({title}: {title: string}) {
   const [addWallet, {data, loading, error}] = useMutation(CREAT_ETH_WALLET);
@@ -38,7 +37,8 @@ export function ModalButton({title}: {title: string}) {
     setIsModalVisible(() => !isModalVisible);
   };
 
-  console.log(data, loading, error);
+  console.log(data, loading, error, 'MARKER');
+
   const handleDecline = () => setIsModalVisible(() => !isModalVisible);
 
   return (

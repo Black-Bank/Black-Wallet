@@ -20,12 +20,12 @@ export function Home() {
     },
   });
   const DATA = data?.getWallets;
-
+  console.log(DATA);
   const renderIWalletCard = ({
     item,
   }: {
-    item: {name: string; address: string};
-  }) => <WalletCard name={item.name} coin={'ETH'} value={10.72} />;
+    item: {name: string; address: string; WalletType: string};
+  }) => <WalletCard name={item.name} coin={item.WalletType} value={10.72} />;
 
   return (
     <View style={styles.height}>
