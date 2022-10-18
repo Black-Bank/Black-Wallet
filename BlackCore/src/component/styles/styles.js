@@ -32,7 +32,7 @@ export const ContainerChartButton = styled.View`
 
   flex-direction: row;
 `;
-export const RedContainer = styled.View`
+export const WalletContainer = styled.View`
   display: flex;
   flex: 1;
   justify-content: center;

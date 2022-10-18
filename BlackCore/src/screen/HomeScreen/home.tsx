@@ -1,27 +1,20 @@
 import React, {useCallback, useContext, useEffect} from 'react';
-import {useQuery} from '@apollo/client';
-import {GET_WALLETS} from '../../component/client/queries/queries';
-import {RedContainer, Title} from '../../component/styles/styles';
+import * as S from '../../component/styles/styles';
 import {View, StyleSheet, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {Chart} from '../../component/chart/chart';
-import config from '../../../config';
 import {WalletCard} from '../../component/walletCard/WalletCard';
 import {HOME} from '../../component/strings/pt-br';
 import {ModalButton} from '../../component/Modal/modalButton/ModalButton';
 import {AuthContext} from '../../contexts/auth';
+import {useGetWallets} from '../../component/hooks/useGetWallets';
 
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {isUpdate} = useContext(AuthContext);
 
-  const {data, loading, error, refetch} = useQuery(GET_WALLETS, {
-    variables: {
-      hashId: 'deg-hjags-123-212asdl',
-      key: config.KEY_SECRET_MONGODB,
-    },
-  });
+  const {data, refetch} = useGetWallets();
   const Refetch = useCallback(() => {
     console.log('Refetch');
     refetch();
@@ -41,8 +34,8 @@ export function Home() {
     <View style={styles.height}>
       <Chart />
 
-      <RedContainer>
-        <Title>{HOME.wallets}</Title>
+      <S.WalletContainer>
+        <S.Title>{HOME.wallets}</S.Title>
         <FlatList
           data={data?.getWallets}
           renderItem={renderIWalletCard}
@@ -50,7 +43,7 @@ export function Home() {
           extraData={isUpdate}
         />
         <ModalButton title={HOME.addWallet} />
-      </RedContainer>
+      </S.WalletContainer>
     </View>
   );
 }
