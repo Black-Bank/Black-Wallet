@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Button,
   StyleSheet,
@@ -15,12 +15,14 @@ import {Card} from '../../../screen/selectScreen/SelectScreen';
 import {useMutation} from '@apollo/client';
 import {CREAT_ETH_WALLET} from '../../client/queries/queries';
 import config from '../../../../config';
+import {AuthContext} from '../../../contexts/auth';
 
 export function ModalButton({title}: {title: string}) {
   const [addWallet, {data, loading, error}] = useMutation(CREAT_ETH_WALLET);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSelected, setIsSelected] = useState('BTC');
   const [name, setName] = useState('');
+  const {isUpdate, setIsUpdate} = useContext(AuthContext);
 
   const HandlerUp = () => {
     setIsModalVisible(!isModalVisible);
@@ -35,9 +37,12 @@ export function ModalButton({title}: {title: string}) {
       },
     });
     setIsModalVisible(() => !isModalVisible);
+    setIsUpdate(!isUpdate);
   };
 
-  const handleDecline = () => setIsModalVisible(() => !isModalVisible);
+  const handleDecline = () => {
+    setIsModalVisible(() => !isModalVisible);
+  };
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {useQuery} from '@apollo/client';
 import {GET_WALLETS} from '../../component/client/queries/queries';
 import {RedContainer, Title} from '../../component/styles/styles';
@@ -10,23 +10,33 @@ import config from '../../../config';
 import {WalletCard} from '../../component/walletCard/WalletCard';
 import {HOME} from '../../component/strings/pt-br';
 import {ModalButton} from '../../component/Modal/modalButton/ModalButton';
+import {AuthContext} from '../../contexts/auth';
 
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {data, loading, error} = useQuery(GET_WALLETS, {
+  const {isUpdate} = useContext(AuthContext);
+
+  const {data, loading, error, refetch} = useQuery(GET_WALLETS, {
     variables: {
       hashId: 'deg-hjags-123-212asdl',
       key: config.KEY_SECRET_MONGODB,
     },
   });
-  const DATA = data?.getWallets;
+  const Refetch = useCallback(() => {
+    console.log('Refetch');
+    refetch();
+  }, [refetch]);
+
+  useEffect(() => {
+    setTimeout(Refetch, 500);
+  }, [Refetch, isUpdate]);
 
   const renderIWalletCard = ({
     item,
   }: {
     item: {name: string; address: string; WalletType: string};
   }) => <WalletCard name={item.name} coin={item.WalletType} value={10.72} />;
-
+  console.log(isUpdate, data);
   return (
     <View style={styles.height}>
       <Chart />
@@ -34,9 +44,10 @@ export function Home() {
       <RedContainer>
         <Title>{HOME.wallets}</Title>
         <FlatList
-          data={DATA}
+          data={data?.getWallets}
           renderItem={renderIWalletCard}
           keyExtractor={item => item.address}
+          extraData={isUpdate}
         />
         <ModalButton title={HOME.addWallet} />
       </RedContainer>
