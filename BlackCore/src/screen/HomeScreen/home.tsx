@@ -13,15 +13,14 @@ import {useGetWallets} from '../../component/hooks/useGetWallets';
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {isUpdate} = useContext(AuthContext);
-
+  const refetchTime = 500;
   const {data, refetch} = useGetWallets();
   const Refetch = useCallback(() => {
-    console.log('Refetch');
     refetch();
   }, [refetch]);
 
   useEffect(() => {
-    setTimeout(Refetch, 500);
+    setTimeout(Refetch, refetchTime);
   }, [Refetch, isUpdate]);
 
   const renderIWalletCard = ({
@@ -29,7 +28,6 @@ export function Home() {
   }: {
     item: {name: string; address: string; WalletType: string};
   }) => <WalletCard name={item.name} coin={item.WalletType} value={10.72} />;
-  console.log(isUpdate, data);
   return (
     <View style={styles.height}>
       <Chart />
