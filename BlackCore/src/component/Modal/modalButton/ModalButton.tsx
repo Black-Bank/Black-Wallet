@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Button,
   StyleSheet,
@@ -30,15 +30,19 @@ export function ModalButton({title}: {title: string}) {
   const AddWallet = () => {
     addWallet({
       variables: {
-        hashId: 'deg-hjags-123-212asdl',
+        hashId: 'deg-hjags-1233-2123892129asdl',
         type: isSelected,
         name: name,
         key: config.KEY_SECRET_MONGODB,
       },
     });
-    setIsModalVisible(() => !isModalVisible);
-    setIsUpdate(!isUpdate);
   };
+  useEffect(() => {
+    if (data) {
+      setIsModalVisible(() => !isModalVisible);
+      setIsUpdate(!isUpdate);
+    }
+  }, [data, isModalVisible, isUpdate, setIsUpdate]);
 
   const handleDecline = () => {
     setIsModalVisible(() => !isModalVisible);

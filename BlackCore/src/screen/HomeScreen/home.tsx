@@ -13,7 +13,7 @@ import {useGetWallets} from '../../component/hooks/useGetWallets';
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {isUpdate} = useContext(AuthContext);
-  const refetchTime = 500;
+  const refetchTime = 0;
   const {data, refetch} = useGetWallets();
   const Refetch = useCallback(() => {
     refetch();
@@ -21,7 +21,7 @@ export function Home() {
 
   useEffect(() => {
     setTimeout(Refetch, refetchTime);
-  }, [Refetch, isUpdate]);
+  }, [Refetch, isUpdate, data]);
 
   const renderIWalletCard = ({
     item,
@@ -38,7 +38,7 @@ export function Home() {
           data={data?.getWallets}
           renderItem={renderIWalletCard}
           keyExtractor={item => item.address}
-          extraData={isUpdate}
+          extraData={data}
         />
         <ModalButton title={HOME.addWallet} />
       </S.WalletContainer>
