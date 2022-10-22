@@ -9,11 +9,10 @@ import {HOME} from '../../component/strings/pt-br';
 import {ModalButton} from '../../component/Modal/modalButton/ModalButton';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
-
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {isUpdate} = useContext(AuthContext);
-  const refetchTime = 0;
+  const refetchTime = 500;
   const {data, refetch} = useGetWallets();
   const Refetch = useCallback(() => {
     refetch();
@@ -21,7 +20,7 @@ export function Home() {
 
   useEffect(() => {
     setTimeout(Refetch, refetchTime);
-  }, [Refetch, isUpdate, data]);
+  }, [Refetch, isUpdate]);
 
   const renderIWalletCard = ({
     item,
@@ -31,21 +30,19 @@ export function Home() {
   return (
     <View style={styles.height}>
       <Chart />
-
       <S.WalletContainer>
         <S.Title>{HOME.wallets}</S.Title>
         <FlatList
           data={data?.getWallets}
           renderItem={renderIWalletCard}
           keyExtractor={item => item.address}
-          extraData={data}
+          extraData={isUpdate}
         />
         <ModalButton title={HOME.addWallet} />
       </S.WalletContainer>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   height: {
     height: '100%',
