@@ -9,6 +9,16 @@ export const Container = styled.View`
   background-color: #121212;
 `;
 
+export const GeneralButtonStyles = styled.View`
+  height: 35px;
+  width: 80px;
+  justify-content: center;
+  background-color: #3c0f69;
+  border-radius: 10px;
+  color: 'polevioletred';
+  margin: 1px;
+`;
+
 export const HeaderTitle = styled.Text`
   display: flex;
   height: 30px;

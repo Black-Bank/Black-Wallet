@@ -14,13 +14,10 @@ export function Home() {
   const {isUpdate} = useContext(AuthContext);
   const refetchTime = 500;
   const {data, refetch} = useGetWallets();
-  const Refetch = useCallback(() => {
-    refetch();
-  }, [refetch]);
 
   useEffect(() => {
-    setTimeout(Refetch, refetchTime);
-  }, [Refetch, isUpdate]);
+    setTimeout(refetch, refetchTime);
+  }, [refetch, isUpdate]);
 
   const renderIWalletCard = ({
     item,

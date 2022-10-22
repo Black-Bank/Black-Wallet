@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Button,
   StyleSheet,
@@ -16,9 +16,11 @@ import {useMutation} from '@apollo/client';
 import {CREAT_ETH_WALLET} from '../../client/queries/queries';
 import config from '../../../../config';
 import {AuthContext} from '../../../contexts/auth';
+import {ButtonTitle, GeneralButtonStyles} from '../../styles/styles';
+import LinearGradient from 'react-native-linear-gradient';
 
 export function ModalButton({title}: {title: string}) {
-  const [addWallet, {data, loading, error}] = useMutation(CREAT_ETH_WALLET);
+  const [addWallet] = useMutation(CREAT_ETH_WALLET);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSelected, setIsSelected] = useState('BTC');
   const [name, setName] = useState('');
@@ -53,39 +55,53 @@ export function ModalButton({title}: {title: string}) {
         <View style={styles.separator} />
         <Modal isVisible={isModalVisible}>
           <ModalContainer>
-            <View style={styles.modal}>
-              <ModalHeader title={ADD_WALLET.title} />
-              <ModalBody>
-                <Text style={styles.text}>{ADD_WALLET.walletType}</Text>
-                <TouchableOpacity onPress={() => setIsSelected('ETH')}>
-                  <Card
-                    isClick={Boolean(isSelected === 'ETH')}
-                    isSelected={isSelected}
-                    text={'ETH'}
+            <LinearGradient
+              colors={['#3c0f69', '#fff']}
+              useAngle={true}
+              angle={180}
+              style={styles.LinearGradient}>
+              <View style={styles.modal}>
+                <ModalHeader title={ADD_WALLET.title} />
+                <ModalBody>
+                  <Text style={styles.text}>{ADD_WALLET.walletType}</Text>
+                  <TouchableOpacity onPress={() => setIsSelected('ETH')}>
+                    <Card
+                      isClick={Boolean(isSelected === 'ETH')}
+                      isSelected={isSelected}
+                      text={'ETH'}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setIsSelected('BTC')}>
+                    <Card
+                      isClick={Boolean(isSelected === 'BTC')}
+                      isSelected={isSelected}
+                      text={'BTC'}
+                    />
+                  </TouchableOpacity>
+                  <TextInput
+                    style={styles.input}
+                    placeholder={ADD_WALLET.name}
+                    keyboardType="ascii-capable"
+                    value={name}
+                    onChangeText={text => setName(text)}
                   />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setIsSelected('BTC')}>
-                  <Card
-                    isClick={Boolean(isSelected === 'BTC')}
-                    isSelected={isSelected}
-                    text={'BTC'}
-                  />
-                </TouchableOpacity>
-                <TextInput
-                  style={styles.input}
-                  placeholder={ADD_WALLET.name}
-                  keyboardType="ascii-capable"
-                  value={name}
-                  onChangeText={text => setName(text)}
-                />
-              </ModalBody>
-              <ModalFooter>
-                <View style={styles.button}>
-                  <Button title={ADD_WALLET.cancel} onPress={handleDecline} />
-                  <Button title={ADD_WALLET.create} onPress={AddWallet} />
-                </View>
-              </ModalFooter>
-            </View>
+                </ModalBody>
+                <ModalFooter>
+                  <View style={styles.button}>
+                    <TouchableOpacity onPress={handleDecline}>
+                      <GeneralButtonStyles>
+                        <ButtonTitle>{ADD_WALLET.cancel}</ButtonTitle>
+                      </GeneralButtonStyles>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={AddWallet}>
+                      <GeneralButtonStyles>
+                        <ButtonTitle>{ADD_WALLET.create}</ButtonTitle>
+                      </GeneralButtonStyles>
+                    </TouchableOpacity>
+                  </View>
+                </ModalFooter>
+              </View>
+            </LinearGradient>
           </ModalContainer>
         </Modal>
       </View>
@@ -115,14 +131,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  LinearGradient: {
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#000',
+    borderStyle: 'solid',
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
   text: {
     fontSize: 16,
-    fontWeight: '400',
+    paddingTop: 16,
+    fontWeight: 'bold',
     textAlign: 'center',
+    color: '#121212',
   },
   separator: {
     marginVertical: 30,

@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import {Dimensions, TouchableOpacity} from 'react-native';
-import {ButtonTitle, Container, ContainerChartButton} from '../styles/styles';
+import {
+  ButtonTitle,
+  Container,
+  ContainerChartButton,
+  GeneralButtonStyles,
+} from '../styles/styles';
 import {LineChart} from 'react-native-chart-kit';
 import {StyleSheet} from 'react-native';
 
@@ -108,35 +113,23 @@ export function Chart() {
           }}
         />
         <ContainerChartButton>
-          <TouchableOpacity
-            onPress={() => console.log('mensal')}
-            style={styles.Button}>
-            <ButtonTitle>mensal</ButtonTitle>
+          <TouchableOpacity onPress={() => console.log('mensal')}>
+            <GeneralButtonStyles>
+              <ButtonTitle>mensal</ButtonTitle>
+            </GeneralButtonStyles>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => ManagePeriod('semanal')}
-            style={styles.Button}>
-            <ButtonTitle>semanal</ButtonTitle>
+          <TouchableOpacity onPress={() => ManagePeriod('semanal')}>
+            <GeneralButtonStyles>
+              <ButtonTitle>semanal</ButtonTitle>
+            </GeneralButtonStyles>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => ManagePeriod('diario')}
-            style={styles.Button}>
-            <ButtonTitle>diario</ButtonTitle>
+          <TouchableOpacity onPress={() => ManagePeriod('diario')}>
+            <GeneralButtonStyles>
+              <ButtonTitle>diario</ButtonTitle>
+            </GeneralButtonStyles>
           </TouchableOpacity>
         </ContainerChartButton>
       </Container>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  Button: {
-    height: 35,
-    width: 80,
-    justifyContent: 'center',
-    backgroundColor: '#3c0f69',
-    borderRadius: 10,
-    color: 'polevioletred',
-    margin: 1,
-  },
-});
