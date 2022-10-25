@@ -116,7 +116,7 @@ export function ModalButton({title}: {title: string}) {
                     onChangeText={text => setName(text)}
                   />
                 </ModalBody>
-                <Text style={styles.error}>{error}</Text>
+                {error && <Text style={styles.error}>{error}</Text>}
                 <ModalFooter>
                   <View style={styles.button}>
                     <TouchableOpacity onPress={handleDecline}>
