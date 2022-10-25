@@ -37,7 +37,7 @@ export function ModalButton({title}: {title: string}) {
     if (name.length >= errorLength) {
       setError(MODAL_ERROR.errorLength);
     } else if (name.match(caractersRegex)) {
-      setError('não use caracters especiais');
+      setError(MODAL_ERROR.injectError);
     } else {
       setError('');
     }

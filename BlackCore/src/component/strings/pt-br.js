@@ -18,4 +18,5 @@ export const HEADER = {
 
 export const MODAL_ERROR = {
   errorLength: 'O nome da carteira é muito grande.',
+  injectError: 'não use caracters especiais',
 };
