@@ -32,7 +32,7 @@ export function ModalButton({title}: {title: string}) {
   };
 
   const CheckError = useCallback(() => {
-    const errorLength = 7;
+    const errorLength = 10;
     const caractersRegex = /[˜`!@#$'".,%ˆ&<>?/*()-+]+/g;
     if (name.length >= errorLength) {
       setError(MODAL_ERROR.errorLength);
@@ -47,7 +47,7 @@ export function ModalButton({title}: {title: string}) {
   }, [CheckError, error, name]);
 
   const AddWallet = () => {
-    if (isSelected === 'ETH') {
+    if (isSelected === 'ETH' && !error) {
       addETHWallet({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
@@ -56,8 +56,7 @@ export function ModalButton({title}: {title: string}) {
           key: config.KEY_SECRET_MONGODB,
         },
       });
-    } else if (isSelected === 'BTC') {
-      console.log('btc? ' + isSelected);
+    } else if (isSelected === 'BTC' && !error) {
       addBTCWallet({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
