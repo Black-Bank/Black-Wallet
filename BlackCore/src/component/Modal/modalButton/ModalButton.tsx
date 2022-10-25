@@ -1,6 +1,5 @@
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
-  Button,
   StyleSheet,
   Text,
   TextInput,
@@ -10,36 +9,68 @@ import {
 import {ModalBody, ModalContainer, ModalFooter, ModalHeader} from '../Modal';
 
 import Modal from 'react-native-modal';
-import {ADD_WALLET} from '../../strings/pt-br';
+import {ADD_WALLET, MODAL_ERROR} from '../../strings/pt-br';
 import {Card} from '../../../screen/selectScreen/SelectScreen';
 import {useMutation} from '@apollo/client';
-import {CREAT_ETH_WALLET} from '../../client/queries/queries';
+import {CREAT_BTC_WALLET, CREAT_ETH_WALLET} from '../../client/queries/queries';
 import config from '../../../../config';
 import {AuthContext} from '../../../contexts/auth';
 import {ButtonTitle, GeneralButtonStyles} from '../../styles/styles';
 import LinearGradient from 'react-native-linear-gradient';
 
 export function ModalButton({title}: {title: string}) {
-  const [addWallet] = useMutation(CREAT_ETH_WALLET);
+  const [addETHWallet] = useMutation(CREAT_ETH_WALLET);
+  const [addBTCWallet] = useMutation(CREAT_BTC_WALLET);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSelected, setIsSelected] = useState('BTC');
   const [name, setName] = useState('');
   const {isUpdate, setIsUpdate} = useContext(AuthContext);
+  const [error, setError] = useState('');
 
   const HandlerUp = () => {
     setIsModalVisible(!isModalVisible);
   };
+
+  const CheckError = useCallback(() => {
+    const errorLength = 7;
+    const caractersRegex = /[˜`!@#$'".,%ˆ&<>?/*()-+]+/g;
+    if (name.length >= errorLength) {
+      setError(MODAL_ERROR.errorLength);
+    } else if (name.match(caractersRegex)) {
+      setError('não use caracters especiais');
+    } else {
+      setError('');
+    }
+  }, [name]);
+  useEffect(() => {
+    CheckError();
+  }, [CheckError, error, name]);
+
   const AddWallet = () => {
-    addWallet({
-      variables: {
-        hashId: 'deg-hjags-123-212asdl',
-        type: isSelected,
-        name: name,
-        key: config.KEY_SECRET_MONGODB,
-      },
-    });
-    setIsModalVisible(() => !isModalVisible);
-    setIsUpdate(!isUpdate);
+    if (isSelected === 'ETH') {
+      addETHWallet({
+        variables: {
+          hashId: 'deg-hjags-123-212asdl',
+          type: isSelected,
+          name: name,
+          key: config.KEY_SECRET_MONGODB,
+        },
+      });
+    } else if (isSelected === 'BTC') {
+      console.log('btc? ' + isSelected);
+      addBTCWallet({
+        variables: {
+          hashId: 'deg-hjags-123-212asdl',
+          type: isSelected,
+          name: name,
+          key: config.KEY_SECRET_MONGODB,
+        },
+      });
+    }
+    if (!error) {
+      setIsModalVisible(() => !isModalVisible);
+      setIsUpdate(!isUpdate);
+    }
   };
 
   const handleDecline = () => {
@@ -86,6 +117,7 @@ export function ModalButton({title}: {title: string}) {
                     onChangeText={text => setName(text)}
                   />
                 </ModalBody>
+                <Text style={styles.error}>{error}</Text>
                 <ModalFooter>
                   <View style={styles.button}>
                     <TouchableOpacity onPress={handleDecline}>
@@ -168,5 +200,12 @@ const styles = StyleSheet.create({
     height: '90%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  error: {
+    color: '#ba3939',
+    background: '#ffe0e0',
+    fontSize: 20,
+    fontFamily: 'Helvetica',
+    fontWeight: 'bold',
   },
 });

@@ -15,3 +15,7 @@ export const ADD_WALLET = {
 export const HEADER = {
   home: 'Black',
 };
+
+export const MODAL_ERROR = {
+  errorLength: 'O nome da carteira é muito grande.',
+};
