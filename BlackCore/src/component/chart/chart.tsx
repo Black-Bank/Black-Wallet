@@ -7,26 +7,32 @@ import {
   GeneralButtonStyles,
 } from '../styles/styles';
 import {LineChart} from 'react-native-chart-kit';
-import {StyleSheet} from 'react-native';
+import {RefactorMonthData} from './functions/chartFunctions';
 
 export function Chart() {
+  const date = new Date();
+  const year = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul',
+    'ago',
+    'set',
+    'out',
+    'nov',
+    'dez',
+  ];
+
+  const Month = date.getMonth() + 1;
+  const DATA = RefactorMonthData(Month);
+
   const obj = {
     labelDay: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],
     labelSem: ['sem1', 'sem2', 'sem3', 'sem4'],
-    labMensal: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Abr',
-      'Mai',
-      'Jun',
-      'Jul',
-      'ago',
-      'set',
-      'out',
-      'nov',
-      'dez',
-    ],
+    labMensal: DATA.semester,
     dataDay: [
       Math.random() * 100,
       Math.random() * 100,
@@ -42,20 +48,7 @@ export function Chart() {
       Math.random() * 100,
       Math.random() * 100,
     ],
-    dataMen: [
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-    ],
+    dataMen: DATA.dataSemester,
   };
   const [period, setPeriod] = useState<string[]>(obj.labelDay);
   const [periodData, setPeriodData] = useState<number[]>(obj.dataDay);
@@ -68,6 +61,8 @@ export function Chart() {
       setPeriod(obj.labelSem);
       setPeriodData(obj.dataSem);
     } else if (periode === 'mensal') {
+      setPeriod(obj.labMensal);
+      setPeriodData(obj.dataMen);
     }
   };
 
@@ -113,7 +108,7 @@ export function Chart() {
           }}
         />
         <ContainerChartButton>
-          <TouchableOpacity onPress={() => console.log('mensal')}>
+          <TouchableOpacity onPress={() => ManagePeriod('mensal')}>
             <GeneralButtonStyles>
               <ButtonTitle>mensal</ButtonTitle>
             </GeneralButtonStyles>
