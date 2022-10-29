@@ -8,26 +8,14 @@ import {
 } from '../styles/styles';
 import {LineChart} from 'react-native-chart-kit';
 import {RefactorMonthData} from './functions/chartFunctions';
+import {useGetBalance} from '../hooks/useGetBalance';
 
 export function Chart() {
   const date = new Date();
-  const year = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Abr',
-    'Mai',
-    'Jun',
-    'Jul',
-    'ago',
-    'set',
-    'out',
-    'nov',
-    'dez',
-  ];
-
+  const {data} = useGetBalance();
+  let DataSemester = data?.getBalance.month;
   const Month = date.getMonth() + 1;
-  const DATA = RefactorMonthData(Month);
+  const DATA = RefactorMonthData(Month, DataSemester);
 
   const obj = {
     labelDay: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],
@@ -48,7 +36,7 @@ export function Chart() {
       Math.random() * 100,
       Math.random() * 100,
     ],
-    dataMen: DATA.dataSemester,
+    dataMen: DATA?.dataSemester,
   };
   const [period, setPeriod] = useState<string[]>(obj.labelDay);
   const [periodData, setPeriodData] = useState<number[]>(obj.dataDay);

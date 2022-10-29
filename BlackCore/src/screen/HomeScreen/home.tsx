@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import * as S from '../../component/styles/styles';
 import {View, StyleSheet, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
