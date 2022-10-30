@@ -7,7 +7,7 @@ import {
   GeneralButtonStyles,
 } from '../styles/styles';
 import {LineChart} from 'react-native-chart-kit';
-import {RefactorMonthData} from './functions/chartFunctions';
+import {RefactorData} from './functions/chartFunctions';
 import {useGetBalance} from '../hooks/useGetBalance';
 import {useMutation} from '@apollo/client';
 import {REMOVE_BALANCE} from '../client/queries/queries';
@@ -16,12 +16,14 @@ import config from '../../../config';
 export function Chart() {
   const date = new Date();
   const {data} = useGetBalance();
-  const [RemoveMonthData] = useMutation(REMOVE_BALANCE);
+  const [RemoveData] = useMutation(REMOVE_BALANCE);
   let DataSemester = data?.getBalance.month;
   let DataWeek = data?.getBalance.week;
   let DataDay = data?.getBalance.day;
+  const actualYear = date?.getFullYear();
   const Month = date.getMonth() + 1;
-  const DATA = RefactorMonthData(Month, DataSemester);
+  const day = date.getDate();
+  const DATA = RefactorData(actualYear, Month, DataSemester, DataWeek, day);
 
   useEffect(() => {
     const dataMonthLength = DataSemester?.length;
@@ -31,7 +33,7 @@ export function Chart() {
     const weekLimit = 4;
     const dayLimit = 7;
     if (dataMonthLength > semesterLimit) {
-      RemoveMonthData({
+      RemoveData({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
           key: config.KEY_SECRET_MONGODB,
@@ -40,7 +42,7 @@ export function Chart() {
       });
     }
     if (dataWeekLength > weekLimit) {
-      RemoveMonthData({
+      RemoveData({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
           key: config.KEY_SECRET_MONGODB,
@@ -49,7 +51,7 @@ export function Chart() {
       });
     }
     if (dataDayLength > dayLimit) {
-      RemoveMonthData({
+      RemoveData({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
           key: config.KEY_SECRET_MONGODB,
@@ -57,7 +59,7 @@ export function Chart() {
         },
       });
     }
-  }, [RemoveMonthData, DataSemester, DataWeek, DataDay]);
+  }, [RemoveData, DataSemester, DataWeek, DataDay]);
 
   const obj = {
     labelDay: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],

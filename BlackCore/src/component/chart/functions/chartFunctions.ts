@@ -12,12 +12,24 @@ const year = [
   'nov',
   'dez',
 ];
+function daysOnMonth(mes: any, ano: any) {
+  var data = new Date(ano, mes, 0);
+  return data.getDate();
+}
 
-export const RefactorMonthData = (
+export const RefactorData = (
+  actualYear: number,
   actualMonth: number,
   dataSemester: number[],
+  dataWeek: number[],
+  actualDay: number,
 ) => {
   let semester: string[] = [];
+  let week: string[] = [];
+  let day: string[] = [];
+  let dayCount = 0;
+  const currentYear: number = Number(String(actualYear).slice(1, 4));
+
   for (let i = actualMonth - 6; i < actualMonth; i++) {
     if (i < 0) {
       semester.push(year[12 + i]);
@@ -25,7 +37,26 @@ export const RefactorMonthData = (
       semester.push(year[i]);
     }
   }
-  semester.splice(0, 6 - dataSemester?.length);
+  for (let k = dataWeek?.length; k > 0; k--) {
+    week.unshift(String(actualDay - 7 * (k - 1)));
+  }
+  for (let j = actualDay; j > actualDay - 7; j--) {
+    let dayStatus = actualDay - dayCount;
+    if (dayStatus >= 0) {
+      day.unshift(String(dayStatus));
+    } else {
+      day.unshift(
+        String(daysOnMonth(actualMonth - 1, currentYear) - dayStatus),
+      );
+    }
 
-  return {semester: semester, dataSemester: dataSemester};
+    dayCount++;
+  }
+  semester.splice(0, 6 - dataSemester?.length);
+  return {
+    semester: semester,
+    dataSemester: dataSemester,
+    dataWeek: week,
+    dataDay: day,
+  };
 };
