@@ -25,9 +25,7 @@ export const RefactorMonthData = (
       semester.push(year[i]);
     }
   }
-  semester.splice(dataSemester?.length, 6 - dataSemester?.length);
-
-  //dataSemester.splice(0, dataSemester?.length - 6); deletar em banco de dados
+  semester.splice(0, 6 - dataSemester?.length);
 
   return {semester: semester, dataSemester: dataSemester};
 };

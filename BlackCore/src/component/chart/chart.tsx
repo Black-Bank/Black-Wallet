@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, TouchableOpacity} from 'react-native';
 import {
   ButtonTitle,
@@ -9,13 +9,55 @@ import {
 import {LineChart} from 'react-native-chart-kit';
 import {RefactorMonthData} from './functions/chartFunctions';
 import {useGetBalance} from '../hooks/useGetBalance';
+import {useMutation} from '@apollo/client';
+import {REMOVE_BALANCE} from '../client/queries/queries';
+import config from '../../../config';
 
 export function Chart() {
   const date = new Date();
   const {data} = useGetBalance();
+  const [RemoveMonthData] = useMutation(REMOVE_BALANCE);
   let DataSemester = data?.getBalance.month;
+  let DataWeek = data?.getBalance.week;
+  let DataDay = data?.getBalance.day;
   const Month = date.getMonth() + 1;
   const DATA = RefactorMonthData(Month, DataSemester);
+
+  useEffect(() => {
+    const dataMonthLength = DataSemester?.length;
+    const dataWeekLength = DataWeek?.length;
+    const dataDayLength = DataDay?.length;
+    const semesterLimit = 6;
+    const weekLimit = 4;
+    const dayLimit = 7;
+    if (dataMonthLength > semesterLimit) {
+      RemoveMonthData({
+        variables: {
+          hashId: 'deg-hjags-123-212asdl',
+          key: config.KEY_SECRET_MONGODB,
+          removeOption: 'month',
+        },
+      });
+    }
+    if (dataWeekLength > weekLimit) {
+      RemoveMonthData({
+        variables: {
+          hashId: 'deg-hjags-123-212asdl',
+          key: config.KEY_SECRET_MONGODB,
+          removeOption: 'week',
+        },
+      });
+    }
+    if (dataDayLength > dayLimit) {
+      RemoveMonthData({
+        variables: {
+          hashId: 'deg-hjags-123-212asdl',
+          key: config.KEY_SECRET_MONGODB,
+          removeOption: 'day',
+        },
+      });
+    }
+  }, [RemoveMonthData, DataSemester, DataWeek, DataDay]);
 
   const obj = {
     labelDay: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],
