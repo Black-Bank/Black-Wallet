@@ -23,8 +23,38 @@ export function Chart() {
   const actualYear = date?.getFullYear();
   const Month = date.getMonth() + 1;
   const day = date.getDate();
-  const DATA = RefactorData(actualYear, Month, DataSemester, DataWeek, day);
+  const DATA = RefactorData(
+    actualYear,
+    Month,
+    DataSemester,
+    DataWeek,
+    DataDay,
+    day,
+  );
 
+  const obj = {
+    labelDay: DATA.dataDay,
+    labelSem: DATA.dataWeek,
+    labMensal: DATA.semester,
+    dataSem: DataWeek,
+    dataMen: DATA?.dataSemester,
+  };
+
+  const [period, setPeriod] = useState<string[]>(obj.labelDay);
+  const [periodData, setPeriodData] = useState<any>(DataDay);
+
+  const ManagePeriod = (periode: string) => {
+    if (periode === 'diario') {
+      setPeriod(obj.labelDay);
+      setPeriodData(DataDay);
+    } else if (periode === 'semanal') {
+      setPeriod(obj.labelSem);
+      setPeriodData(DataWeek);
+    } else if (periode === 'mensal') {
+      setPeriod(obj.labMensal);
+      setPeriodData(DATA?.dataSemester);
+    }
+  };
   useEffect(() => {
     const dataMonthLength = DataSemester?.length;
     const dataWeekLength = DataWeek?.length;
@@ -32,6 +62,8 @@ export function Chart() {
     const semesterLimit = 6;
     const weekLimit = 4;
     const dayLimit = 7;
+
+    ManagePeriod('diario');
     if (dataMonthLength > semesterLimit) {
       RemoveData({
         variables: {
@@ -59,44 +91,8 @@ export function Chart() {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [RemoveData, DataSemester, DataWeek, DataDay]);
-
-  const obj = {
-    labelDay: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],
-    labelSem: ['sem1', 'sem2', 'sem3', 'sem4'],
-    labMensal: DATA.semester,
-    dataDay: [
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-    ],
-    dataSem: [
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-    ],
-    dataMen: DATA?.dataSemester,
-  };
-  const [period, setPeriod] = useState<string[]>(obj.labelDay);
-  const [periodData, setPeriodData] = useState<number[]>(obj.dataDay);
-
-  const ManagePeriod = (periode: string) => {
-    if (periode === 'diario') {
-      setPeriod(obj.labelDay);
-      setPeriodData(obj.dataDay);
-    } else if (periode === 'semanal') {
-      setPeriod(obj.labelSem);
-      setPeriodData(obj.dataSem);
-    } else if (periode === 'mensal') {
-      setPeriod(obj.labMensal);
-      setPeriodData(obj.dataMen);
-    }
-  };
 
   const padding = 100;
   const defaultColor = '#121212';
@@ -108,7 +104,7 @@ export function Chart() {
             labels: period,
             datasets: [
               {
-                data: periodData,
+                data: periodData ? periodData : [0],
               },
             ],
           }}

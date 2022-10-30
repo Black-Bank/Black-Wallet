@@ -22,6 +22,7 @@ export const RefactorData = (
   actualMonth: number,
   dataSemester: number[],
   dataWeek: number[],
+  dataDay: number[],
   actualDay: number,
 ) => {
   let semester: string[] = [];
@@ -37,10 +38,10 @@ export const RefactorData = (
       semester.push(year[i]);
     }
   }
-  for (let k = dataWeek?.length; k > 0; k--) {
-    week.unshift(String(actualDay - 7 * (k - 1)));
+  for (let k = 0; k < dataWeek?.length; k++) {
+    week.unshift(String(actualDay - 7 * k));
   }
-  for (let j = actualDay; j > actualDay - 7; j--) {
+  for (let j = actualDay; j > actualDay - dataDay?.length; j--) {
     let dayStatus = actualDay - dayCount;
     if (dayStatus >= 0) {
       day.unshift(String(dayStatus));
@@ -53,6 +54,7 @@ export const RefactorData = (
     dayCount++;
   }
   semester.splice(0, 6 - dataSemester?.length);
+
   return {
     semester: semester,
     dataSemester: dataSemester,
