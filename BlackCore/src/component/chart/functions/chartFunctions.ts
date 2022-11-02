@@ -39,11 +39,18 @@ export const RefactorData = (
     }
   }
   for (let k = 0; k < dataWeek?.length; k++) {
-    week.unshift(String(actualDay - 7 * k));
+    let weekStatus = actualDay - 7 * k;
+    if (weekStatus > 0) {
+      week.unshift(String(weekStatus));
+    } else {
+      week.unshift(
+        String(daysOnMonth(actualMonth - 1, currentYear) - weekStatus),
+      );
+    }
   }
   for (let j = actualDay; j > actualDay - dataDay?.length; j--) {
     let dayStatus = actualDay - dayCount;
-    if (dayStatus >= 0) {
+    if (dayStatus > 0) {
       day.unshift(String(dayStatus));
     } else {
       day.unshift(
