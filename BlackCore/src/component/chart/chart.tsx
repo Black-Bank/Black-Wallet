@@ -126,7 +126,7 @@ export function Chart() {
             propsForDots: {
               r: '0',
               strokeWidth: '2',
-              stroke: '#7226ff',
+              stroke: '#b4171c',
             },
           }}
           bezier
@@ -138,17 +138,17 @@ export function Chart() {
         <ContainerChartButton>
           <TouchableOpacity onPress={() => ManagePeriod('mensal')}>
             <GeneralButtonStyles>
-              <ButtonTitle>mensal</ButtonTitle>
+              <ButtonTitle>teste</ButtonTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => ManagePeriod('semanal')}>
             <GeneralButtonStyles>
-              <ButtonTitle>semanal</ButtonTitle>
+              <ButtonTitle>teste</ButtonTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => ManagePeriod('diario')}>
             <GeneralButtonStyles>
-              <ButtonTitle>diario</ButtonTitle>
+              <ButtonTitle>teste</ButtonTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
         </ContainerChartButton>
