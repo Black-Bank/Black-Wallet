@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {Dimensions, TouchableOpacity} from 'react-native';
 import {
@@ -10,13 +11,12 @@ import {LineChart} from 'react-native-chart-kit';
 import {RefactorData} from './functions/chartFunctions';
 import {useGetBalance} from '../hooks/useGetBalance';
 import {useMutation} from '@apollo/client';
-import {REMOVE_BALANCE} from '../client/queries/queries';
+import {INSERT_BALANCE} from '../client/queries/queries';
 import config from '../../../config';
 
 export function Chart() {
   const date = new Date();
   const {data} = useGetBalance();
-  const [RemoveData] = useMutation(REMOVE_BALANCE);
   let DataSemester = data?.getBalance.month;
   let DataWeek = data?.getBalance.week;
   let DataDay = data?.getBalance.day;
@@ -42,6 +42,7 @@ export function Chart() {
 
   const [period, setPeriod] = useState<string[]>(obj.labelDay);
   const [periodData, setPeriodData] = useState<any>(DataDay);
+  const [insertBalance] = useMutation(INSERT_BALANCE);
 
   const ManagePeriod = (periode: string) => {
     if (periode === 'diario') {
@@ -55,44 +56,22 @@ export function Chart() {
       setPeriodData(DATA?.dataSemester);
     }
   };
-  useEffect(() => {
-    const dataMonthLength = DataSemester?.length;
-    const dataWeekLength = DataWeek?.length;
-    const dataDayLength = DataDay?.length;
-    const semesterLimit = 6;
-    const weekLimit = 4;
-    const dayLimit = 7;
 
-    ManagePeriod('diario');
-    if (dataMonthLength > semesterLimit) {
-      RemoveData({
-        variables: {
-          hashId: 'deg-hjags-123-212asdl',
-          key: config.KEY_SECRET_MONGODB,
-          removeOption: 'month',
-        },
-      });
+  useEffect(() => {
+    insertBalance({
+      variables: {
+        hashId: 'deg-hjags-123-212asdl',
+        newBalance: 200,
+        key: config.KEY_SECRET_MONGODB,
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      ManagePeriod('diario');
     }
-    if (dataWeekLength > weekLimit) {
-      RemoveData({
-        variables: {
-          hashId: 'deg-hjags-123-212asdl',
-          key: config.KEY_SECRET_MONGODB,
-          removeOption: 'week',
-        },
-      });
-    }
-    if (dataDayLength > dayLimit) {
-      RemoveData({
-        variables: {
-          hashId: 'deg-hjags-123-212asdl',
-          key: config.KEY_SECRET_MONGODB,
-          removeOption: 'day',
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [RemoveData, DataSemester, DataWeek, DataDay]);
+  }, [data]);
 
   const padding = 100;
   const defaultColor = '#121212';

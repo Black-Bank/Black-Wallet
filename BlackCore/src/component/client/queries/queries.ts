@@ -37,12 +37,8 @@ export const CREAT_BTC_WALLET = gql`
   }
 `;
 
-export const REMOVE_BALANCE = gql`
-  mutation RemoveBalance(
-    $hashId: String!
-    $key: String!
-    $removeOption: String!
-  ) {
-    RemoveBalance(HashId: $hashId, key: $key, removeOption: $removeOption)
+export const INSERT_BALANCE = gql`
+  mutation InsertBalance($newBalance: Float!, $hashId: String!, $key: String!) {
+    InsertBalance(NewBalance: $newBalance, HashId: $hashId, key: $key)
   }
 `;

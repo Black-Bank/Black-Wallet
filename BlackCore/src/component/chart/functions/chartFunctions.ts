@@ -12,8 +12,9 @@ const year = [
   'nov',
   'dez',
 ];
-function daysOnMonth(mes: any, ano: any) {
-  var data = new Date(ano, mes, 0);
+function daysOnMonth(mes: number, ano: number) {
+  let data = new Date(ano, mes, 0);
+
   return data.getDate();
 }
 
@@ -44,7 +45,7 @@ export const RefactorData = (
       week.unshift(String(weekStatus));
     } else {
       week.unshift(
-        String(daysOnMonth(actualMonth - 1, currentYear) - weekStatus),
+        String(daysOnMonth(actualMonth - 1, currentYear) + weekStatus),
       );
     }
   }
@@ -54,7 +55,7 @@ export const RefactorData = (
       day.unshift(String(dayStatus));
     } else {
       day.unshift(
-        String(daysOnMonth(actualMonth - 1, currentYear) - dayStatus),
+        String(daysOnMonth(actualMonth - 1, currentYear) + dayStatus),
       );
     }
 
