@@ -23,6 +23,7 @@ export function Chart() {
   const actualYear = date?.getFullYear();
   const Month = date.getMonth() + 1;
   const day = date.getDate();
+  const todayDate = `${day}/${Month}/${actualYear}`;
   const DATA = RefactorData(
     actualYear,
     Month,
@@ -58,14 +59,16 @@ export function Chart() {
   };
 
   useEffect(() => {
-    insertBalance({
-      variables: {
-        hashId: 'deg-hjags-123-212asdl',
-        newBalance: 200,
-        key: config.KEY_SECRET_MONGODB,
-      },
-    });
-  }, []);
+    if (data && data?.getBalance.updateDate !== todayDate) {
+      insertBalance({
+        variables: {
+          hashId: 'deg-hjags-123-212asdl',
+          newBalance: Math.floor(Math.random() * 200),
+          key: config.KEY_SECRET_MONGODB,
+        },
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     if (data) {

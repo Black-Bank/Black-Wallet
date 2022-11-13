@@ -6,6 +6,7 @@ export const GET_BALANCE = gql`
       month
       week
       day
+      updateDate
     }
   }
 `;

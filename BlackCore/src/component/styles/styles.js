@@ -14,7 +14,7 @@ export const GeneralButtonStyles = styled.View`
   width: 80px;
   justify-content: center;
   background-color: #3c0f69;
-  border-radius: 10px;
+  border-radius: 50px;
   color: 'polevioletred';
   margin: 1px;
 `;

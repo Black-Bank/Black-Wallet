@@ -1,3 +1,4 @@
+.env
 # OSX
 #
 .DS_Store
@@ -36,8 +37,7 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-.env
-
+node_modules
 # BUCK
 buck-out/
 \.buckd/
@@ -62,3 +62,5 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+#ENV FILES
+.env
