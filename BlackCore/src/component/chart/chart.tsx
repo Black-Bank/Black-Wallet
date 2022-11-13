@@ -14,7 +14,7 @@ import {useMutation} from '@apollo/client';
 import {INSERT_BALANCE} from '../client/queries/queries';
 import config from '../../../config';
 
-export function Chart() {
+export function Chart({totalBalance}: {totalBalance: number}) {
   const date = new Date();
   const {data} = useGetBalance();
   let DataSemester = data?.getBalance.month;
@@ -63,7 +63,7 @@ export function Chart() {
       insertBalance({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
-          newBalance: Math.floor(Math.random() * 200),
+          newBalance: totalBalance,
           key: config.KEY_SECRET_MONGODB,
         },
       });
