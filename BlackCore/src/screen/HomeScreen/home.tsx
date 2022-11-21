@@ -12,10 +12,16 @@ import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
 import Web3 from 'web3';
 import config from '../../../config';
+import axios from 'axios';
 interface IWallet {
   name: string;
   address: string;
   WalletType: string;
+}
+
+export interface IWalletData {
+  address: string;
+  balance: string;
 }
 
 export function Home() {
@@ -23,19 +29,33 @@ export function Home() {
   const {isUpdate} = useContext(AuthContext);
   const refetchTime = 500;
   const {data, refetch} = useGetWallets();
+  const sochain_network = 'BTC';
   const testnet = config.ETH_MAINNET;
   const web3 = new Web3(testnet);
   const ETHWallets = data?.getWallets.filter(
     (item: {WalletType: string}) => item.WalletType === 'ETH',
   );
+  const BTCWallets = data?.getWallets.filter(
+    (item: {WalletType: string}) => item.WalletType === 'BTC',
+  );
   const [totalBalance, setTotalBalance] = useState(0);
+  let walletObjects: IWalletData[] = [];
   const getETHBalance = async (address: string) => {
     let newBalance = await web3.eth.getBalance(address);
+    walletObjects.push({address: address, balance: newBalance});
     setTotalBalance(totalBalance + Number(newBalance));
   };
 
+  const getBTCBalance = async (source_address: string) => {
+    const sochain_url = `https://sochain.com/api/v2/get_address_balance/${sochain_network}/${source_address}`;
+    const response = await axios.get(sochain_url);
+    const newBalance = response?.data.data.confirmed_balance;
+    walletObjects.push({address: source_address, balance: newBalance});
+    setTotalBalance(totalBalance + Number(newBalance));
+  };
   const sumBalance = () => {
     ETHWallets?.map((item: {address: string}) => getETHBalance(item.address));
+    BTCWallets?.map((item: {address: string}) => getBTCBalance(item.address));
   };
   useEffect(() => {
     sumBalance();
@@ -46,6 +66,7 @@ export function Home() {
       name={item.name}
       coin={item.WalletType}
       address={item.address}
+      data={walletObjects}
     />
   );
 

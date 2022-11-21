@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useContext, useEffect, useState} from 'react';
+
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity, Image} from 'react-native';
-import Web3 from 'web3';
-import config from '../../../config';
+
+import {IWalletData} from '../../screen/HomeScreen/home';
 import {
   ButtonTitle,
   CardWallet,
@@ -11,28 +12,29 @@ import {
   CardCoin,
 } from '../styles/styles';
 import {numberFormatter} from '../utils/functions/Format';
-
 export function WalletCard({
   name,
   coin,
   address,
+  data,
 }: {
   name: string;
   coin: string;
   address: string;
+  data: IWalletData[];
 }) {
-  const testnet = config.ETH_MAINNET;
-  const web3 = new Web3(testnet);
   const [balance, setBalance] = useState('00');
 
   const getETHBalance = async () => {
-    if (coin === 'ETH') {
-      let newBalance = await web3.eth.getBalance(address);
-      setBalance(newBalance);
-    }
+    const wallet = data.filter(
+      (item: IWalletData) => item.address === address,
+    )[0];
+    setBalance(wallet.balance);
   };
 
-  getETHBalance();
+  useEffect(() => {
+    getETHBalance();
+  }, []);
 
   return (
     <TouchableOpacity style={styles.card}>
