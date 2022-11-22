@@ -1,7 +1,13 @@
-import {KEY_SECRET_MONGODB, API_HEROKU, ETH_MAINNET} from '@env';
+import {
+  KEY_SECRET_MONGODB,
+  API_HEROKU,
+  ETH_MAINNET,
+  MARKETCAP_API_KEY,
+} from '@env';
 
 export default {
   KEY_SECRET_MONGODB,
   API_HEROKU,
   ETH_MAINNET,
+  MARKETCAP_API_KEY,
 };

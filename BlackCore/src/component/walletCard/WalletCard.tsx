@@ -24,18 +24,18 @@ export function WalletCard({
   data: IWalletData[];
 }) {
   const [balance, setBalance] = useState('00');
-
-  const getETHBalance = async () => {
+  const [currentPrice, setCurrentPrice] = useState(0);
+  const getBalance = async () => {
     const wallet = data.filter(
       (item: IWalletData) => item.address === address,
     )[0];
+    setCurrentPrice(wallet.price);
     setBalance(wallet.balance);
   };
 
   useEffect(() => {
-    getETHBalance();
-  }, []);
-
+    getBalance();
+  }, [data]);
   return (
     <TouchableOpacity style={styles.card}>
       <CardWallet>
@@ -54,7 +54,9 @@ export function WalletCard({
 
         <CardWalletContainer>
           <ButtonTitle>{name}</ButtonTitle>
-          <ButtonTitle>{numberFormatter(Number(balance))}</ButtonTitle>
+          <ButtonTitle>
+            USD {numberFormatter(currentPrice * Number(balance))}
+          </ButtonTitle>
         </CardWalletContainer>
       </CardWallet>
       <BoxCardTitle>

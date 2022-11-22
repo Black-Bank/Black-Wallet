@@ -13,6 +13,8 @@ import {useGetWallets} from '../../component/hooks/useGetWallets';
 import Web3 from 'web3';
 import config from '../../../config';
 import axios from 'axios';
+import {useGetPrice} from '../../component/hooks/useGetBTCPrice';
+
 interface IWallet {
   name: string;
   address: string;
@@ -22,13 +24,24 @@ interface IWallet {
 export interface IWalletData {
   address: string;
   balance: string;
+  price: number;
 }
 
+function GetBTCPrice(): number {
+  const {result} = useGetPrice('BTC');
+  return result;
+}
+function GetETHPrice(): number {
+  const {result} = useGetPrice('ETH');
+  return result;
+}
 export function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {isUpdate} = useContext(AuthContext);
+  const {isUpdate, setIsUpdate} = useContext(AuthContext);
   const refetchTime = 500;
   const {data, refetch} = useGetWallets();
+  const BTCPrice = GetBTCPrice();
+  const ETHPrice = GetETHPrice();
   const sochain_network = 'BTC';
   const testnet = config.ETH_MAINNET;
   const web3 = new Web3(testnet);
@@ -39,27 +52,45 @@ export function Home() {
     (item: {WalletType: string}) => item.WalletType === 'BTC',
   );
   const [totalBalance, setTotalBalance] = useState(0);
-  let walletObjects: IWalletData[] = [];
-  const getETHBalance = async (address: string) => {
+  const [BTCBalance, setBTCBalance] = useState(0);
+  const [ETHBalance, setETHBalance] = useState(0);
+  let [walletObjects, setWalletObjects] = useState<IWalletData[]>([]);
+  const GetETHBalance = async (address: string) => {
     let newBalance = await web3.eth.getBalance(address);
-    walletObjects.push({address: address, balance: newBalance});
-    setTotalBalance(totalBalance + Number(newBalance));
+    let dataArray: any = [];
+    setETHBalance(Number(newBalance) * ETHPrice);
+    dataArray.push(...walletObjects, {
+      address: address,
+      balance: newBalance,
+      price: ETHPrice,
+    });
+    setWalletObjects(dataArray);
   };
-
-  const getBTCBalance = async (source_address: string) => {
+  const GetBTCBalance = async (source_address: string) => {
     const sochain_url = `https://sochain.com/api/v2/get_address_balance/${sochain_network}/${source_address}`;
     const response = await axios.get(sochain_url);
     const newBalance = response?.data.data.confirmed_balance;
-    walletObjects.push({address: source_address, balance: newBalance});
-    setTotalBalance(totalBalance + Number(newBalance));
+    let dataArray: any = [];
+
+    setBTCBalance(BTCPrice * Number(newBalance));
+    dataArray.push(...walletObjects, {
+      address: source_address,
+      balance: newBalance,
+      price: BTCPrice,
+    });
+
+    setWalletObjects(dataArray);
   };
   const sumBalance = () => {
-    ETHWallets?.map((item: {address: string}) => getETHBalance(item.address));
-    BTCWallets?.map((item: {address: string}) => getBTCBalance(item.address));
+    if (BTCPrice && ETHPrice) {
+      ETHWallets?.map((item: {address: string}) => GetETHBalance(item.address));
+      BTCWallets?.map((item: {address: string}) => GetBTCBalance(item.address));
+    }
   };
   useEffect(() => {
     sumBalance();
-  }, []);
+    setTotalBalance(ETHBalance + BTCBalance);
+  }, [ETHBalance, BTCBalance, BTCPrice, ETHPrice]);
 
   const renderIWalletCard = ({item}: {item: IWallet}) => (
     <WalletCard
@@ -72,18 +103,21 @@ export function Home() {
 
   useEffect(() => {
     setTimeout(refetch, refetchTime);
-  }, [refetch, isUpdate]);
+  }, [refetch, isUpdate, BTCPrice, ETHPrice]);
+
   return (
     <View style={styles.height}>
       <Chart TotalBalance={totalBalance} />
       <S.WalletContainer>
         <S.Title>{HOME.wallets}</S.Title>
+
         <FlatList
           data={data?.getWallets}
           renderItem={renderIWalletCard}
           keyExtractor={item => item.address}
           extraData={isUpdate}
         />
+
         <ModalButton title={HOME.addWallet} />
       </S.WalletContainer>
     </View>

@@ -22,6 +22,12 @@ export const GET_WALLETS = gql`
   }
 `;
 
+export const GET_BTC_PRICE = gql`
+  query ($coin: String!, $apiKey: String!) {
+    getPrice(coin: $coin, apiKey: $apiKey)
+  }
+`;
+
 export const CREAT_ETH_WALLET = gql`
   mutation ($hashId: String!, $name: String!, $key: String!) {
     createEthWallet(HashId: $hashId, name: $name, key: $key) {
