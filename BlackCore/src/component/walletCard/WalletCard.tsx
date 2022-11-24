@@ -2,8 +2,8 @@
 
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {IWalletData} from '../../screen/HomeScreen/interfaces';
 
-import {IWalletData} from '../../screen/HomeScreen/home';
 import {
   ButtonTitle,
   CardWallet,
@@ -23,19 +23,10 @@ export function WalletCard({
   address: string;
   data: IWalletData[];
 }) {
-  const [balance, setBalance] = useState('00');
-  const [currentPrice, setCurrentPrice] = useState(0);
-  const getBalance = async () => {
-    const wallet = data.filter(
-      (item: IWalletData) => item.address === address,
-    )[0];
-    setCurrentPrice(wallet.price);
-    setBalance(wallet.balance);
-  };
+  const thisWallet = data?.find(wallet => wallet.address === address);
+  const thisBalance = thisWallet?.balance;
+  const thisCoinPrice = thisWallet?.coinPrice;
 
-  useEffect(() => {
-    getBalance();
-  }, [data]);
   return (
     <TouchableOpacity style={styles.card}>
       <CardWallet>
@@ -54,14 +45,16 @@ export function WalletCard({
 
         <CardWalletContainer>
           <ButtonTitle>{name}</ButtonTitle>
-          <ButtonTitle>
-            USD {numberFormatter(currentPrice * Number(balance))}
-          </ButtonTitle>
+          {thisCoinPrice && (
+            <ButtonTitle>
+              USD {numberFormatter(thisCoinPrice * Number(thisBalance))}
+            </ButtonTitle>
+          )}
         </CardWalletContainer>
       </CardWallet>
       <BoxCardTitle>
         <CardCoin>
-          {balance} {coin}
+          {thisBalance} {coin}
         </CardCoin>
       </BoxCardTitle>
     </TouchableOpacity>

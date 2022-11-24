@@ -16,7 +16,7 @@ import config from '../../../config';
 
 export function Chart({TotalBalance}: {TotalBalance: number}) {
   const date = new Date();
-  const {data} = useGetBalance();
+  const {data, refetch} = useGetBalance();
   let DataSemester = data?.getBalance.month;
   let DataWeek = data?.getBalance.week;
   let DataDay = data?.getBalance.day;
@@ -57,9 +57,11 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
       setPeriodData(DATA?.dataSemester);
     }
   };
-
+  const isChartUpdate = Boolean(
+    data && data?.getBalance.updateDate !== todayDate && TotalBalance,
+  );
   useEffect(() => {
-    if (data && data?.getBalance.updateDate !== todayDate) {
+    if (isChartUpdate) {
       insertBalance({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
@@ -68,7 +70,7 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
         },
       });
     }
-  }, [data]);
+  }, [data, TotalBalance]);
 
   useEffect(() => {
     if (data) {

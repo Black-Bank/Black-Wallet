@@ -12,19 +12,26 @@ export const GET_BALANCE = gql`
 `;
 
 export const GET_WALLETS = gql`
-  query ($hashId: String!, $key: String!) {
-    getWallets(HashId: $hashId, key: $key) {
-      name
-      address
-      privateKey
+  query (
+    $mainNet: String!
+    $hashId: String!
+    $key: String!
+    $API_KEY: String!
+  ) {
+    getFormatedData(
+      mainNet: $mainNet
+      HashId: $hashId
+      key: $key
+      API_KEY: $API_KEY
+    ) {
       WalletType
+      address
+      balance
+      name
+      privateKey
+      coinPrice
+      totalBalance
     }
-  }
-`;
-
-export const GET_BTC_PRICE = gql`
-  query ($coin: String!, $apiKey: String!) {
-    getPrice(coin: $coin, apiKey: $apiKey)
   }
 `;
 
