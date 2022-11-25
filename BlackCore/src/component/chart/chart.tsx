@@ -44,6 +44,7 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
   const [period, setPeriod] = useState<string[]>(obj.labelDay);
   const [periodData, setPeriodData] = useState<any>(DataDay);
   const [insertBalance] = useMutation(INSERT_BALANCE);
+  const refetchTime = 3000;
 
   const ManagePeriod = (periode: string) => {
     if (periode === 'diario') {
@@ -58,8 +59,9 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
     }
   };
   const isChartUpdate = Boolean(
-    data && data?.getBalance.updateDate !== todayDate && TotalBalance,
+    data && data?.getBalance.updateDate !== todayDate && TotalBalance >= 0,
   );
+
   useEffect(() => {
     if (isChartUpdate) {
       insertBalance({
@@ -69,6 +71,7 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
           key: config.KEY_SECRET_MONGODB,
         },
       });
+      setTimeout(refetch, refetchTime);
     }
   }, [data, TotalBalance]);
 

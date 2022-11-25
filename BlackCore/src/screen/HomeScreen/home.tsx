@@ -18,7 +18,7 @@ export function Home() {
   const {isUpdate} = useContext(AuthContext);
   const refetchTime = 500;
   const {data, refetch} = useGetWallets();
-  console.log(data, 'data');
+
   const totalBalance = data?.getFormatedData[0].totalBalance;
 
   const renderIWalletCard = ({item}: {item: IWallet}) => (
