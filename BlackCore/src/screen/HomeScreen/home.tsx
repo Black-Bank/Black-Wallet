@@ -14,7 +14,6 @@ import {useGetWallets} from '../../component/hooks/useGetWallets';
 import {IWallet} from './interfaces';
 
 export function Home() {
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {isUpdate} = useContext(AuthContext);
   const refetchTime = 500;
   const {data, refetch} = useGetWallets();

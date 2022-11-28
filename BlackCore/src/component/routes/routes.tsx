@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home} from '../../screen/HomeScreen/home';
-import {DetailsScreen} from '../../screen/DetailsScreen/details';
+import {WalletScren} from '../../screen/WalletScren/WalletScren';
 import {Header} from '../header/header';
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +15,13 @@ export function Routes() {
           header: () => <Header />,
         }}
       />
-      <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen
+        name="WalletScren"
+        component={WalletScren}
+        options={{
+          header: () => <Header />,
+        }}
+      />
     </Stack.Navigator>
   );
 }

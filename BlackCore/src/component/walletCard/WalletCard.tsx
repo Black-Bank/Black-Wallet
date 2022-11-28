@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {IWalletData} from '../../screen/HomeScreen/interfaces';
 
@@ -23,12 +24,19 @@ export function WalletCard({
   address: string;
   data: IWalletData[];
 }) {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const thisWallet = data?.find(wallet => wallet.address === address);
   const thisBalance = thisWallet?.balance;
   const thisCoinPrice = thisWallet?.coinPrice;
 
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate('WalletScren', {
+          walletAddress: address,
+        })
+      }>
       <CardWallet>
         {coin === 'BTC' && (
           <Image
