@@ -2,8 +2,6 @@
 import React, {useContext, useEffect} from 'react';
 import * as S from '../../component/styles/styles';
 import {View, StyleSheet, FlatList} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {Chart} from '../../component/chart/chart';
 import {WalletCard} from '../../component/walletCard/WalletCard';
 import {HOME} from '../../component/strings/pt-br';

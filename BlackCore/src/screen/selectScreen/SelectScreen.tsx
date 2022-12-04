@@ -16,13 +16,13 @@ export function Card({
         <View style={styles.card}>
           {text === 'BTC' && (
             <Image
-              source={require(`../../assets/BTCLogo.png`)}
+              source={require('../../assets/BTCLogo.png')}
               style={styles.image}
             />
           )}
           {text === 'ETH' && (
             <Image
-              source={require(`../../assets/ETHLogo.png`)}
+              source={require('../../assets/ETHLogo.png')}
               style={styles.image}
             />
           )}
@@ -36,13 +36,13 @@ export function Card({
         <View style={styles.cardNotChoose}>
           {text === 'BTC' && (
             <Image
-              source={require(`../../assets/BTCLogo.png`)}
+              source={require('../../assets/BTCLogo.png')}
               style={styles.image}
             />
           )}
           {text === 'ETH' && (
             <Image
-              source={require(`../../assets/ETHLogo.png`)}
+              source={require('../../assets/ETHLogo.png')}
               style={styles.image}
             />
           )}

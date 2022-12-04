@@ -1,0 +1,16 @@
+name: CI
+on: [push]
+jobs:
+  jest:
+    name: verify all tests
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: Install packages
+         run: yarn install
+      - name: run Tests
+         run: yarn test

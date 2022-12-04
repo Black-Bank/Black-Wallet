@@ -40,13 +40,13 @@ export function WalletCard({
       <CardWallet>
         {coin === 'BTC' && (
           <Image
-            source={require(`../../assets/BTCLogo.png`)}
+            source={require('../../assets/BTCLogo.png')}
             style={styles.image}
           />
         )}
         {coin === 'ETH' && (
           <Image
-            source={require(`../../assets/ETHLogo.png`)}
+            source={require('../../assets/ETHLogo.png')}
             style={styles.image}
           />
         )}
