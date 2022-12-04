@@ -13,4 +13,4 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Test code
-        run: yarn run eslint . --ext .ts,.tsx
+        run: yarn run ci:test
