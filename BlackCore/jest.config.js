@@ -2,9 +2,7 @@ module.exports = {
   preset: '@testing-library/react-native',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['<rootDir>/src/**/*.test.{js,jsx,ts,tsx}'],
-  moduleNameMapper: {
-    '~/(.*)': '<rootDir>/src/$1',
-  },
+
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?@react-native|react-native|react-navigation|@react-navigation|@bankify/react-native-animate-number|rn-sliding-up-panel|rn-sliding-up-panel|@react-native-community/progress-bar-android|@react-native-community/progress-view|@bees-bank/hive|@react-native-picker)',
   ],
