@@ -1,7 +1,7 @@
 name: CI
 on: [push]
 jobs:
-  esLint:
+  eslint:
     name: Lint code base
     runs-on: ubuntu-latest
 
@@ -13,4 +13,4 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Test code
-        run: yarn test
+        run: yarn lint
