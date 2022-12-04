@@ -8,6 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "ci:test": "jest --ci",
+    "ci:lint": "jest --lint",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
