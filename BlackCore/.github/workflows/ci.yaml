@@ -1,8 +1,8 @@
 name: CI
 on: [push]
 jobs:
-  jest:
-    name: verify all tests
+  esLint:
+    name: Lint code base
     runs-on: ubuntu-latest
 
 
@@ -12,5 +12,5 @@ jobs:
 
       - name: Install packages
          run: yarn install
-      - name: run Tests
-         run: yarn test
+      - name: run Lint
+         run: yarn run lint
