@@ -5,7 +5,6 @@ jobs:
     name: Lint code base
     runs-on: ubuntu-latest
 
-
     steps:
       - name: checkout code
         uses: actions/checkout@v2
@@ -13,6 +12,6 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: check lint
-        run: yarn run ci:lint
+        run: yarn run lint
       - name: Test code
         run: yarn run ci:test
