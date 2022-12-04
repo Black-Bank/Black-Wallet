@@ -12,5 +12,7 @@ jobs:
 
       - name: Install packages
         run: yarn install
+      - name: check lint
+        run: yarn run ci:lint
       - name: Test code
         run: yarn run ci:test
