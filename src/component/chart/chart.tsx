@@ -15,7 +15,6 @@ import {INSERT_BALANCE} from '../client/queries/queries';
 import config from '../../../config';
 
 export function Chart({TotalBalance}: {TotalBalance: number}) {
-  const olo = '';
   const date = new Date();
   const {data, refetch} = useGetBalance();
   let DataSemester = data?.getBalance.month;
