@@ -12,5 +12,5 @@ jobs:
 
       - name: Install packages
         run: yarn install
-      - name: run Lint
-        run: yarn run lint
+      - name: Test code
+        run: yarn test
