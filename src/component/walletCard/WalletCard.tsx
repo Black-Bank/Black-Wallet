@@ -35,6 +35,8 @@ export function WalletCard({
       onPress={() =>
         navigation.navigate('WalletScren', {
           walletAddress: address,
+          coin: coin,
+          navigation: navigation,
         })
       }>
       <CardWallet>

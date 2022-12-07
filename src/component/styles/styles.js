@@ -17,6 +17,7 @@ export const GeneralButtonStyles = styled.View`
   border-radius: 50px;
   color: 'polevioletred';
   margin: 1px;
+  margin-top: 10px;
 `;
 
 export const HeaderTitle = styled.Text`
@@ -29,6 +30,20 @@ export const HeaderTitle = styled.Text`
   justify-content: center;
   margin: 10px;
   color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: 'transparent';
+`;
+export const HeaderWalletTitle = styled.Text`
+  display: flex;
+  height: 30px;
+  font-size: 18px;
+  font-family: 'Gill Sans';
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  color: #121212;
   text-transform: uppercase;
   font-weight: bold;
   background-color: 'transparent';
@@ -54,7 +69,11 @@ export const Title = styled.Text`
   font-size: 28px;
   color: #fff;
 `;
-
+export const AdressTitle = styled.Text`
+  font-size: 14px;
+  width: 80%;
+  color: #121212;
+`;
 export const ButtonTitle = styled.Text`
   font-size: 15px;
   color: #fff;
@@ -88,4 +107,11 @@ export const CardCoin = styled.Text`
   align-self: flex-start;
   margin-left: 40px;
   text-transform: uppercase;
+`;
+
+export const WalletCard = styled.View`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;

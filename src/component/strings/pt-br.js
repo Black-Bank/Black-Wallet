@@ -12,6 +12,14 @@ export const ADD_WALLET = {
   name: 'Nome da Carteira',
 };
 
+export const WALLET_SCREEN = {
+  copy: 'copiar',
+  adress: 'Endereço',
+  walletDescription:
+    'para este endereço. Enviar qualquer outra moeda pode resultar em perda permanente dos recursos.',
+  received: 'Receber',
+};
+
 export const HEADER = {
   home: 'Black',
 };
