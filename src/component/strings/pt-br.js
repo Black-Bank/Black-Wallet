@@ -18,6 +18,7 @@ export const WALLET_SCREEN = {
   walletDescription:
     'para este endereço. Enviar qualquer outra moeda pode resultar em perda permanente dos recursos.',
   received: 'Receber',
+  goBack: 'Voltar',
 };
 
 export const HEADER = {
