@@ -3,9 +3,9 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {WALLET_SCREEN} from '../../component/strings/pt-br';
 import * as S from '../../component/styles/styles';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import * as W from './styles';
 import {ModalScreen} from './ModalScreen';
+import {useNavigation} from '@react-navigation/native';
 
 export function WalletScren({
   route,
@@ -14,11 +14,11 @@ export function WalletScren({
     params: {
       walletAddress: string;
       coin: string;
-      navigation: NativeStackNavigationProp<any>;
     };
   };
 }) {
-  const {walletAddress, coin, navigation} = route!.params;
+  const {walletAddress, coin} = route!.params;
+  const navigation = useNavigation();
   const coinBaseName = (coinBase: string): string => {
     if (coinBase === 'BTC') {
       return WALLET_SCREEN.SendOnlyBTC;
@@ -27,6 +27,9 @@ export function WalletScren({
     }
   };
   const receivedCoin = `${WALLET_SCREEN.received} ${coin}`;
+  const description = `${coinBaseName(coin)} ${
+    WALLET_SCREEN.walletDescription
+  }`;
   return (
     <S.WalletCard>
       <S.HeaderWalletTitle> {receivedCoin}</S.HeaderWalletTitle>
@@ -61,9 +64,7 @@ export function WalletScren({
           </W.HorizontalSpaceViewDefault>
         </W.AdressBox>
         <W.DescriptionBox>
-          <Text>
-            {coinBaseName(coin)} {WALLET_SCREEN.walletDescription}
-          </Text>
+          <Text>{description}</Text>
         </W.DescriptionBox>
       </S.WalletCard>
       <W.GoBackButtonSpace>
