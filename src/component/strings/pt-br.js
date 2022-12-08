@@ -15,12 +15,19 @@ export const ADD_WALLET = {
 export const WALLET_SCREEN = {
   copy: 'copiar',
   adress: 'Endereço',
+  adressWallet: 'Endereço da Carteira',
   walletDescription:
     'para este endereço. Enviar qualquer outra moeda pode resultar em perda permanente dos recursos.',
   received: 'Receber',
   goBack: 'Voltar',
   Trash: 'Excluir',
   Send: 'Enviar',
+  SendOnlyBTC: 'Envie somente Bitcoin',
+  SendOnlyETH: 'Envie somente Etherum',
+  lookAdress:
+    'Confira o endereço antes de enviar qualquer valor.Caso o endereço de envio esteja incorreto, isso pode resultar em perdas permanentes.',
+  beShure:
+    'Você tem certeza que deseja excluir essa carteira? A exclusão dessa carteira pode levar a perda permanente de recursos nela contidos.',
 };
 
 export const HEADER = {
