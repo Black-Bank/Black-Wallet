@@ -19,6 +19,8 @@ export const WALLET_SCREEN = {
     'para este endereço. Enviar qualquer outra moeda pode resultar em perda permanente dos recursos.',
   received: 'Receber',
   goBack: 'Voltar',
+  Trash: 'Excluir',
+  Send: 'Enviar',
 };
 
 export const HEADER = {

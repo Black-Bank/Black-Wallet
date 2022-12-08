@@ -41,6 +41,19 @@ export function WalletScren({
           style={styles.image}
         />
       )}
+      <W.ModalBox>
+        <TouchableOpacity>
+          <W.ModalContent>
+            <W.Title>{WALLET_SCREEN.Trash}</W.Title>
+          </W.ModalContent>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <W.ModalContent>
+            <W.Title>{WALLET_SCREEN.Send}</W.Title>
+          </W.ModalContent>
+        </TouchableOpacity>
+      </W.ModalBox>
       <S.WalletCard>
         <W.AdressBox>
           <S.AdressTitle selectable={true}>{walletAddress}</S.AdressTitle>
