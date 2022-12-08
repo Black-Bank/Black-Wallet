@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useContext, useEffect} from 'react';
 import * as S from '../../component/styles/styles';
 import {View, StyleSheet, FlatList} from 'react-native';
