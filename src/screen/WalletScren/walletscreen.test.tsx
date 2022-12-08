@@ -2,12 +2,11 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {render, screen} from '@testing-library/react-native';
 import {WalletScren} from './WalletScren';
+import {mockRoute} from './mock';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
-const mockRoute = {
-  params: {walletAddress: '1GfYUSqAbqGTpp6nnCfvTKUBE5QgEwLQX8', coin: 'BTC'},
-};
+
 describe('it should render wallet screen', () => {
   it('render Wallet screen', async () => {
     const component = (
