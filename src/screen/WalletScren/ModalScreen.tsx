@@ -48,7 +48,7 @@ export function ModalScreen({title}: {title: string}) {
                       <W.ButtonBox>
                         <TouchableOpacity onPress={handleDecline}>
                           <W.DangerGeneralButtonStyles>
-                            <W.ButtonTitle>{ADD_WALLET.cancel}</W.ButtonTitle>
+                            <W.ButtonTitle>{WALLET_SCREEN.goOut}</W.ButtonTitle>
                           </W.DangerGeneralButtonStyles>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => console.log('Action')}>

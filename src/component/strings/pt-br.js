@@ -28,6 +28,7 @@ export const WALLET_SCREEN = {
     'Confira o endereço antes de enviar qualquer valor.Caso o endereço de envio esteja incorreto, isso pode resultar em perdas permanentes.',
   beShure:
     'Você tem certeza que deseja excluir essa carteira? A exclusão dessa carteira pode levar a perda permanente de recursos nela contidos.',
+  goOut: 'Sair',
 };
 
 export const HEADER = {

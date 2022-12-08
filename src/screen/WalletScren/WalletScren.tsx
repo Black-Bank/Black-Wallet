@@ -6,6 +6,7 @@ import * as S from '../../component/styles/styles';
 import * as W from './styles';
 import {ModalScreen} from './ModalScreen';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export function WalletScren({
   route,
@@ -18,7 +19,7 @@ export function WalletScren({
   };
 }) {
   const {walletAddress, coin} = route!.params;
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const coinBaseName = (coinBase: string): string => {
     if (coinBase === 'BTC') {
       return WALLET_SCREEN.SendOnlyBTC;
@@ -68,7 +69,7 @@ export function WalletScren({
         </W.DescriptionBox>
       </S.WalletCard>
       <W.GoBackButtonSpace>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <S.GeneralButtonStyles>
             <S.ButtonTitle>{WALLET_SCREEN.goBack}</S.ButtonTitle>
           </S.GeneralButtonStyles>

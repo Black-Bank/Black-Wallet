@@ -1,19 +1,34 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {render, screen} from '@testing-library/react-native';
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+} from '@testing-library/react-native';
 import {WalletScren} from './WalletScren';
 import {mockRoute} from './mock';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
+const mockedNavigate = jest.fn();
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 
+const component = (
+  <NavigationContainer>
+    <WalletScren route={mockRoute} />
+  </NavigationContainer>
+);
 describe('it should render wallet screen', () => {
   it('render Wallet screen', async () => {
-    const component = (
-      <NavigationContainer>
-        <WalletScren route={mockRoute} />
-      </NavigationContainer>
-    );
     render(component);
 
     const description = await screen.findByText(
@@ -35,5 +50,15 @@ describe('it should render wallet screen', () => {
     expect(copy).toBeTruthy();
     expect(description).toBeTruthy();
     expect(goBackButton).toBeTruthy();
+  });
+
+  it('should goBack to home', async () => {
+    render(component);
+    const goBackButton = await screen.findByText('Voltar');
+    expect(await goBackButton).toBeTruthy();
+    fireEvent.press(screen.getByText('Voltar'));
+    await waitFor(() => {
+      expect(mockedNavigate).toBeCalledWith('Home');
+    });
   });
 });
