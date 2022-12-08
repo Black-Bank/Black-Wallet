@@ -1,0 +1,6 @@
+module Pods_BlackCore_BlackCoreTests {
+  umbrella header "Pods-BlackCore-BlackCoreTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+module Pods_BlackCore {
+  umbrella header "Pods-BlackCore-umbrella.h"
+
+  export *
+  module * { export * }
+}

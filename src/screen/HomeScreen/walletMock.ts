@@ -14,13 +14,17 @@ export const WalletMock = [
     },
     result: {
       data: {
-        name: 'wallet mock',
-        address: '123456',
-        WalletType: 'BTC',
-        balance: '20',
-        price: 20,
-        coinPrice: 2,
-        totalBalance: 100,
+        getFormatedData: [
+          {
+            name: 'wallet mock',
+            address: '123456',
+            WalletType: 'BTC',
+            balance: '20',
+            price: 20,
+            coinPrice: 2,
+            totalBalance: 100,
+          },
+        ],
       },
     },
   },

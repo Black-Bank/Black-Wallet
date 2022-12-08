@@ -43,10 +43,27 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
 
   const [period, setPeriod] = useState<string[]>(obj.labelDay);
   const [periodData, setPeriodData] = useState<any>(DataDay);
+  const [profit, setProfit] = useState<boolean>(true);
   const [insertBalance] = useMutation(INSERT_BALANCE);
   const refetchTime = 3000;
+  const CheckProfit = (periode: string) => {
+    if (periode === 'diario') {
+      const balance = DataDay[DataDay.length - 1] - DataDay[DataDay.length - 2];
+      setProfit(Boolean(balance > 0));
+    } else if (periode === 'semanal') {
+      const balance =
+        DataWeek[DataWeek.length - 1] - DataWeek[DataWeek.length - 2];
+      setProfit(Boolean(balance > 0));
+    } else if (periode === 'mensal') {
+      const balance =
+        DataSemester[DataSemester.length - 1] -
+        DataSemester[DataSemester.length - 2];
+      setProfit(Boolean(balance > 0));
+    }
+  };
 
   const ManagePeriod = (periode: string) => {
+    CheckProfit(periode);
     if (periode === 'diario') {
       setPeriod(obj.labelDay);
       setPeriodData(DataDay);
@@ -98,14 +115,16 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
           width={Dimensions.get('window').width} // from react-native
           height={Dimensions.get('window').width - padding}
           yAxisLabel="$"
-          yAxisSuffix="k"
           yAxisInterval={1} // optional, defaults to 1
           chartConfig={{
             backgroundColor: defaultColor,
             backgroundGradientFrom: defaultColor,
             backgroundGradientTo: defaultColor,
             decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(153, 102, 204, ${opacity})`,
+            color: (opacity = 1) =>
+              profit
+                ? `rgba(127, 255, 0, ${opacity})`
+                : `rgba(255, 20, 60, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             style: {
               borderRadius: 16,
