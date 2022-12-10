@@ -48,10 +48,10 @@ export function WalletScren({
       )}
       <W.ModalBox>
         <View>
-          <ModalScreen title={WALLET_SCREEN.Trash} />
+          <ModalScreen title={WALLET_SCREEN.Trash} address={walletAddress} />
         </View>
         <View>
-          <ModalScreen title={WALLET_SCREEN.Send} />
+          <ModalScreen title={WALLET_SCREEN.Send} address={walletAddress} />
         </View>
       </W.ModalBox>
       <S.WalletCard>

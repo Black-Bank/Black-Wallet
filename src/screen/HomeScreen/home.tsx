@@ -12,9 +12,8 @@ import {IWallet} from './interfaces';
 
 export function Home() {
   const {isUpdate} = useContext(AuthContext);
-  const refetchTime = 500;
+  const refetchTime = 10;
   const {data, refetch} = useGetWallets();
-
   const totalBalance = data?.getFormatedData[0].totalBalance;
 
   const renderIWalletCard = ({item}: {item: IWallet}) => (
@@ -25,10 +24,10 @@ export function Home() {
       data={data?.getFormatedData}
     />
   );
-
   useEffect(() => {
     setTimeout(refetch, refetchTime);
   }, [refetch, isUpdate]);
+
   return (
     <View style={styles.height}>
       <Chart TotalBalance={totalBalance} />

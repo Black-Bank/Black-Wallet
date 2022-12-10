@@ -45,7 +45,7 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
   const [periodData, setPeriodData] = useState<any>(DataDay);
   const [profit, setProfit] = useState<boolean>(true);
   const [insertBalance] = useMutation(INSERT_BALANCE);
-  const refetchTime = 3000;
+  const refetchTime = 10;
   const CheckProfit = (periode: string) => {
     if (periode === 'diario') {
       const balance = DataDay[DataDay.length - 1] - DataDay[DataDay.length - 2];
@@ -87,8 +87,7 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
           newBalance: TotalBalance,
           key: config.KEY_SECRET_MONGODB,
         },
-      });
-      setTimeout(refetch, refetchTime);
+      }).then(() => setTimeout(refetch, refetchTime));
     }
   }, [data, TotalBalance]);
 

@@ -1,18 +1,49 @@
-import React from 'react';
+import {useMutation} from '@apollo/client';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useContext} from 'react';
 import {useState} from 'react';
 import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Modal from 'react-native-modal';
+import config from '../../../config';
+import {DELETE_WALLET} from '../../component/client/queries/queries';
 import {ADD_WALLET, WALLET_SCREEN} from '../../component/strings/pt-br';
+import {AuthContext} from '../../contexts/auth';
 import {ModalBody, ModalContainer, ModalFooter, ModalHeader} from './Modal';
 import * as W from './styles';
 
-export function ModalScreen({title}: {title: string}) {
+export function ModalScreen({
+  title,
+  address,
+}: {
+  title: string;
+  address: string;
+}) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [adress, setAdress] = useState('');
+  const [walletAddress, setAdress] = useState('');
+  const [deleteWallet] = useMutation(DELETE_WALLET);
+  const [error, setError] = useState<string>();
+  const {isUpdate, setIsUpdate} = useContext(AuthContext);
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const HandlerUp = () => {
     setIsModalVisible(!isModalVisible);
+  };
+
+  const IsDeletedWallet = () => {
+    deleteWallet({
+      variables: {
+        hashId: 'deg-hjags-123-212asdl',
+        key: config.KEY_SECRET_MONGODB,
+        address: address,
+      },
+    })
+      .then(() => setIsUpdate(!isUpdate))
+      .catch(err => setError(err.message));
+    if (!error) {
+      navigation.navigate('Home');
+    }
   };
 
   const handleDecline = () => {
@@ -51,7 +82,7 @@ export function ModalScreen({title}: {title: string}) {
                             <W.ButtonTitle>{WALLET_SCREEN.goOut}</W.ButtonTitle>
                           </W.DangerGeneralButtonStyles>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => console.log('Action')}>
+                        <TouchableOpacity onPress={IsDeletedWallet}>
                           <W.noClickrGeneralButtonStyles>
                             <W.ButtonTitle>{WALLET_SCREEN.Trash}</W.ButtonTitle>
                           </W.noClickrGeneralButtonStyles>
@@ -68,7 +99,7 @@ export function ModalScreen({title}: {title: string}) {
                         style={styles.input}
                         placeholder={WALLET_SCREEN.adressWallet}
                         keyboardType="ascii-capable"
-                        value={adress}
+                        value={walletAddress}
                         onChangeText={text => setAdress(text)}
                       />
                     </ModalBody>
@@ -81,7 +112,9 @@ export function ModalScreen({title}: {title: string}) {
                           </W.DangerGeneralButtonStyles>
                         </TouchableOpacity>
                         <TouchableOpacity
-                          onPress={() => console.log(adress, 'adress')}>
+                          onPress={() =>
+                            console.log(walletAddress, 'send adress')
+                          }>
                           <W.noClickrGeneralButtonStyles>
                             <W.ButtonTitle>{WALLET_SCREEN.Send}</W.ButtonTitle>
                           </W.noClickrGeneralButtonStyles>

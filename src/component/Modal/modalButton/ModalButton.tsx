@@ -55,7 +55,7 @@ export function ModalButton({title}: {title: string}) {
           name: name,
           key: config.KEY_SECRET_MONGODB,
         },
-      });
+      }).then(() => setIsUpdate(!isUpdate));
     } else if (isSelected === 'BTC' && !error) {
       addBTCWallet({
         variables: {
@@ -64,14 +64,12 @@ export function ModalButton({title}: {title: string}) {
           name: name,
           key: config.KEY_SECRET_MONGODB,
         },
-      });
+      }).then(() => setIsUpdate(!isUpdate));
     }
     if (!error) {
       setIsModalVisible(() => !isModalVisible);
-      setIsUpdate(!isUpdate);
     }
   };
-
   const handleDecline = () => {
     setIsModalVisible(() => !isModalVisible);
   };
