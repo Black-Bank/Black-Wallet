@@ -17,7 +17,7 @@ export const WalletMock = [
         getFormatedData: [
           {
             name: 'wallet mock',
-            address: '123456',
+            address: '1GfYUSqAbqGTpp6nnCfvTKUBE5QgEwLQX8',
             WalletType: 'BTC',
             balance: '20',
             price: 20,

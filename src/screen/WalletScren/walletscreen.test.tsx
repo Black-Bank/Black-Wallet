@@ -8,6 +8,8 @@ import {
 } from '@testing-library/react-native';
 import {WalletScren} from './WalletScren';
 import {mockRoute} from './mock';
+import {MockedProvider} from '@apollo/client/testing';
+import {WalletMock} from '../HomeScreen/walletMock';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
@@ -24,7 +26,9 @@ jest.mock('@react-navigation/native', () => {
 
 const component = (
   <NavigationContainer>
-    <WalletScren route={mockRoute} />
+    <MockedProvider mocks={WalletMock}>
+      <WalletScren route={mockRoute} />
+    </MockedProvider>
   </NavigationContainer>
 );
 describe('it should render wallet screen', () => {
