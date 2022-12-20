@@ -1,6 +1,8 @@
 export const numberFormatter = (value: number) => {
-  const multiplier = String(value * 100);
-  const sliceFy = multiplier.slice(multiplier.length - 2, multiplier.length);
-
-  return `${Math.floor(value)}.${sliceFy}`;
+  const multiplier = String(value);
+  const hasDot = multiplier.indexOf('.') !== -1;
+  const sliceFy = hasDot
+    ? multiplier.slice(multiplier.indexOf('.'), multiplier.indexOf('.') + 3)
+    : '.00';
+  return `${Math.floor(value)}${sliceFy}`;
 };
