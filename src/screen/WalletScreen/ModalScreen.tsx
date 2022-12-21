@@ -12,13 +12,16 @@ import {ADD_WALLET, WALLET_SCREEN} from '../../component/strings/pt-br';
 import {AuthContext} from '../../contexts/auth';
 import {ModalBody, ModalContainer, ModalFooter, ModalHeader} from './Modal';
 import * as W from './styles';
+import {isDeviceConnected} from '../../component/services/HardwareServices';
 
 export function ModalScreen({
   title,
   address,
+  coin,
 }: {
   title: string;
   address: string;
+  coin: string;
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [walletAddress, setAdress] = useState('');
@@ -31,6 +34,15 @@ export function ModalScreen({
     setIsModalVisible(!isModalVisible);
   };
 
+  const GoTo = async () => {
+    const isConnect = await isDeviceConnected();
+    if (isConnect) {
+      navigation.navigate('TransactionScreen', {
+        walletAddress: address,
+        coin: coin,
+      });
+    }
+  };
   const IsDeletedWallet = () => {
     deleteWallet({
       variables: {
@@ -111,12 +123,9 @@ export function ModalScreen({
                             <W.ButtonTitle>{ADD_WALLET.cancel}</W.ButtonTitle>
                           </W.DangerGeneralButtonStyles>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                          onPress={() =>
-                            console.log(walletAddress, 'send adress')
-                          }>
+                        <TouchableOpacity onPress={GoTo}>
                           <W.noClickrGeneralButtonStyles>
-                            <W.ButtonTitle>{WALLET_SCREEN.Send}</W.ButtonTitle>
+                            <W.ButtonTitle>{WALLET_SCREEN.next}</W.ButtonTitle>
                           </W.noClickrGeneralButtonStyles>
                         </TouchableOpacity>
                       </W.ButtonBox>

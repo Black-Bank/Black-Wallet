@@ -8,7 +8,7 @@ import {ModalScreen} from './ModalScreen';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export function WalletScren({
+export function WalletScreen({
   route,
 }: {
   route?: {
@@ -48,10 +48,18 @@ export function WalletScren({
       )}
       <W.ModalBox>
         <View>
-          <ModalScreen title={WALLET_SCREEN.Trash} address={walletAddress} />
+          <ModalScreen
+            coin={coin}
+            title={WALLET_SCREEN.Trash}
+            address={walletAddress}
+          />
         </View>
         <View>
-          <ModalScreen title={WALLET_SCREEN.Send} address={walletAddress} />
+          <ModalScreen
+            coin={coin}
+            title={WALLET_SCREEN.Send}
+            address={walletAddress}
+          />
         </View>
       </W.ModalBox>
       <S.WalletCard>

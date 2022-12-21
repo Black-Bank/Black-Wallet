@@ -6,7 +6,7 @@ import {
   waitFor,
   fireEvent,
 } from '@testing-library/react-native';
-import {WalletScren} from './WalletScren';
+import {WalletScreen} from './WalletScreen';
 import {mockRoute} from './mock';
 import {MockedProvider} from '@apollo/client/testing';
 import {WalletMock} from '../HomeScreen/walletMock';
@@ -27,7 +27,7 @@ jest.mock('@react-navigation/native', () => {
 const component = (
   <NavigationContainer>
     <MockedProvider mocks={WalletMock}>
-      <WalletScren route={mockRoute} />
+      <WalletScreen route={mockRoute} />
     </MockedProvider>
   </NavigationContainer>
 );

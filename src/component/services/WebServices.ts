@@ -2,6 +2,7 @@ import axios from 'axios';
 import config from '../../../config';
 
 export async function CoinPrice(coin: string) {
+  console.log('call web service');
   let priceInfo = 0;
   if (coin === 'BTC') {
     const getPrice_url = 'https://chain.so/api/v2/get_price/BTC/USD';
@@ -10,6 +11,7 @@ export async function CoinPrice(coin: string) {
     exchangeArray.map(
       (data: {price: any}) => (priceInfo += Number(data.price)),
     );
+
     return Number((priceInfo / exchangeArray.length).toFixed(2));
   } else if (coin === 'ETH') {
     const getPrice_url =
