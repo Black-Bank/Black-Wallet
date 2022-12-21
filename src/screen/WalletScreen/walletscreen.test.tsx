@@ -6,7 +6,7 @@ import {
   waitFor,
   fireEvent,
 } from '@testing-library/react-native';
-import {WalletScren} from './WalletScren';
+import {WalletScren} from './WalletScreen';
 import {mockRoute} from './mock';
 import {MockedProvider} from '@apollo/client/testing';
 import {WalletMock} from '../HomeScreen/walletMock';

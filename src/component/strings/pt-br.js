@@ -22,6 +22,7 @@ export const WALLET_SCREEN = {
   goBack: 'Voltar',
   Trash: 'Excluir',
   Send: 'Enviar',
+  next: 'Seguir',
   SendOnlyBTC: 'Envie somente Bitcoin',
   SendOnlyETH: 'Envie somente Etherum',
   lookAdress:
