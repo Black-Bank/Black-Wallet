@@ -40,8 +40,7 @@ export function TransactionScreen({
     index++;
     const call = async () => setActualCoinPrice(await GetCoinPrice());
     if (index >= limitCall) {
-      clearInterval(start.current);
-      navigation.navigate('Home');
+      GoHome();
     }
     call();
   };
