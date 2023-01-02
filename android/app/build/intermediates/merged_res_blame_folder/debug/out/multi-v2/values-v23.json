@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/cyrocosta/Black-Wallet/BlackCore/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
+            "outputFile": "/Users/cyrocosta/Black-Wallet/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/Users/cyrocosta/.gradle/caches/transforms-3/c8cd6e3e8fc63494683ed420205b6ed7/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",
