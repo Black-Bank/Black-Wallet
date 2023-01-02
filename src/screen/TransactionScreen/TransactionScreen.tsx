@@ -22,7 +22,9 @@ export function TransactionScreen({
   const [actualCoinPrice, setActualCoinPrice] = useState<number>(0);
 
   const {coin} = route!.params;
-  const requestTime = 5000;
+  const requestTime = 1000;
+  let index = 0;
+  let limitCall = 60;
 
   const start = useRef(0);
   const GetCoinPrice = async () => {
@@ -35,7 +37,12 @@ export function TransactionScreen({
   };
 
   const GetCall = () => {
+    index++;
     const call = async () => setActualCoinPrice(await GetCoinPrice());
+    if (index >= limitCall) {
+      clearInterval(start.current);
+      navigation.navigate('Home');
+    }
     call();
   };
 
