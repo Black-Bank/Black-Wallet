@@ -22,7 +22,7 @@ export function TransactionScreen({
   const [actualCoinPrice, setActualCoinPrice] = useState<number>(0);
 
   const {coin} = route!.params;
-  const requestTime = 1000;
+  const requestTime = 5000;
   let index = 0;
   let limitCall = 60;
 
