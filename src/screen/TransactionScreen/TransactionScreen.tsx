@@ -46,7 +46,7 @@ export function TransactionScreen({
   };
 
   useEffect(() => {
-    start.current = setInterval(() => GetCall(), requestTime);
+    start.current = Number(setInterval(() => GetCall(), requestTime));
   }, []);
 
   return (

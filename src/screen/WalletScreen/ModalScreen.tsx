@@ -8,7 +8,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import Modal from 'react-native-modal';
 import config from '../../../config';
 import {DELETE_WALLET} from '../../component/client/queries/queries';
-import {ADD_WALLET, WALLET_SCREEN} from '../../component/strings/pt-br';
+import {
+  ADD_WALLET,
+  MODAL_ERROR,
+  WALLET_SCREEN,
+} from '../../component/strings/pt-br';
 import {AuthContext} from '../../contexts/auth';
 import {ModalBody, ModalContainer, ModalFooter, ModalHeader} from './Modal';
 import * as W from './styles';
@@ -27,16 +31,31 @@ export function ModalScreen({
   const [walletAddress, setAdress] = useState('');
   const [deleteWallet] = useMutation(DELETE_WALLET);
   const [error, setError] = useState<string>();
+  const [sendError, setSendError] = useState<string>(MODAL_ERROR.emptyError);
   const {isUpdate, setIsUpdate} = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-
   const HandlerUp = () => {
     setIsModalVisible(!isModalVisible);
   };
 
-  const GoTo = async () => {
+  const MonitorError = async (text: string) => {
+    setAdress(text);
     const isConnect = await isDeviceConnected();
-    if (isConnect) {
+    const caractersRegex = /[˜`!@#$'".,%ˆ&<>?/*()-+ ]+/g;
+
+    if (!isConnect) {
+      setSendError(MODAL_ERROR.noNetworkError);
+    } else if (text.match(caractersRegex)) {
+      setSendError(MODAL_ERROR.invalidCaractersError);
+    } else if (walletAddress.length < 10 && walletAddress.length > 0) {
+      setSendError(MODAL_ERROR.smallAdressError);
+    } else {
+      setSendError('');
+    }
+  };
+
+  const GoTo = async () => {
+    if (!sendError) {
       navigation.navigate('TransactionScreen', {
         walletAddress: address,
         coin: coin,
@@ -112,7 +131,7 @@ export function ModalScreen({
                         placeholder={WALLET_SCREEN.adressWallet}
                         keyboardType="ascii-capable"
                         value={walletAddress}
-                        onChangeText={text => setAdress(text)}
+                        onChangeText={text => MonitorError(text)}
                       />
                     </ModalBody>
 
@@ -130,6 +149,7 @@ export function ModalScreen({
                         </TouchableOpacity>
                       </W.ButtonBox>
                     </ModalFooter>
+                    <W.Text>{sendError}</W.Text>
                   </>
                 )}
               </W.ModalBoxStyle>
