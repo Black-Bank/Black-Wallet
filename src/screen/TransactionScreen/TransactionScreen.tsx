@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {CoinPrice} from '../../component/services/WebServices';
 import * as S from '../../component/styles/styles';
@@ -20,31 +20,43 @@ export function TransactionScreen({
 }) {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [actualCoinPrice, setActualCoinPrice] = useState<number>(0);
+
   const {coin} = route!.params;
   const requestTime = 5000;
+  let index = 0;
+  let limitCall = 60;
 
-  const Monitor = async () => {
-    console.log('Monitoring check');
-    useEffect(() => {
-      try {
-        setInterval(
-          async () => setActualCoinPrice(Number(await CoinPrice(coin))),
-          requestTime,
-        );
-      } catch (e: any) {
-        console.log('call failed, message: ' + e.message);
-        Monitor();
-      }
-    }, []);
+  const start = useRef(0);
+  const GetCoinPrice = async () => {
+    const coinPrice = Number(await CoinPrice(coin));
+    return coinPrice;
+  };
+  const GoHome = () => {
+    clearInterval(start.current);
+    navigation.navigate('Home');
   };
 
-  Monitor();
+  const GetCall = () => {
+    index++;
+    const call = async () => setActualCoinPrice(await GetCoinPrice());
+    if (index >= limitCall) {
+      GoHome();
+    }
+    call();
+  };
+
+  useEffect(() => {
+    start.current = Number(setInterval(() => GetCall(), requestTime));
+  }, []);
 
   return (
     <>
-      <Text>Transaction Screen {actualCoinPrice}</Text>
+      <Text>
+        Transaction Screen
+        {actualCoinPrice}
+      </Text>
       <W.GoBackButtonSpace>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity onPress={GoHome}>
           <S.GeneralButtonStyles>
             <S.ButtonTitle>{WALLET_SCREEN.goBack}</S.ButtonTitle>
           </S.GeneralButtonStyles>

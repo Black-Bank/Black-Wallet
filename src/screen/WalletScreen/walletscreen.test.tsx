@@ -59,10 +59,79 @@ describe('it should render wallet screen', () => {
   it('should goBack to home', async () => {
     render(component);
     const goBackButton = await screen.findByText('Voltar');
-    expect(await goBackButton).toBeTruthy();
+    expect(goBackButton).toBeTruthy();
     fireEvent.press(screen.getByText('Voltar'));
     await waitFor(() => {
       expect(mockedNavigate).toBeCalledWith('Home');
+    });
+  });
+
+  it('should display modal', async () => {
+    render(component);
+    const sendButton = await screen.findByText('Enviar');
+
+    expect(await sendButton).toBeTruthy();
+    fireEvent.press(screen.getByText('Enviar'));
+    await waitFor(() => {
+      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
+    });
+  });
+
+  it('should display modal invalid caracter Error', async () => {
+    render(component);
+    const sendButton = await screen.findByText('Enviar');
+
+    expect(await sendButton).toBeTruthy();
+    fireEvent.press(screen.getByText('Enviar'));
+    await waitFor(() => {
+      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
+    });
+
+    fireEvent.changeText(screen.getByTestId('addressWalletInput'), '@676n ');
+    await waitFor(async () => {
+      expect(
+        await screen.findByText(
+          'Seu endereço da carteira contém espaços ou caracteres invalidos.',
+        ),
+      ).toBeTruthy();
+    });
+  });
+
+  it('should display modal space invalid caracter Error', async () => {
+    render(component);
+    const sendButton = await screen.findByText('Enviar');
+
+    expect(await sendButton).toBeTruthy();
+    fireEvent.press(screen.getByText('Enviar'));
+    await waitFor(() => {
+      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
+    });
+
+    fireEvent.changeText(screen.getByTestId('addressWalletInput'), ' ');
+    await waitFor(async () => {
+      expect(
+        await screen.findByText(
+          'Seu endereço da carteira contém espaços ou caracteres invalidos.',
+        ),
+      ).toBeTruthy();
+    });
+  });
+
+  it('should display modal empty text Error', async () => {
+    render(component);
+    const sendButton = await screen.findByText('Enviar');
+
+    expect(await sendButton).toBeTruthy();
+    fireEvent.press(screen.getByText('Enviar'));
+    await waitFor(() => {
+      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
+    });
+
+    fireEvent.changeText(screen.getByTestId('addressWalletInput'), '');
+    await waitFor(async () => {
+      expect(
+        await screen.findByText('O endereço de destino está vazio.'),
+      ).toBeTruthy();
     });
   });
 });

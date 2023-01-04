@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/cyrocosta/Black-Wallet/BlackCore/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-te/values-te.xml",
+            "outputFile": "/Users/cyrocosta/Black-Wallet/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-te/values-te.xml",
             "map": [
                 {
                     "source": "/Users/cyrocosta/.gradle/caches/transforms-3/b5a8e99dac667ebea08e9f9757d3b404/transformed/core-1.7.0/res/values-te/values-te.xml",

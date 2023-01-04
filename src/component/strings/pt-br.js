@@ -39,4 +39,9 @@ export const HEADER = {
 export const MODAL_ERROR = {
   errorLength: 'O nome da carteira é muito grande.',
   injectError: 'não use caracters especiais',
+  emptyError: 'O endereço de destino está vazio.',
+  noNetworkError: 'Você está desconectado',
+  invalidCaractersError:
+    'Seu endereço da carteira contém espaços ou caracteres invalidos.',
+  smallAdressError: 'O endereço da carteira está muito curto.',
 };
