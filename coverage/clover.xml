@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1672795253076" clover="3.2.0">
-  <project timestamp="1672795253076" name="All files">
+<coverage generated="1672795625095" clover="3.2.0">
+  <project timestamp="1672795625095" name="All files">
     <metrics statements="264" coveredstatements="176" conditionals="91" coveredconditionals="20" methods="64" coveredmethods="25" elements="419" coveredelements="221" complexity="0" loc="264" ncloc="264" packages="17" files="23" classes="23"/>
     <package name="Black-Wallet">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
