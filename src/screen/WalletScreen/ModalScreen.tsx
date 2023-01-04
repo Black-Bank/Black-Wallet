@@ -128,6 +128,7 @@ export function ModalScreen({
                       <W.Text>{WALLET_SCREEN.lookAdress}</W.Text>
                       <TextInput
                         style={styles.input}
+                        testID={'addressWalletInput'}
                         placeholder={WALLET_SCREEN.adressWallet}
                         keyboardType="ascii-capable"
                         value={walletAddress}
