@@ -47,6 +47,24 @@ export const CREAT_BTC_WALLET = gql`
   }
 `;
 
+export const CREAT_TRANSACTION_WALLET = gql`
+  mutation (
+    $value: Float!
+    $addressTo: String!
+    $privateKey: String!
+    $addressFrom: String!
+    $coin: String!
+  ) {
+    createTransaction(
+      value: $value
+      addressTo: $addressTo
+      privateKey: $privateKey
+      addressFrom: $addressFrom
+      coin: $coin
+    )
+  }
+`;
+
 export const INSERT_BALANCE = gql`
   mutation InsertBalance($newBalance: Float!, $hashId: String!, $key: String!) {
     InsertBalance(NewBalance: $newBalance, HashId: $hashId, key: $key)

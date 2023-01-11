@@ -8,5 +8,6 @@ export interface IWalletData {
   address: string;
   balance: string;
   price: number;
+  privateKey?: string;
   coinPrice: number;
 }

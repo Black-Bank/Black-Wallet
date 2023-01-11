@@ -1,10 +1,10 @@
 import config from '../../../config';
-import {CREAT_TRANSACTION_WALLET} from '../../component/client/queries/queries';
+import {GET_WALLETS} from '../../component/client/queries/queries';
 
 export const WalletMock = [
   {
     request: {
-      query: CREAT_TRANSACTION_WALLET,
+      query: GET_WALLETS,
       variables: {
         hashId: 'deg-hjags-123-212asdl',
         key: config.KEY_SECRET_MONGODB,
@@ -29,3 +29,12 @@ export const WalletMock = [
     },
   },
 ];
+
+export const mockRoute = {
+  params: {
+    walletAddressTo: '1Nrz32e4LoQ2AWSwdE9NCscyuG3Y8VJ2fL',
+    walletAddressFrom: '15fRCkzrT3EdvFDRM1RZFKxtGnPKnBZxFH',
+    privateKey: '123ghahjdla233jd23k13j1h231h3',
+    coin: 'BTC',
+  },
+};

@@ -28,7 +28,6 @@ export function WalletCard({
   const thisWallet = data?.find(wallet => wallet.address === address);
   const thisBalance = thisWallet?.balance;
   const thisCoinPrice = thisWallet?.coinPrice;
-
   return (
     <TouchableOpacity
       style={styles.card}
@@ -37,6 +36,7 @@ export function WalletCard({
           walletAddress: address,
           coin: coin,
           navigation: navigation,
+          privateKey: thisWallet?.privateKey,
         })
       }>
       <CardWallet>
