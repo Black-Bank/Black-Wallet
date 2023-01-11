@@ -1,11 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useRef, useState} from 'react';
-<<<<<<< HEAD
 import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
-=======
-import {Text, TouchableOpacity} from 'react-native';
-import {CoinPrice} from '../../component/services/WebServices';
->>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 import * as S from '../../component/styles/styles';
 import * as W from '../WalletScreen/styles';
 import {WALLET_SCREEN} from '../../component/strings/pt-br';
@@ -29,21 +24,15 @@ export function TransactionScreen({
 }) {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [actualCoinPrice, setActualCoinPrice] = useState<number>(0);
-<<<<<<< HEAD
   const [sendAmount, setSendAmount] = useState<string>('');
   const [makeTransaction] = useMutation(CREAT_TRANSACTION_WALLET);
 
   const {coin, walletAddressTo, walletAddressFrom, privateKey} = route!.params;
-=======
-
-  const {coin} = route!.params;
->>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
   const requestTime = 5000;
   let index = 0;
   let limitCall = 60;
 
   const start = useRef(0);
-<<<<<<< HEAD
 
   useEffect(() => {
     const Set = async () => setActualCoinPrice(await GetCoinPrice(coin));
@@ -80,36 +69,12 @@ export function TransactionScreen({
     }
     call();
   };
-=======
-  const GetCoinPrice = async () => {
-    const coinPrice = Number(await CoinPrice(coin));
-    return coinPrice;
-  };
-  const GoHome = () => {
-    clearInterval(start.current);
-    navigation.navigate('Home');
-  };
-
-  const GetCall = () => {
-    index++;
-    const call = async () => setActualCoinPrice(await GetCoinPrice());
-    if (index >= limitCall) {
-      GoHome();
-    }
-    call();
-  };
-
-  useEffect(() => {
-    start.current = Number(setInterval(() => GetCall(), requestTime));
-  }, []);
->>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 
   useEffect(() => {
     start.current = Number(setInterval(() => GetCall(), requestTime));
   }, []);
   return (
     <>
-<<<<<<< HEAD
       <S.SendCard>
         <S.SendAlert>{WALLET_SCREEN.walletAlert}</S.SendAlert>
         <S.SendCoin>U$ {ManyDollars()}</S.SendCoin>
@@ -141,19 +106,6 @@ export function TransactionScreen({
           </TouchableOpacity>
         </W.GoBackButtonSpace>
       </S.WalletCard>
-=======
-      <Text>
-        Transaction Screen
-        {actualCoinPrice}
-      </Text>
-      <W.GoBackButtonSpace>
-        <TouchableOpacity onPress={GoHome}>
-          <S.GeneralButtonStyles>
-            <S.ButtonTitle>{WALLET_SCREEN.goBack}</S.ButtonTitle>
-          </S.GeneralButtonStyles>
-        </TouchableOpacity>
-      </W.GoBackButtonSpace>
->>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
     </>
   );
 }

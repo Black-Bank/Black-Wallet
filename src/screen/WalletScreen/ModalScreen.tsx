@@ -55,10 +55,6 @@ export function ModalScreen({
       setSendError('');
     }
   };
-<<<<<<< HEAD
-=======
-
->>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
   const GoTo = async () => {
     if (!sendError) {
       navigation.navigate('TransactionScreen', {
