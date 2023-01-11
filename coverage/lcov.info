@@ -292,6 +292,7 @@ TN:
 SF:src/component/client/queries/queries.ts
 FNF:0
 FNH:0
+<<<<<<< HEAD
 DA:3,3
 DA:14,3
 DA:38,3
@@ -301,6 +302,16 @@ DA:68,3
 DA:74,3
 LF:7
 LH:7
+=======
+DA:3,2
+DA:14,2
+DA:38,2
+DA:44,2
+DA:50,2
+DA:56,2
+LF:6
+LH:6
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 BRF:0
 BRH:0
 end_of_record
@@ -348,6 +359,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
+<<<<<<< HEAD
 SF:src/component/services/WebServices.ts
 FN:4,CoinPrice
 FN:11,(anonymous_1)
@@ -390,6 +402,16 @@ DA:6,3
 DA:15,3
 DA:38,3
 DA:42,3
+=======
+SF:src/component/strings/pt-br.js
+FNF:0
+FNH:0
+DA:1,2
+DA:6,2
+DA:15,2
+DA:35,2
+DA:39,2
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 LF:5
 LH:5
 BRF:0
@@ -399,6 +421,7 @@ TN:
 SF:src/component/styles/styles.js
 FNF:0
 FNH:0
+<<<<<<< HEAD
 DA:3,3
 DA:11,3
 DA:22,3
@@ -418,6 +441,24 @@ DA:129,3
 DA:138,3
 LF:17
 LH:17
+=======
+DA:3,2
+DA:11,2
+DA:22,2
+DA:36,2
+DA:51,2
+DA:59,2
+DA:67,2
+DA:71,2
+DA:76,2
+DA:84,2
+DA:93,2
+DA:98,2
+DA:102,2
+DA:111,2
+LF:14
+LH:14
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 BRF:0
 BRH:0
 end_of_record
@@ -443,7 +484,11 @@ TN:
 SF:src/component/walletCard/WalletCard.tsx
 FN:16,WalletCard
 FN:28,(anonymous_1)
+<<<<<<< HEAD
 FN:34,(anonymous_2)
+=======
+FN:35,(anonymous_2)
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 FNF:3
 FNH:0
 FNDA:0,WalletCard
@@ -453,8 +498,13 @@ DA:27,0
 DA:28,0
 DA:29,0
 DA:30,0
+<<<<<<< HEAD
 DA:31,0
 DA:35,0
+=======
+DA:32,0
+DA:36,0
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 DA:74,1
 LF:7
 LH:1
@@ -515,13 +565,18 @@ TN:
 SF:src/screen/HomeScreen/walletMock.ts
 FNF:0
 FNH:0
+<<<<<<< HEAD
 DA:4,3
+=======
+DA:4,2
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 LF:1
 LH:1
 BRF:0
 BRH:0
 end_of_record
 TN:
+<<<<<<< HEAD
 SF:src/screen/TransactionScreen/GetCoinPrice.ts
 FN:3,(anonymous_0)
 FNF:1
@@ -617,6 +672,8 @@ BRF:0
 BRH:0
 end_of_record
 TN:
+=======
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 SF:src/screen/WalletScreen/Modal.tsx
 FN:9,(anonymous_0)
 FN:23,(anonymous_1)
@@ -650,6 +707,7 @@ end_of_record
 TN:
 SF:src/screen/WalletScreen/ModalScreen.tsx
 FN:21,ModalScreen
+<<<<<<< HEAD
 FN:39,(anonymous_1)
 FN:43,(anonymous_2)
 FN:58,(anonymous_3)
@@ -659,6 +717,17 @@ FN:77,(anonymous_6)
 FN:83,(anonymous_7)
 FN:85,(anonymous_8)
 FN:138,(anonymous_9)
+=======
+FN:37,(anonymous_1)
+FN:41,(anonymous_2)
+FN:57,(anonymous_3)
+FN:65,(anonymous_4)
+FN:73,(anonymous_5)
+FN:74,(anonymous_6)
+FN:80,(anonymous_7)
+FN:82,(anonymous_8)
+FN:135,(anonymous_9)
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 FNF:10
 FNH:4
 FNDA:20,ModalScreen
@@ -671,12 +740,18 @@ FNDA:0,(anonymous_6)
 FNDA:0,(anonymous_7)
 FNDA:0,(anonymous_8)
 FNDA:3,(anonymous_9)
+<<<<<<< HEAD
+=======
+DA:30,20
+DA:31,20
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 DA:32,20
 DA:33,20
 DA:34,20
 DA:35,20
 DA:36,20
 DA:37,20
+<<<<<<< HEAD
 DA:38,20
 DA:39,20
 DA:40,4
@@ -724,25 +799,83 @@ BRDA:106,6,0,20
 BRDA:106,6,1,6
 BRDA:128,7,0,20
 BRDA:128,7,1,14
+=======
+DA:38,4
+DA:41,20
+DA:42,3
+DA:43,3
+DA:44,2
+DA:46,2
+DA:47,0
+DA:48,2
+DA:49,2
+DA:50,0
+DA:51,0
+DA:53,0
+DA:57,20
+DA:58,0
+DA:59,0
+DA:65,20
+DA:66,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:80,20
+DA:81,0
+DA:82,0
+DA:85,20
+DA:135,3
+DA:165,1
+LF:35
+LH:22
+BRDA:46,0,0,0
+BRDA:46,0,1,2
+BRDA:48,1,0,2
+BRDA:48,1,1,0
+BRDA:50,2,0,0
+BRDA:50,2,1,0
+BRDA:50,3,0,0
+BRDA:50,3,1,0
+BRDA:58,4,0,0
+BRDA:58,4,1,0
+BRDA:75,5,0,0
+BRDA:75,5,1,0
+BRDA:103,6,0,20
+BRDA:103,6,1,6
+BRDA:125,7,0,20
+BRDA:125,7,1,14
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 BRF:16
 BRH:6
 end_of_record
 TN:
 SF:src/screen/WalletScreen/WalletScreen.tsx
 FN:11,WalletScreen
+<<<<<<< HEAD
 FN:24,(anonymous_1)
 FN:73,(anonymous_2)
 FN:83,(anonymous_3)
+=======
+FN:23,(anonymous_1)
+FN:70,(anonymous_2)
+FN:80,(anonymous_3)
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 FNF:4
 FNH:3
 FNDA:6,WalletScreen
 FNDA:6,(anonymous_1)
 FNDA:0,(anonymous_2)
 FNDA:1,(anonymous_3)
+<<<<<<< HEAD
+=======
+DA:21,6
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 DA:22,6
 DA:23,6
 DA:24,6
 DA:25,6
+<<<<<<< HEAD
 DA:26,6
 DA:28,0
 DA:31,6
@@ -759,6 +892,23 @@ BRDA:39,1,0,6
 BRDA:39,1,1,6
 BRDA:45,2,0,6
 BRDA:45,2,1,0
+=======
+DA:27,0
+DA:30,6
+DA:31,6
+DA:34,6
+DA:70,0
+DA:80,1
+DA:90,1
+LF:12
+LH:10
+BRDA:24,0,0,6
+BRDA:24,0,1,0
+BRDA:37,1,0,6
+BRDA:37,1,1,6
+BRDA:43,2,0,6
+BRDA:43,2,1,0
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 BRF:6
 BRH:4
 end_of_record
@@ -776,6 +926,7 @@ TN:
 SF:src/screen/WalletScreen/styles.js
 FNF:0
 FNH:0
+<<<<<<< HEAD
 DA:3,2
 DA:14,2
 DA:19,2
@@ -791,6 +942,23 @@ DA:74,2
 DA:81,2
 DA:90,2
 DA:99,2
+=======
+DA:3,1
+DA:14,1
+DA:19,1
+DA:27,1
+DA:31,1
+DA:39,1
+DA:47,1
+DA:51,1
+DA:56,1
+DA:63,1
+DA:69,1
+DA:74,1
+DA:81,1
+DA:90,1
+DA:99,1
+>>>>>>> e93181d13e813362615e124b26f53d8f0f23f408
 LF:15
 LH:15
 BRF:0
