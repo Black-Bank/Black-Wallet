@@ -114,3 +114,31 @@ export const WalletCard = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const SendCard = styled.View`
+  flex: 1;
+  justify-content: center;
+  border-radius: 20;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  align-items: center;
+  background-color: #121212;
+`;
+
+export const SendAlert = styled.Text`
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: bold;
+  align-self: center;
+  text-transform: uppercase;
+`;
+
+export const SendCoin = styled.Text`
+  font-size: 40px;
+  color: #fff;
+  font-weight: bold;
+  align-self: center;
+  text-transform: uppercase;
+`;

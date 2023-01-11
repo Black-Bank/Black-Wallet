@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">53.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>8/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">53.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>8/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,16 +97,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -126,18 +126,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
 import config from '../../../config';
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >CoinPrice(</span>coin: string) {
-  let priceInfo = <span class="cstat-no" title="statement not covered" >0;</span>
-<span class="cstat-no" title="statement not covered" >  if (coin === 'BTC') {</span>
-    const getPrice_url = <span class="cstat-no" title="statement not covered" >'https://chain.so/api/v2/get_price/BTC/USD';</span>
-    const response = <span class="cstat-no" title="statement not covered" >await axios.get(getPrice_url);</span>
-    let exchangeArray = <span class="cstat-no" title="statement not covered" >response?.data.data.prices;</span>
-<span class="cstat-no" title="statement not covered" >    exchangeArray.map(</span>
-<span class="fstat-no" title="function not covered" >      (d</span>ata: {price: any}) =&gt; (<span class="cstat-no" title="statement not covered" >priceInfo += Number(data.price))</span>,
+export async function CoinPrice(coin: string) {
+  let priceInfo = 0;
+  if (coin === 'BTC') {
+    const getPrice_url = 'https://chain.so/api/v2/get_price/BTC/USD';
+    const response = await axios.get(getPrice_url);
+    let exchangeArray = response?.data.data.prices;
+    exchangeArray.map(
+      (data: {price: any}) =&gt; (priceInfo += Number(data.price)),
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return Number((priceInfo / exchangeArray.length).toFixed(2));</span>
-  } else <span class="cstat-no" title="statement not covered" >if (coin === 'ETH') {</span>
+    return Number((priceInfo / exchangeArray.length).toFixed(2));
+  } else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span>if (coin === 'ETH') {</span>
     const getPrice_url =
 <span class="cstat-no" title="statement not covered" >      'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';</span>
     const response = <span class="cstat-no" title="statement not covered" >await axios.get(getPrice_url, {</span>
@@ -160,7 +160,7 @@ export async function <span class="fstat-no" title="function not covered" >CoinP
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-11T22:14:11.592Z
+                at 2023-01-11T23:19:59.092Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

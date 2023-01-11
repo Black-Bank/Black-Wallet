@@ -15,10 +15,11 @@ export function WalletScreen({
     params: {
       walletAddress: string;
       coin: string;
+      privateKey?: string;
     };
   };
 }) {
-  const {walletAddress, coin} = route!.params;
+  const {walletAddress, coin, privateKey} = route!.params;
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const coinBaseName = (coinBase: string): string => {
     if (coinBase === 'BTC') {
@@ -31,6 +32,7 @@ export function WalletScreen({
   const description = `${coinBaseName(coin)} ${
     WALLET_SCREEN.walletDescription
   }`;
+
   return (
     <S.WalletCard>
       <S.HeaderWalletTitle> {receivedCoin}</S.HeaderWalletTitle>
@@ -59,6 +61,7 @@ export function WalletScreen({
             coin={coin}
             title={WALLET_SCREEN.Send}
             address={walletAddress}
+            privateKey={privateKey}
           />
         </View>
       </W.ModalBox>

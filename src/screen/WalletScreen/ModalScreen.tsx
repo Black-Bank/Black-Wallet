@@ -22,10 +22,12 @@ export function ModalScreen({
   title,
   address,
   coin,
+  privateKey,
 }: {
   title: string;
   address: string;
   coin: string;
+  privateKey?: string;
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [walletAddress, setAdress] = useState('');
@@ -53,11 +55,12 @@ export function ModalScreen({
       setSendError('');
     }
   };
-
   const GoTo = async () => {
     if (!sendError) {
       navigation.navigate('TransactionScreen', {
-        walletAddress: address,
+        walletAddressTo: walletAddress,
+        walletAddressFrom: address,
+        privateKey: privateKey,
         coin: coin,
       });
     }

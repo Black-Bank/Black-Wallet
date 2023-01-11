@@ -16,6 +16,7 @@ export const WALLET_SCREEN = {
   copy: 'copiar',
   adress: 'Endereço',
   adressWallet: 'Endereço da Carteira',
+  qtdCoin: 'Quantidade de moedas',
   walletDescription:
     'para este endereço. Enviar qualquer outra moeda pode resultar em perda permanente dos recursos.',
   received: 'Receber',
@@ -30,6 +31,8 @@ export const WALLET_SCREEN = {
   beShure:
     'Você tem certeza que deseja excluir essa carteira? A exclusão dessa carteira pode levar a perda permanente de recursos nela contidos.',
   goOut: 'Sair',
+  walletAlert:
+    'O valor pode sofrer alteração de acordo com a taxa de rede e variações de preços no momento do envio.',
 };
 
 export const HEADER = {

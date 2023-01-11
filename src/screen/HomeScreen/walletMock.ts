@@ -1,10 +1,10 @@
 import config from '../../../config';
-import {GET_WALLETS} from '../../component/client/queries/queries';
+import {CREAT_TRANSACTION_WALLET} from '../../component/client/queries/queries';
 
 export const WalletMock = [
   {
     request: {
-      query: GET_WALLETS,
+      query: CREAT_TRANSACTION_WALLET,
       variables: {
         hashId: 'deg-hjags-123-212asdl',
         key: config.KEY_SECRET_MONGODB,
