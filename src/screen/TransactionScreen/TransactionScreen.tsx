@@ -46,15 +46,13 @@ export function TransactionScreen({
   const sendCripto = () => {
     makeTransaction({
       variables: {
-        value: sendAmount,
+        value: Number(sendAmount),
         addressTo: walletAddressTo,
         privateKey: privateKey,
         addressFrom: walletAddressFrom,
         coin: coin,
       },
-    })
-      .then(res => console.log(res))
-      .catch(err => console.log(err.message));
+    });
   };
   const ManyDollars = () => {
     const US = Number(sendAmount) * actualCoinPrice;

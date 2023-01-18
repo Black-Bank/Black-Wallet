@@ -48,7 +48,7 @@ export const CREAT_BTC_WALLET = gql`
 `;
 
 export const CREAT_TRANSACTION_WALLET = gql`
-  mutation (
+  mutation createTransaction(
     $value: Float!
     $addressTo: String!
     $privateKey: String!
