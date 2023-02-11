@@ -10,7 +10,6 @@ import {TransactionScreen} from './TransactionScreen';
 import {MockedProvider} from '@apollo/client/testing';
 import {WalletMock} from '../HomeScreen/walletMock';
 import {mockRoute} from './mock';
-import {GetCoinPrice} from './GetCoinPrice';
 import {act} from 'react-test-renderer';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
@@ -69,7 +68,7 @@ describe('it render transactional screen', () => {
     await waitFor(async () => {
       expect(
         await screen.findByText(
-          `Suas reservas de bitcoin são muito baixas para pagar o envio mais as taxas de rede.`,
+          'Suas reservas de bitcoin são muito baixas para pagar o envio mais as taxas de rede.',
         ),
       ).toBeTruthy();
     });
