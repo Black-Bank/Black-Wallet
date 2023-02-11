@@ -17,12 +17,13 @@ import config from '../../../../config';
 import {AuthContext} from '../../../contexts/auth';
 import {ButtonTitle, GeneralButtonStyles} from '../../styles/styles';
 import LinearGradient from 'react-native-linear-gradient';
+import {ECoinType} from '../../types/interfaces';
 
 export function ModalButton({title}: {title: string}) {
   const [addETHWallet] = useMutation(CREAT_ETH_WALLET);
   const [addBTCWallet] = useMutation(CREAT_BTC_WALLET);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isSelected, setIsSelected] = useState('BTC');
+  const [isSelected, setIsSelected] = useState<string>(ECoinType.BTC);
   const [name, setName] = useState('');
   const {isUpdate, setIsUpdate} = useContext(AuthContext);
   const [error, setError] = useState('');
@@ -47,7 +48,7 @@ export function ModalButton({title}: {title: string}) {
   }, [CheckError, error, name]);
 
   const AddWallet = () => {
-    if (isSelected === 'ETH' && !error) {
+    if (isSelected === ECoinType.ETH && !error) {
       addETHWallet({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
@@ -56,7 +57,7 @@ export function ModalButton({title}: {title: string}) {
           key: config.KEY_SECRET_MONGODB,
         },
       }).then(() => setIsUpdate(!isUpdate));
-    } else if (isSelected === 'BTC' && !error) {
+    } else if (isSelected === ECoinType.BTC && !error) {
       addBTCWallet({
         variables: {
           hashId: 'deg-hjags-123-212asdl',
@@ -92,18 +93,20 @@ export function ModalButton({title}: {title: string}) {
                 <ModalHeader title={ADD_WALLET.title} />
                 <ModalBody>
                   <Text style={styles.text}>{ADD_WALLET.walletType}</Text>
-                  <TouchableOpacity onPress={() => setIsSelected('ETH')}>
+                  <TouchableOpacity
+                    onPress={() => setIsSelected(ECoinType.ETH)}>
                     <Card
-                      isClick={Boolean(isSelected === 'ETH')}
+                      isClick={Boolean(isSelected === ECoinType.ETH)}
                       isSelected={isSelected}
-                      text={'ETH'}
+                      text={ECoinType.ETH}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setIsSelected('BTC')}>
+                  <TouchableOpacity
+                    onPress={() => setIsSelected(ECoinType.BTC)}>
                     <Card
-                      isClick={Boolean(isSelected === 'BTC')}
+                      isClick={Boolean(isSelected === ECoinType.BTC)}
                       isSelected={isSelected}
-                      text={'BTC'}
+                      text={ECoinType.BTC}
                     />
                   </TouchableOpacity>
                   <TextInput

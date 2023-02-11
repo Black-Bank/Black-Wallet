@@ -8,7 +8,6 @@ export const useGetWallets = () => {
       hashId: 'deg-hjags-123-212asdl',
       key: config.KEY_SECRET_MONGODB,
       mainNet: config.ETH_MAINNET,
-      API_KEY: config.MARKETCAP_API_KEY,
     },
   });
 

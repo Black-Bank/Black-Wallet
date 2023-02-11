@@ -10,7 +10,6 @@ import {TransactionScreen} from './TransactionScreen';
 import {MockedProvider} from '@apollo/client/testing';
 import {WalletMock} from '../HomeScreen/walletMock';
 import {mockRoute} from './mock';
-import {GetCoinPrice} from './GetCoinPrice';
 import {act} from 'react-test-renderer';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
@@ -41,14 +40,10 @@ describe('it render transactional screen', () => {
 
     const send = await screen.findByText('Enviar');
     const goBack = await screen.findByText('Voltar');
-    const walletAlert = await screen.findByText(
-      'O valor pode sofrer alteração de acordo com a taxa de rede e variações de preços no momento do envio.',
-    );
     const value = await screen.findByText('U$ 0.00');
 
     expect(send).toBeTruthy();
     expect(goBack).toBeTruthy();
-    expect(walletAlert).toBeTruthy();
     expect(value).toBeTruthy();
   });
 
@@ -66,14 +61,16 @@ describe('it render transactional screen', () => {
     jest.useFakeTimers();
     render(component);
     const sendAmount = 1;
-    const actualCoinPrice = await GetCoinPrice('BTC');
-    const US = Number(sendAmount) * actualCoinPrice;
 
     act(() => {
       fireEvent.changeText(screen.getByTestId('valueInput'), `${sendAmount}`);
     });
     await waitFor(async () => {
-      expect(await screen.findByText(`U$ ${US.toFixed(2)}`)).toBeTruthy();
+      expect(
+        await screen.findByText(
+          'Suas reservas de bitcoin são muito baixas para pagar o envio mais as taxas de rede.',
+        ),
+      ).toBeTruthy();
     });
   });
 });

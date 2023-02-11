@@ -12,18 +12,8 @@ export const GET_BALANCE = gql`
 `;
 
 export const GET_WALLETS = gql`
-  query (
-    $mainNet: String!
-    $hashId: String!
-    $key: String!
-    $API_KEY: String!
-  ) {
-    getFormatedData(
-      mainNet: $mainNet
-      HashId: $hashId
-      key: $key
-      API_KEY: $API_KEY
-    ) {
+  query ($mainNet: String!, $hashId: String!, $key: String!) {
+    getFormatedData(mainNet: $mainNet, HashId: $hashId, key: $key) {
       WalletType
       address
       balance
@@ -48,7 +38,7 @@ export const CREAT_BTC_WALLET = gql`
 `;
 
 export const CREAT_TRANSACTION_WALLET = gql`
-  mutation (
+  mutation createTransaction(
     $value: Float!
     $addressTo: String!
     $privateKey: String!
