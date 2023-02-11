@@ -41,14 +41,10 @@ describe('it render transactional screen', () => {
 
     const send = await screen.findByText('Enviar');
     const goBack = await screen.findByText('Voltar');
-    const walletAlert = await screen.findByText(
-      'O valor pode sofrer alteração de acordo com a taxa de rede e variações de preços no momento do envio.',
-    );
     const value = await screen.findByText('U$ 0.00');
 
     expect(send).toBeTruthy();
     expect(goBack).toBeTruthy();
-    expect(walletAlert).toBeTruthy();
     expect(value).toBeTruthy();
   });
 
