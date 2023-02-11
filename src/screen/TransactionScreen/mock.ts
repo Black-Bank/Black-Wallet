@@ -36,6 +36,6 @@ export const mockRoute = {
     walletAddressFrom: '15fRCkzrT3EdvFDRM1RZFKxtGnPKnBZxFH',
     privateKey: '123ghahjdla233jd23k13j1h231h3',
     coin: 'BTC',
-    balance: 0,
+    balance: 1,
   },
 };

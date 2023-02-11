@@ -62,14 +62,16 @@ describe('it render transactional screen', () => {
     jest.useFakeTimers();
     render(component);
     const sendAmount = 1;
-    const actualCoinPrice = await GetCoinPrice('BTC');
-    const US = Number(sendAmount) * actualCoinPrice;
 
     act(() => {
       fireEvent.changeText(screen.getByTestId('valueInput'), `${sendAmount}`);
     });
     await waitFor(async () => {
-      expect(await screen.findByText(`U$ ${US.toFixed(2)}`)).toBeTruthy();
+      expect(
+        await screen.findByText(
+          `Suas reservas de bitcoin são muito baixas para pagar o envio mais as taxas de rede.`,
+        ),
+      ).toBeTruthy();
     });
   });
 });
