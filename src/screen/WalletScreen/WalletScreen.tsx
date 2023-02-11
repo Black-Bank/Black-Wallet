@@ -7,6 +7,7 @@ import * as W from './styles';
 import {ModalScreen} from './ModalScreen';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ECoinType} from '../../component/types/interfaces';
 
 export function WalletScreen({
   route,
@@ -16,13 +17,14 @@ export function WalletScreen({
       walletAddress: string;
       coin: string;
       privateKey?: string;
+      balance: number;
     };
   };
 }) {
-  const {walletAddress, coin, privateKey} = route!.params;
+  const {walletAddress, coin, privateKey, balance} = route!.params;
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const coinBaseName = (coinBase: string): string => {
-    if (coinBase === 'BTC') {
+    if (coinBase === ECoinType.BTC) {
       return WALLET_SCREEN.SendOnlyBTC;
     } else {
       return WALLET_SCREEN.SendOnlyETH;
@@ -36,13 +38,13 @@ export function WalletScreen({
   return (
     <S.WalletCard>
       <S.HeaderWalletTitle> {receivedCoin}</S.HeaderWalletTitle>
-      {coin === 'BTC' && (
+      {coin === ECoinType.BTC && (
         <Image
           source={require('../../assets/BTCLogo.png')}
           style={styles.image}
         />
       )}
-      {coin === 'ETH' && (
+      {coin === ECoinType.ETH && (
         <Image
           source={require('../../assets/ETHLogo.png')}
           style={styles.image}
@@ -62,6 +64,7 @@ export function WalletScreen({
             title={WALLET_SCREEN.Send}
             address={walletAddress}
             privateKey={privateKey}
+            balance={balance}
           />
         </View>
       </W.ModalBox>

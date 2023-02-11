@@ -23,11 +23,13 @@ export function ModalScreen({
   address,
   coin,
   privateKey,
+  balance,
 }: {
   title: string;
   address: string;
   coin: string;
   privateKey?: string;
+  balance?: number;
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [walletAddress, setAdress] = useState('');
@@ -62,6 +64,7 @@ export function ModalScreen({
         walletAddressFrom: address,
         privateKey: privateKey,
         coin: coin,
+        balance: balance,
       });
     }
   };

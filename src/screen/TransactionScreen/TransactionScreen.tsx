@@ -9,6 +9,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useMutation} from '@apollo/client';
 import {CREAT_TRANSACTION_WALLET} from '../../component/client/queries/queries';
 import {GetCoinPrice} from './GetCoinPrice';
+import {ECoinType} from '../../component/types/interfaces';
 
 export function TransactionScreen({
   route,
@@ -19,6 +20,7 @@ export function TransactionScreen({
       walletAddressFrom: string;
       privateKey: string;
       coin: string;
+      balance: number;
     };
   };
 }) {
@@ -26,8 +28,10 @@ export function TransactionScreen({
   const [actualCoinPrice, setActualCoinPrice] = useState<number>(0);
   const [sendAmount, setSendAmount] = useState<string>('');
   const [makeTransaction] = useMutation(CREAT_TRANSACTION_WALLET);
+  const [error, setError] = useState<string>('');
 
-  const {coin, walletAddressTo, walletAddressFrom, privateKey} = route!.params;
+  const {coin, walletAddressTo, walletAddressFrom, privateKey, balance} =
+    route!.params;
   const requestTime = 5000;
   let index = 0;
   let limitCall = 60;
@@ -43,6 +47,32 @@ export function TransactionScreen({
     clearInterval(start.current);
     navigation.navigate('Home');
   };
+  const Monitor = (amount: string) => {
+    setSendAmount(amount);
+    if (coin === ECoinType.BTC) {
+      const satoshisAmount = Number(amount) * 100000000;
+      const satoshisBalance = balance * 100000000;
+      const fee = 5430;
+      if (satoshisBalance - satoshisAmount - fee < 0) {
+        setError(
+          'Suas reservas de bitcoin são muito baixas para pagar o envio mais as taxas de rede.',
+        );
+      } else {
+        setError('');
+      }
+    } else if (coin === ECoinType.ETH) {
+      const weiAmount = Number(amount) * 1000000000000000000;
+      const weiBalance = balance * 1000000000000000000;
+      const fee = 21000;
+      if (weiBalance - weiAmount - fee < 0) {
+        setError(
+          'Suas reservas de Etherum são muito baixas para pagar o envio mais as taxas de rede.',
+        );
+      } else {
+        setError('');
+      }
+    }
+  };
   const sendCripto = () => {
     makeTransaction({
       variables: {
@@ -52,7 +82,9 @@ export function TransactionScreen({
         addressFrom: walletAddressFrom,
         coin: coin,
       },
-    });
+    })
+      .then(res => console.log('res', res))
+      .catch(err => console.log('err', err));
   };
   const ManyDollars = () => {
     const US = Number(sendAmount) * actualCoinPrice;
@@ -71,10 +103,12 @@ export function TransactionScreen({
   useEffect(() => {
     start.current = Number(setInterval(() => GetCall(), requestTime));
   }, []);
+
+  console.log('err: ', error);
   return (
     <>
       <S.SendCard>
-        <S.SendAlert>{WALLET_SCREEN.walletAlert}</S.SendAlert>
+        <S.SendAlert>{error}</S.SendAlert>
         <S.SendCoin>U$ {ManyDollars()}</S.SendCoin>
       </S.SendCard>
       <S.WalletCard>
@@ -85,7 +119,7 @@ export function TransactionScreen({
             testID={'valueInput'}
             keyboardType="numeric"
             value={sendAmount}
-            onChangeText={amount => setSendAmount(amount)}
+            onChangeText={amount => Monitor(amount)}
             maxLength={10}
           />
           <W.GoBackButtonSpace>

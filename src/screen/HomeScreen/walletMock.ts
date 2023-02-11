@@ -1,5 +1,6 @@
 import config from '../../../config';
 import {CREAT_TRANSACTION_WALLET} from '../../component/client/queries/queries';
+import {ECoinType} from '../../component/types/interfaces';
 
 export const WalletMock = [
   {
@@ -18,7 +19,7 @@ export const WalletMock = [
           {
             name: 'wallet mock',
             address: '1GfYUSqAbqGTpp6nnCfvTKUBE5QgEwLQX8',
-            WalletType: 'BTC',
+            WalletType: ECoinType.BTC,
             balance: '20',
             price: 20,
             coinPrice: 2,

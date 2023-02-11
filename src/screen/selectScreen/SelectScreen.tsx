@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {ButtonTitle} from '../../component/styles/styles';
+import {ECoinType} from '../../component/types/interfaces';
 
 export function Card({
   isClick,
@@ -14,13 +15,13 @@ export function Card({
     <>
       {isClick && (
         <View style={styles.card}>
-          {text === 'BTC' && (
+          {text === ECoinType.BTC && (
             <Image
               source={require('../../assets/BTCLogo.png')}
               style={styles.image}
             />
           )}
-          {text === 'ETH' && (
+          {text === ECoinType.ETH && (
             <Image
               source={require('../../assets/ETHLogo.png')}
               style={styles.image}
@@ -34,13 +35,13 @@ export function Card({
       )}
       {!isClick && (
         <View style={styles.cardNotChoose}>
-          {text === 'BTC' && (
+          {text === ECoinType.BTC && (
             <Image
               source={require('../../assets/BTCLogo.png')}
               style={styles.image}
             />
           )}
-          {text === 'ETH' && (
+          {text === ECoinType.ETH && (
             <Image
               source={require('../../assets/ETHLogo.png')}
               style={styles.image}

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import config from '../../../config';
+import {ECoinType} from '../types/interfaces';
 
 export async function CoinPrice(coin: string) {
   let priceInfo = 0;
-  if (coin === 'BTC') {
+  if (coin === ECoinType.BTC) {
     const getPrice_url = 'https://chain.so/api/v2/get_price/BTC/USD';
     const response = await axios.get(getPrice_url);
     let exchangeArray = response?.data.data.prices;
@@ -12,7 +13,7 @@ export async function CoinPrice(coin: string) {
     );
 
     return Number((priceInfo / exchangeArray.length).toFixed(2));
-  } else if (coin === 'ETH') {
+  } else if (coin === ECoinType.ETH) {
     const getPrice_url =
       'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
     const response = await axios.get(getPrice_url, {

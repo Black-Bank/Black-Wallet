@@ -13,6 +13,7 @@ import {
   CardCoin,
 } from '../styles/styles';
 import {numberFormatter} from '../utils/functions/Format';
+import {ECoinType} from '../types/interfaces';
 export function WalletCard({
   name,
   coin,
@@ -28,6 +29,7 @@ export function WalletCard({
   const thisWallet = data?.find(wallet => wallet.address === address);
   const thisBalance = thisWallet?.balance;
   const thisCoinPrice = thisWallet?.coinPrice;
+
   return (
     <TouchableOpacity
       style={styles.card}
@@ -37,16 +39,17 @@ export function WalletCard({
           coin: coin,
           navigation: navigation,
           privateKey: thisWallet?.privateKey,
+          balance: thisWallet?.balance,
         })
       }>
       <CardWallet>
-        {coin === 'BTC' && (
+        {coin === ECoinType.BTC && (
           <Image
             source={require('../../assets/BTCLogo.png')}
             style={styles.image}
           />
         )}
-        {coin === 'ETH' && (
+        {coin === ECoinType.ETH && (
           <Image
             source={require('../../assets/ETHLogo.png')}
             style={styles.image}
