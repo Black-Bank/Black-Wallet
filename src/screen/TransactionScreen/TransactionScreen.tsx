@@ -104,7 +104,6 @@ export function TransactionScreen({
     start.current = Number(setInterval(() => GetCall(), requestTime));
   }, []);
 
-  console.log('err: ', error);
   return (
     <>
       <S.SendCard>

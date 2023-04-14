@@ -45,6 +45,7 @@ export function ModalScreen({
   const MonitorError = async (text: string) => {
     setAdress(text);
     const isConnect = await isDeviceConnected();
+
     const caractersRegex = /[˜`!@#$'".,%ˆ&<>?/*()-+ ]+/g;
 
     if (!isConnect) {
