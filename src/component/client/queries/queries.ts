@@ -66,3 +66,9 @@ export const DELETE_WALLET = gql`
     deleteWallet(address: $address, key: $key, HashId: $hashId)
   }
 `;
+
+export const VERIFY_USER = gql`
+  mutation VerifyUser($passWord: String!, $email: String!, $key: String!) {
+    VerifyUser(passWord: $passWord, Email: $email, key: $key)
+  }
+`;
