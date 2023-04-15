@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import {AuthContext} from '../../contexts/auth';
@@ -16,14 +16,14 @@ import {
 import {useMutation} from '@apollo/client';
 import {VERIFY_USER} from '../../component/client/queries/queries';
 import config from '../../../config';
+import {ActivityIndicator} from 'react-native';
+import {Cypher} from './Cypher';
 
 type AuthType = {
   email: string;
   password: string;
 };
-type isAuthType = {
-  verifyUser: boolean;
-};
+
 const loginValidationSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required(),
@@ -31,24 +31,32 @@ const loginValidationSchema = yup.object().shape({
 
 export function AuthScreen() {
   const {setIsAuthenticated} = useContext(AuthContext);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>('');
   const [verifyUser] = useMutation(VERIFY_USER);
 
   const handleLogin = async ({email, password}: AuthType) => {
     try {
+      setIsLoading(true);
       const {data} = await verifyUser({
         variables: {
-          passWord: password,
+          passWord: Cypher(password),
           email: email,
           key: config.KEY_SECRET_MONGODB,
         },
       });
       const isAuth = Boolean(data?.VerifyUser);
+      setIsLoading(false);
+      if (isAuth === false) {
+        setLoginError('Senha Incorreta');
+      }
       setIsAuthenticated(isAuth);
     } catch (error) {
+      setIsLoading(false);
       console.error('Ocorreu um erro ao executar a consulta: ', error);
     }
   };
+  console.log(loginError);
 
   return (
     <Container>
@@ -87,13 +95,23 @@ export function AuthScreen() {
                 onBlur={handleBlur('password')}
                 value={values.password}
               />
-              {touched.password && errors.password && (
-                <Error>{errors.password}</Error>
+              {touched.password && (
+                <Error>
+                  {errors.password
+                    ? errors.password
+                    : loginError
+                    ? loginError
+                    : ''}
+                </Error>
               )}
             </InputContainer>
 
             <LoginButton onPress={handleSubmit}>
-              <ButtonText>Login</ButtonText>
+              {isLoading ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <ButtonText>Login</ButtonText>
+              )}
             </LoginButton>
 
             <SignButton onPress={() => console.log('Cadastro')}>
