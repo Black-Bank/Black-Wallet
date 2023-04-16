@@ -18,6 +18,7 @@ import {VERIFY_USER} from '../../component/client/queries/queries';
 import config from '../../../config';
 import {ActivityIndicator} from 'react-native';
 import {Cypher} from './Cypher';
+import Crypto from '../../component/services/ComunicationSystemsAuth';
 
 type AuthType = {
   email: string;
@@ -34,15 +35,21 @@ export function AuthScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string>('');
   const [verifyUser] = useMutation(VERIFY_USER);
+  const crypto = new Crypto();
 
   const handleLogin = async ({email, password}: AuthType) => {
+    const objToken = {
+      passWord: Cypher(password),
+      email: email,
+      key: config.KEY_SECRET_MONGODB,
+    };
+    const objTokenText = JSON.stringify(objToken);
+
     try {
       setIsLoading(true);
       const {data} = await verifyUser({
         variables: {
-          passWord: Cypher(password),
-          email: email,
-          key: config.KEY_SECRET_MONGODB,
+          token: crypto.encrypt(objTokenText),
         },
       });
       const isAuth = Boolean(data?.VerifyUser);
@@ -56,7 +63,6 @@ export function AuthScreen() {
       console.error('Ocorreu um erro ao executar a consulta: ', error);
     }
   };
-  console.log(loginError);
 
   return (
     <Container>
