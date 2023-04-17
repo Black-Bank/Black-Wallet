@@ -38,26 +38,35 @@ export function AuthScreen() {
   const crypto = new Crypto();
 
   const handleLogin = async ({email, password}: AuthType) => {
+    const currentTimeMillis = new Date().getTime();
     const objToken = {
       passWord: Cypher(password),
       email: email,
       key: config.KEY_SECRET_MONGODB,
+      timer: currentTimeMillis,
     };
     const objTokenText = JSON.stringify(objToken);
 
     try {
       setIsLoading(true);
+      let isAuth = false;
       const {data} = await verifyUser({
         variables: {
           token: crypto.encrypt(objTokenText),
         },
       });
-      const isAuth = Boolean(data?.VerifyUser);
+
+      const nowCurrentTimeMillis = new Date().getTime();
+      const authResponse = JSON.parse(crypto.decrypt(data?.VerifyUser));
+      const isExpiredToken = Boolean(nowCurrentTimeMillis > authResponse.timer);
       setIsLoading(false);
-      if (isAuth === false) {
-        setLoginError('Senha Incorreta');
+      if (isExpiredToken) {
+        isAuth = false;
+        setLoginError('Tempo de login expirado');
+      } else {
+        isAuth = authResponse.isAuthenticated;
+        isAuth ? setIsAuthenticated(isAuth) : setLoginError('Senha Incorreta');
       }
-      setIsAuthenticated(isAuth);
     } catch (error) {
       setIsLoading(false);
       console.error('Ocorreu um erro ao executar a consulta: ', error);
