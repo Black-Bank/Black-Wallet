@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {fireEvent, render, screen} from '@testing-library/react-native';
 import {AuthScreen} from './AuthScreen';
 import {MockedProvider} from '@apollo/client/testing';
-import {InvalidAuthMock} from './authMocks';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 const mockedNavigate = jest.fn();
