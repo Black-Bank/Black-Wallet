@@ -4,6 +4,7 @@ import {client} from './src/component/client/provider/clientprovider';
 import {NavigationContainer} from '@react-navigation/native';
 import {Routes} from './src/component/routes/routes';
 import AuthProvider from './src/contexts/auth';
+import Toast from 'react-native-toast-message';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Routes />
         </ApolloProvider>
       </AuthProvider>
+      <Toast />
     </NavigationContainer>
   );
 };

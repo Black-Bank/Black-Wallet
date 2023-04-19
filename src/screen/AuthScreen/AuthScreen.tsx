@@ -19,6 +19,8 @@ import config from '../../../config';
 import {ActivityIndicator} from 'react-native';
 import {Cypher} from './Cypher';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 type AuthType = {
   email: string;
@@ -31,12 +33,15 @@ const loginValidationSchema = yup.object().shape({
 });
 
 export function AuthScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {setIsAuthenticated} = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string>('');
   const [verifyUser] = useMutation(VERIFY_USER);
   const crypto = new Crypto();
-
+  const handleSignUp = () => {
+    navigation.navigate('SignUpScreen');
+  };
   const handleLogin = async ({email, password}: AuthType) => {
     const currentTimeMillis = new Date().getTime();
     const objToken = {
@@ -58,6 +63,7 @@ export function AuthScreen() {
 
       const nowCurrentTimeMillis = new Date().getTime();
       const authResponse = JSON.parse(crypto.decrypt(data?.VerifyUser));
+
       const isExpiredToken = Boolean(nowCurrentTimeMillis > authResponse.timer);
       setIsLoading(false);
       if (isExpiredToken) {
@@ -67,9 +73,11 @@ export function AuthScreen() {
         isAuth = authResponse.isAuthenticated;
         isAuth ? setIsAuthenticated(isAuth) : setLoginError('Senha Incorreta');
       }
-    } catch (error) {
-      setIsLoading(false);
+    } catch (error: any) {
       console.error('Ocorreu um erro ao executar a consulta: ', error);
+    } finally {
+      setIsLoading(false);
+      // limpa recursos ou atualiza a interface do usuário
     }
   };
 
@@ -125,11 +133,11 @@ export function AuthScreen() {
               {isLoading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
-                <ButtonText>Login</ButtonText>
+                <ButtonText>Sign In</ButtonText>
               )}
             </LoginButton>
 
-            <SignButton onPress={() => console.log('Cadastro')}>
+            <SignButton onPress={handleSignUp}>
               <SignText>Cadastre-se</SignText>
             </SignButton>
           </>

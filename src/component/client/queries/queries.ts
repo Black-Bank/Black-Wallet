@@ -72,3 +72,9 @@ export const VERIFY_USER = gql`
     VerifyUser(token: $token)
   }
 `;
+
+export const CREATE_USER = gql`
+  mutation CreateUser($token: String!) {
+    CreateUser(token: $token)
+  }
+`;
