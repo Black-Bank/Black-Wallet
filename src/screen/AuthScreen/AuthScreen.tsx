@@ -16,7 +16,7 @@ import {
 import {useMutation} from '@apollo/client';
 import {VERIFY_USER} from '../../component/client/queries/queries';
 import config from '../../../config';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, StatusBar} from 'react-native';
 import {Cypher} from './Cypher';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -82,67 +82,70 @@ export function AuthScreen() {
   };
 
   return (
-    <Container>
-      <Title>Login</Title>
+    <>
+      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <Container>
+        <Title>Login</Title>
 
-      <Formik
-        initialValues={{email: '', password: ''}}
-        validationSchema={loginValidationSchema}
-        onSubmit={handleLogin}>
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-        }) => (
-          <>
-            <InputContainer>
-              <InputStyled
-                placeholder="Email"
-                placeholderTextColor="#ccc"
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-              />
-              {touched.email && errors.email && <Error>{errors.email}</Error>}
-            </InputContainer>
+        <Formik
+          initialValues={{email: '', password: ''}}
+          validationSchema={loginValidationSchema}
+          onSubmit={handleLogin}>
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <>
+              <InputContainer>
+                <InputStyled
+                  placeholder="Email"
+                  placeholderTextColor="#ccc"
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                />
+                {touched.email && errors.email && <Error>{errors.email}</Error>}
+              </InputContainer>
 
-            <InputContainer>
-              <InputStyled
-                placeholder="Password"
-                placeholderTextColor="#ccc"
-                secureTextEntry
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-              />
-              {touched.password && (
-                <Error>
-                  {errors.password
-                    ? errors.password
-                    : loginError
-                    ? loginError
-                    : ''}
-                </Error>
-              )}
-            </InputContainer>
+              <InputContainer>
+                <InputStyled
+                  placeholder="Password"
+                  placeholderTextColor="#ccc"
+                  secureTextEntry
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                />
+                {touched.password && (
+                  <Error>
+                    {errors.password
+                      ? errors.password
+                      : loginError
+                      ? loginError
+                      : ''}
+                  </Error>
+                )}
+              </InputContainer>
 
-            <LoginButton onPress={handleSubmit}>
-              {isLoading ? (
-                <ActivityIndicator size="small" color="#fff" />
-              ) : (
-                <ButtonText>Sign In</ButtonText>
-              )}
-            </LoginButton>
+              <LoginButton onPress={handleSubmit}>
+                {isLoading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <ButtonText>Sign In</ButtonText>
+                )}
+              </LoginButton>
 
-            <SignButton onPress={handleSignUp}>
-              <SignText>Cadastre-se</SignText>
-            </SignButton>
-          </>
-        )}
-      </Formik>
-    </Container>
+              <SignButton onPress={handleSignUp}>
+                <SignText>Cadastre-se</SignText>
+              </SignButton>
+            </>
+          )}
+        </Formik>
+      </Container>
+    </>
   );
 }
