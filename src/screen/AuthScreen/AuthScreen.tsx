@@ -21,6 +21,7 @@ import {Cypher} from './Cypher';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import AuthStore from './AuthStore';
 
 type AuthType = {
   email: string;
@@ -70,6 +71,8 @@ export function AuthScreen() {
         isAuth = false;
         setLoginError('Tempo de login expirado');
       } else {
+        const loginInstance = AuthStore.getInstance();
+        loginInstance.setEmail(authResponse.email);
         isAuth = authResponse.isAuthenticated;
         isAuth ? setIsAuthenticated(isAuth) : setLoginError('Senha Incorreta');
       }
