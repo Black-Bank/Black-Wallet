@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
 export const GET_BALANCE = gql`
-  query GetBalance($hashId: String!, $key: String!) {
-    getBalance(HashId: $hashId, key: $key) {
+  query GetBalance($Email: String!) {
+    getBalance(Email: $Email) {
       month
       week
       day
@@ -12,8 +12,8 @@ export const GET_BALANCE = gql`
 `;
 
 export const GET_WALLETS = gql`
-  query ($mainNet: String!, $hashId: String!, $key: String!) {
-    getFormatedData(mainNet: $mainNet, HashId: $hashId, key: $key) {
+  query ($mainNet: String!, $Email: String!) {
+    getFormatedData(mainNet: $mainNet, Email: $Email) {
       WalletType
       address
       balance
@@ -56,8 +56,8 @@ export const CREAT_TRANSACTION_WALLET = gql`
 `;
 
 export const INSERT_BALANCE = gql`
-  mutation InsertBalance($newBalance: Float!, $hashId: String!, $key: String!) {
-    InsertBalance(NewBalance: $newBalance, HashId: $hashId, key: $key)
+  mutation InsertBalance($newBalance: Float!, $Email: String!) {
+    InsertBalance(NewBalance: $newBalance, Email: $Email)
   }
 `;
 

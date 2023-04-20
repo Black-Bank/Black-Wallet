@@ -6,8 +6,7 @@ export const WalletMock = [
     request: {
       query: GET_WALLETS,
       variables: {
-        hashId: 'deg-hjags-123-212asdl',
-        key: config.KEY_SECRET_MONGODB,
+        Email: 'danielFraga@gmail.com',
         mainNet: config.ETH_MAINNET,
         API_KEY: config.MARKETCAP_API_KEY,
       },

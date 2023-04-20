@@ -1,6 +1,6 @@
 export default class AuthStore {
   private static instance: AuthStore;
-  private email: string = '';
+  public email: string = '';
 
   private constructor() {}
 
