@@ -13,15 +13,17 @@ import {ADD_WALLET, MODAL_ERROR} from '../../strings/pt-br';
 import {Card} from '../../../screen/selectScreen/SelectScreen';
 import {useMutation} from '@apollo/client';
 import {CREAT_BTC_WALLET, CREAT_ETH_WALLET} from '../../client/queries/queries';
-import config from '../../../../config';
 import {AuthContext} from '../../../contexts/auth';
 import {ButtonTitle, GeneralButtonStyles} from '../../styles/styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {ECoinType} from '../../types/interfaces';
+import AuthStore from '../../../screen/AuthScreen/AuthStore';
 
 export function ModalButton({title}: {title: string}) {
   const [addETHWallet] = useMutation(CREAT_ETH_WALLET);
   const [addBTCWallet] = useMutation(CREAT_BTC_WALLET);
+  const loginInstance = AuthStore.getInstance();
+  const Email = loginInstance.email;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSelected, setIsSelected] = useState<string>(ECoinType.BTC);
   const [name, setName] = useState('');
@@ -51,19 +53,15 @@ export function ModalButton({title}: {title: string}) {
     if (isSelected === ECoinType.ETH && !error) {
       addETHWallet({
         variables: {
-          hashId: 'deg-hjags-123-212asdl',
-          type: isSelected,
+          Email: Email,
           name: name,
-          key: config.KEY_SECRET_MONGODB,
         },
       }).then(() => setIsUpdate(!isUpdate));
     } else if (isSelected === ECoinType.BTC && !error) {
       addBTCWallet({
         variables: {
-          hashId: 'deg-hjags-123-212asdl',
-          type: isSelected,
+          Email: Email,
           name: name,
-          key: config.KEY_SECRET_MONGODB,
         },
       }).then(() => setIsUpdate(!isUpdate));
     }

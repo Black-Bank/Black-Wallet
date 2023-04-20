@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
 export const GET_BALANCE = gql`
-  query GetBalance($hashId: String!, $key: String!) {
-    getBalance(HashId: $hashId, key: $key) {
+  query GetBalance($Email: String!) {
+    getBalance(Email: $Email) {
       month
       week
       day
@@ -12,8 +12,8 @@ export const GET_BALANCE = gql`
 `;
 
 export const GET_WALLETS = gql`
-  query ($mainNet: String!, $hashId: String!, $key: String!) {
-    getFormatedData(mainNet: $mainNet, HashId: $hashId, key: $key) {
+  query ($mainNet: String!, $Email: String!) {
+    getFormatedData(mainNet: $mainNet, Email: $Email) {
       WalletType
       address
       balance
@@ -26,14 +26,14 @@ export const GET_WALLETS = gql`
 `;
 
 export const CREAT_ETH_WALLET = gql`
-  mutation ($hashId: String!, $name: String!, $key: String!) {
-    createEthWallet(HashId: $hashId, name: $name, key: $key)
+  mutation ($Email: String!, $name: String!) {
+    createEthWallet(Email: $Email, name: $name)
   }
 `;
 
 export const CREAT_BTC_WALLET = gql`
-  mutation ($hashId: String!, $name: String!, $key: String!) {
-    createBTCWallet(HashId: $hashId, name: $name, key: $key)
+  mutation ($Email: String!, $name: String!) {
+    createBTCWallet(Email: $Email, name: $name)
   }
 `;
 
@@ -56,13 +56,25 @@ export const CREAT_TRANSACTION_WALLET = gql`
 `;
 
 export const INSERT_BALANCE = gql`
-  mutation InsertBalance($newBalance: Float!, $hashId: String!, $key: String!) {
-    InsertBalance(NewBalance: $newBalance, HashId: $hashId, key: $key)
+  mutation InsertBalance($newBalance: Float!, $Email: String!) {
+    InsertBalance(NewBalance: $newBalance, Email: $Email)
   }
 `;
 
 export const DELETE_WALLET = gql`
-  mutation deleteWallet($address: String!, $key: String!, $hashId: String!) {
-    deleteWallet(address: $address, key: $key, HashId: $hashId)
+  mutation deleteWallet($address: String!, $Email: String!) {
+    deleteWallet(address: $address, Email: $Email)
+  }
+`;
+
+export const VERIFY_USER = gql`
+  mutation VerifyUser($token: String!) {
+    VerifyUser(token: $token)
+  }
+`;
+
+export const CREATE_USER = gql`
+  mutation CreateUser($token: String!) {
+    CreateUser(token: $token)
   }
 `;

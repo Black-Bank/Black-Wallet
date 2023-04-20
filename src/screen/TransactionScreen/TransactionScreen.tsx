@@ -14,7 +14,7 @@ import {ECoinType} from '../../component/types/interfaces';
 export function TransactionScreen({
   route,
 }: {
-  route: {
+  route?: {
     params: {
       walletAddressTo: string;
       walletAddressFrom: string;

@@ -1,12 +1,13 @@
 import {useQuery} from '@apollo/client';
-import config from '../../../config';
 import {GET_BALANCE} from '../client/queries/queries';
+import AuthStore from '../../screen/AuthScreen/AuthStore';
 
 export const useGetBalance = () => {
+  const loginInstance = AuthStore.getInstance();
+  const Email = loginInstance.email;
   const {data, loading, error, refetch} = useQuery(GET_BALANCE, {
     variables: {
-      hashId: 'deg-hjags-123-212asdl',
-      key: config.KEY_SECRET_MONGODB,
+      Email: Email,
     },
   });
 

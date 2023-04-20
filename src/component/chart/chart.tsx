@@ -12,7 +12,7 @@ import {RefactorData} from './functions/chartFunctions';
 import {useGetBalance} from '../hooks/useGetBalance';
 import {useMutation} from '@apollo/client';
 import {INSERT_BALANCE} from '../client/queries/queries';
-import config from '../../../config';
+import AuthStore from '../../screen/AuthScreen/AuthStore';
 
 export function Chart({TotalBalance}: {TotalBalance: number}) {
   const date = new Date();
@@ -45,6 +45,8 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
   const [periodData, setPeriodData] = useState<any>(DataDay);
   const [profit, setProfit] = useState<boolean>(true);
   const [insertBalance] = useMutation(INSERT_BALANCE);
+  const loginInstance = AuthStore.getInstance();
+  const Email = loginInstance.email;
   const refetchTime = 10;
   const CheckProfit = (periode: string) => {
     if (periode === 'diario') {
@@ -83,9 +85,8 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
     if (isChartUpdate) {
       insertBalance({
         variables: {
-          hashId: 'deg-hjags-123-212asdl',
+          Email: Email,
           newBalance: TotalBalance,
-          key: config.KEY_SECRET_MONGODB,
         },
       }).then(() => setTimeout(refetch, refetchTime));
     }

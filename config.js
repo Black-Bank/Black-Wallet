@@ -3,6 +3,9 @@ import {
   API_HEROKU,
   ETH_MAINNET,
   MARKETCAP_API_KEY,
+  PASSWORD_EARLY,
+  AUTH_PRIVATE_KEY,
+  IV,
 } from '@env';
 
 export default {
@@ -10,4 +13,7 @@ export default {
   API_HEROKU,
   ETH_MAINNET,
   MARKETCAP_API_KEY,
+  PASSWORD_EARLY,
+  AUTH_PRIVATE_KEY,
+  IV,
 };
