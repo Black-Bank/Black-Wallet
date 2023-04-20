@@ -26,14 +26,14 @@ export const GET_WALLETS = gql`
 `;
 
 export const CREAT_ETH_WALLET = gql`
-  mutation ($hashId: String!, $name: String!, $key: String!) {
-    createEthWallet(HashId: $hashId, name: $name, key: $key)
+  mutation ($Email: String!, $name: String!) {
+    createEthWallet(Email: $Email, name: $name)
   }
 `;
 
 export const CREAT_BTC_WALLET = gql`
-  mutation ($hashId: String!, $name: String!, $key: String!) {
-    createBTCWallet(HashId: $hashId, name: $name, key: $key)
+  mutation ($Email: String!, $name: String!) {
+    createBTCWallet(Email: $Email, name: $name)
   }
 `;
 
@@ -62,8 +62,8 @@ export const INSERT_BALANCE = gql`
 `;
 
 export const DELETE_WALLET = gql`
-  mutation deleteWallet($address: String!, $key: String!, $hashId: String!) {
-    deleteWallet(address: $address, key: $key, HashId: $hashId)
+  mutation deleteWallet($address: String!, $Email: String!) {
+    deleteWallet(address: $address, Email: $Email)
   }
 `;
 

@@ -6,7 +6,6 @@ import {useState} from 'react';
 import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Modal from 'react-native-modal';
-import config from '../../../config';
 import {DELETE_WALLET} from '../../component/client/queries/queries';
 import {
   ADD_WALLET,
@@ -17,6 +16,7 @@ import {AuthContext} from '../../contexts/auth';
 import {ModalBody, ModalContainer, ModalFooter, ModalHeader} from './Modal';
 import * as W from './styles';
 import {isDeviceConnected} from '../../component/services/HardwareServices';
+import AuthStore from '../AuthScreen/AuthStore';
 
 export function ModalScreen({
   title,
@@ -34,6 +34,8 @@ export function ModalScreen({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [walletAddress, setAdress] = useState('');
   const [deleteWallet] = useMutation(DELETE_WALLET);
+  const loginInstance = AuthStore.getInstance();
+  const Email = loginInstance.email;
   const [error, setError] = useState<string>();
   const [sendError, setSendError] = useState<string>(MODAL_ERROR.emptyError);
   const {isUpdate, setIsUpdate} = useContext(AuthContext);
@@ -72,8 +74,7 @@ export function ModalScreen({
   const IsDeletedWallet = () => {
     deleteWallet({
       variables: {
-        hashId: 'deg-hjags-123-212asdl',
-        key: config.KEY_SECRET_MONGODB,
+        Email: Email,
         address: address,
       },
     })
