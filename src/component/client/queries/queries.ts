@@ -12,8 +12,8 @@ export const GET_BALANCE = gql`
 `;
 
 export const GET_WALLETS = gql`
-  query ($mainNet: String!, $Email: String!) {
-    getFormatedData(mainNet: $mainNet, Email: $Email) {
+  query ($Email: String!) {
+    getFormatedData(Email: $Email) {
       WalletType
       address
       balance

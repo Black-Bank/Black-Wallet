@@ -1,4 +1,3 @@
-import config from '../../../config';
 import {GET_WALLETS} from '../../component/client/queries/queries';
 
 export const WalletMock = [
@@ -7,8 +6,6 @@ export const WalletMock = [
       query: GET_WALLETS,
       variables: {
         Email: 'danielFraga@gmail.com',
-        mainNet: config.ETH_MAINNET,
-        API_KEY: config.MARKETCAP_API_KEY,
       },
     },
     result: {

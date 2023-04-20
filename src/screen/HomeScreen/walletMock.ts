@@ -1,4 +1,3 @@
-import config from '../../../config';
 import {CREAT_TRANSACTION_WALLET} from '../../component/client/queries/queries';
 import {ECoinType} from '../../component/types/interfaces';
 
@@ -8,8 +7,6 @@ export const WalletMock = [
       query: CREAT_TRANSACTION_WALLET,
       variables: {
         Email: 'danielFraga@gmail.com',
-        mainNet: config.ETH_MAINNET,
-        API_KEY: config.MARKETCAP_API_KEY,
       },
     },
     result: {

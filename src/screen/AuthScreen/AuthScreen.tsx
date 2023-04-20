@@ -48,7 +48,6 @@ export function AuthScreen() {
     const objToken = {
       passWord: Cypher(password),
       email: email,
-      key: config.KEY_SECRET_MONGODB,
       timer: currentTimeMillis,
     };
     const objTokenText = JSON.stringify(objToken);
