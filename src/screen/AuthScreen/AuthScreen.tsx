@@ -15,7 +15,6 @@ import {
 } from './Auth.style';
 import {useMutation} from '@apollo/client';
 import {VERIFY_USER} from '../../component/client/queries/queries';
-import config from '../../../config';
 import {ActivityIndicator, StatusBar} from 'react-native';
 import {Cypher} from './Cypher';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
