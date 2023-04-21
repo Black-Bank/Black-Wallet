@@ -1,22 +1,16 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: #121212;
+  background-color: #f3ecec;
 `;
 
 export const GeneralButtonStyles = styled.View`
   height: 35px;
-  width: 80px;
+  width: 100px;
   justify-content: center;
-  background-color: #3c0f69;
-  border-radius: 50px;
-  color: 'polevioletred';
-  margin: 1px;
-  margin-top: 10px;
+  background-color: #6c3f91;
+  border-radius: 15px;
+  margin: 5px;
 `;
 
 export const HeaderTitle = styled.Text`
@@ -49,11 +43,7 @@ export const HeaderWalletTitle = styled.Text`
 `;
 
 export const ContainerChartButton = styled.View`
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  align-items: space-around;
-
+  justify-content: center;
   flex-direction: row;
 `;
 export const WalletContainer = styled.View`
@@ -61,12 +51,13 @@ export const WalletContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #121212;
+  background-color: #f3ecec;
 `;
 
 export const Title = styled.Text`
   font-size: 28px;
-  color: #fff;
+  color: #000;
+  font-family: Helvetica;
 `;
 export const AdressTitle = styled.Text`
   font-size: 14px;
@@ -75,16 +66,14 @@ export const AdressTitle = styled.Text`
 `;
 export const ButtonTitle = styled.Text`
   font-size: 15px;
-  color: #fff;
+  color: #000;
   font-weight: bold;
   align-self: center;
   text-transform: uppercase;
 `;
 
 export const CardWalletContainer = styled.View`
-  display: flex;
   margin-left: 10px;
-  margin-top: 10px;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
@@ -93,6 +82,8 @@ export const CardWalletContainer = styled.View`
 export const CardWallet = styled.View`
   width: 220px;
   flex-direction: row;
+  flex: 1;
+  margin-top: 5px;
 `;
 
 export const BoxCardTitle = styled.View`
@@ -101,7 +92,7 @@ export const BoxCardTitle = styled.View`
 `;
 export const CardCoin = styled.Text`
   font-size: 15px;
-  color: #fff;
+  color: #000;
   font-weight: bold;
   align-self: flex-start;
   margin-left: 40px;

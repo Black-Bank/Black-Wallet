@@ -48,3 +48,7 @@ export const MODAL_ERROR = {
     'Seu endereço da carteira contém espaços ou caracteres invalidos.',
   smallAdressError: 'O endereço da carteira está muito curto.',
 };
+
+export const EVO_SCREEN = {
+  description: 'Proteja seu patrimônio aqui na Credit Black.',
+};

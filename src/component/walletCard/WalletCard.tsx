@@ -13,7 +13,8 @@ import {
 } from '../styles/styles';
 import {numberFormatter} from '../utils/functions/Format';
 import {ECoinType} from '../types/interfaces';
-export function WalletCard({
+
+export const WalletCard = ({
   name,
   coin,
   address,
@@ -23,7 +24,7 @@ export function WalletCard({
   coin: string;
   address: string;
   data: IWalletData[];
-}) {
+}) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const thisWallet = data?.find(wallet => wallet.address === address);
   const thisBalance = thisWallet?.balance;
@@ -56,22 +57,22 @@ export function WalletCard({
         )}
 
         <CardWalletContainer>
-          <ButtonTitle>{name}</ButtonTitle>
+          <ButtonTitle black>{name}</ButtonTitle>
           {thisCoinPrice && (
-            <ButtonTitle>
-              USD {numberFormatter(thisCoinPrice * Number(thisBalance))}
+            <ButtonTitle black>
+              US$ {numberFormatter(thisCoinPrice * Number(thisBalance))}
             </ButtonTitle>
           )}
         </CardWalletContainer>
       </CardWallet>
       <BoxCardTitle>
-        <CardCoin>
+        <CardCoin black>
           {thisBalance} {coin}
         </CardCoin>
       </BoxCardTitle>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {
@@ -79,7 +80,9 @@ const styles = StyleSheet.create({
     width: 320,
     marginBottom: 20,
     paddingLeft: 10,
-    paddingTop: 5,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 8,
   },
   image: {
     height: 40,
