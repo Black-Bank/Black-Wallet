@@ -71,6 +71,13 @@ export const ButtonTitle = styled.Text`
   align-self: center;
   text-transform: uppercase;
 `;
+export const ButtonChartTitle = styled.Text`
+  font-size: 15px;
+  color: #fff;
+  font-weight: bold;
+  align-self: center;
+  text-transform: uppercase;
+`;
 
 export const CardWalletContainer = styled.View`
   margin-left: 10px;
@@ -102,6 +109,7 @@ export const CardCoin = styled.Text`
 export const WalletCard = styled.View`
   display: flex;
   flex: 1;
+  margin-top: 70px;
   justify-content: center;
   align-items: center;
 `;

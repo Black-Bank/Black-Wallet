@@ -7,8 +7,8 @@ import {Container, Description, Title} from './EvoBalance.style';
 
 export function EvoBalance() {
   const chartInstance = ChartController.getInstance();
-  const dayDataFinance = chartInstance.data.getBalance.day;
-  const value = dayDataFinance[dayDataFinance.length - 1].toFixed(2);
+  const dayDataFinance = chartInstance?.data?.getBalance.day;
+  const value = dayDataFinance[dayDataFinance?.length - 1].toFixed(2);
 
   return (
     <>

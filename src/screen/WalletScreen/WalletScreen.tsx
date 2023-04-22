@@ -82,13 +82,6 @@ export function WalletScreen({
           <Text>{description}</Text>
         </W.DescriptionBox>
       </S.WalletCard>
-      <W.GoBackButtonSpace>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <S.GeneralButtonStyles>
-            <S.ButtonTitle>{WALLET_SCREEN.goBack}</S.ButtonTitle>
-          </S.GeneralButtonStyles>
-        </TouchableOpacity>
-      </W.GoBackButtonSpace>
     </S.WalletCard>
   );
 }

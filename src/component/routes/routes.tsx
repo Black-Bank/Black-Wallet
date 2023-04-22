@@ -45,7 +45,11 @@ export function Routes() {
             component={Home}
             options={optionsHomeStyle}
           />
-          <Stack.Screen name="WalletScren" component={WalletScreen} />
+          <Stack.Screen
+            name="WalletScren"
+            component={WalletScreen}
+            options={optionsHomeStyle}
+          />
           <Stack.Screen
             name="TransactionScreen"
             component={TransactionScreen}

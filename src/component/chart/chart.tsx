@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {Dimensions, TouchableOpacity} from 'react-native';
 import {
-  ButtonTitle,
+  ButtonChartTitle,
   Container,
   ContainerChartButton,
   GeneralButtonStyles,
@@ -14,7 +14,7 @@ import ChartController from './controller/chartController';
 export function Chart() {
   const date = new Date();
   const chartInstance = ChartController.getInstance();
-  const data = chartInstance.data;
+  const data = chartInstance?.data;
   let DataSemester = data?.getBalance.month;
   let DataWeek = data?.getBalance.week;
   let DataDay = data?.getBalance.day;
@@ -40,26 +40,8 @@ export function Chart() {
 
   const [period, setPeriod] = useState<string[]>(obj.labelDay);
   const [periodData, setPeriodData] = useState<any>(DataDay);
-  const [profit, setProfit] = useState<boolean>(true);
-
-  const CheckProfit = (periode: string) => {
-    if (periode === 'diario') {
-      const balance = DataDay[DataDay.length - 1] - DataDay[DataDay.length - 2];
-      setProfit(Boolean(balance > 0));
-    } else if (periode === 'semanal') {
-      const balance =
-        DataWeek[DataWeek.length - 1] - DataWeek[DataWeek.length - 2];
-      setProfit(Boolean(balance > 0));
-    } else if (periode === 'mensal') {
-      const balance =
-        DataSemester[DataSemester.length - 1] -
-        DataSemester[DataSemester.length - 2];
-      setProfit(Boolean(balance > 0));
-    }
-  };
 
   const ManagePeriod = (periode: string) => {
-    CheckProfit(periode);
     if (periode === 'diario') {
       setPeriod(obj.labelDay);
       setPeriodData(DataDay);
@@ -119,17 +101,17 @@ export function Chart() {
         <ContainerChartButton>
           <TouchableOpacity onPress={() => ManagePeriod('mensal')}>
             <GeneralButtonStyles>
-              <ButtonTitle>mensal</ButtonTitle>
+              <ButtonChartTitle>mensal</ButtonChartTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => ManagePeriod('semanal')}>
             <GeneralButtonStyles>
-              <ButtonTitle>semanal</ButtonTitle>
+              <ButtonChartTitle>semanal</ButtonChartTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => ManagePeriod('diario')}>
             <GeneralButtonStyles>
-              <ButtonTitle>diario</ButtonTitle>
+              <ButtonChartTitle>diario</ButtonChartTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
         </ContainerChartButton>
