@@ -1,12 +1,8 @@
 import React, {useContext, useEffect} from 'react';
-import * as S from '../../component/styles/styles';
-import {ActivityIndicator, FlatList, StatusBar} from 'react-native';
-import {WalletCard} from '../../component/walletCard/WalletCardItem';
-import {HOME} from '../../component/strings/pt-br';
+import {ActivityIndicator, StatusBar} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
 
-import {IWallet} from './interfaces';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {useUpdateChart} from '../../component/hooks/useUpdateChart';

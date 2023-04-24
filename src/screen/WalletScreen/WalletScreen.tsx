@@ -5,8 +5,6 @@ import {WALLET_SCREEN} from '../../component/strings/pt-br';
 import * as S from '../../component/styles/styles';
 import * as W from './styles';
 import {ModalScreen} from './ModalScreen';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ECoinType} from '../../component/types/interfaces';
 
 export function WalletScreen({
@@ -22,7 +20,6 @@ export function WalletScreen({
   };
 }) {
   const {walletAddress, coin, privateKey, balance} = route!.params;
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const coinBaseName = (coinBase: string): string => {
     if (coinBase === ECoinType.BTC) {
       return WALLET_SCREEN.SendOnlyBTC;
