@@ -9,6 +9,10 @@ import {AuthScreen} from '../../screen/AuthScreen/AuthScreen';
 import {AuthContext} from '../../contexts/auth';
 import {SignupScreen} from '../../screen/SignUpScreen/SignUpScreen';
 import {EvoBalance} from '../../screen/EvolutionBalanceScreen/EvoBalance';
+import {ForgotScreen} from '../../screen/ForgotScreen/ForgotScreen';
+import {ForgotRoutes} from '../../screen/ForgotScreen/ForgotRoutes';
+import {AuthRoutes} from '../../screen/AuthScreen/AuthRoutes';
+
 const Stack = createNativeStackNavigator();
 
 export function Routes() {
@@ -61,40 +65,11 @@ export function Routes() {
           />
         </>
       ) : (
-        <>
-          <Stack.Screen
-            name="AuthScreen"
-            component={AuthScreen}
-            options={{
-              headerStyle: {
-                backgroundColor: '#35224b',
-              },
-              headerTitleStyle: {
-                color: '#fff',
-              },
-              headerTintColor: '#fff',
-              headerTransparent: true,
-              headerTitle: 'Black',
-              headerTitleAlign: 'center',
-            }}
-          />
-
-          <Stack.Screen
-            name="SignUpScreen"
-            component={SignupScreen}
-            options={{
-              headerStyle: {
-                backgroundColor: '#35224b',
-              },
-              headerTitleStyle: {
-                color: '#fff',
-              },
-              headerTintColor: '#fff',
-              headerTransparent: true,
-              headerTitle: 'Login',
-            }}
-          />
-        </>
+        <Stack.Screen
+          name="AuthRoutes"
+          options={{headerShown: false}}
+          component={AuthRoutes}
+        />
       )}
     </Stack.Navigator>
   );

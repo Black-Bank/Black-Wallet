@@ -12,6 +12,8 @@ import {
   SignButton,
   SignText,
   LoginButton,
+  SignLink,
+  SignLinkText,
 } from './Auth.style';
 import {useMutation} from '@apollo/client';
 import {VERIFY_USER} from '../../component/client/queries/queries';
@@ -41,6 +43,9 @@ export function AuthScreen() {
   const crypto = new Crypto();
   const handleSignUp = () => {
     navigation.navigate('SignUpScreen');
+  };
+  const handleForgot = () => {
+    navigation.navigate('ForgotScreen');
   };
   const handleLogin = async ({email, password}: AuthType) => {
     const currentTimeMillis = new Date().getTime();
@@ -78,7 +83,6 @@ export function AuthScreen() {
       console.error('Ocorreu um erro ao executar a consulta: ', error);
     } finally {
       setIsLoading(false);
-      // limpa recursos ou atualiza a interface do usuário
     }
   };
 
@@ -143,6 +147,9 @@ export function AuthScreen() {
               <SignButton onPress={handleSignUp}>
                 <SignText>Cadastre-se</SignText>
               </SignButton>
+              <SignLink onPress={handleForgot}>
+                <SignLinkText>Esqueci minha senha</SignLinkText>
+              </SignLink>
             </>
           )}
         </Formik>

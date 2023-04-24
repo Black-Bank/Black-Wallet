@@ -22,7 +22,7 @@ export const WalletMock = [
             totalBalance: 100,
           },
         ],
-        loading: false,
+        loading: true,
       },
     },
   },

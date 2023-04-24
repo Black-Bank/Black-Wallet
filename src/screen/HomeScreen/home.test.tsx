@@ -27,8 +27,16 @@ describe('it should render home screen', () => {
       </NavigationContainer>
     );
     render(component);
-    const wallets = await screen.findByText('Evolução');
+    const wallets = await screen.findByText('Carteiras');
+    const evoButton = await screen.findByText('Evolução');
+    const addButton = await screen.findByText('Adicionar');
+    const transferButton = await screen.findByText('Transferir');
+    const trashButton = await screen.findByText('Excluir');
 
+    expect(evoButton).toBeTruthy();
+    expect(addButton).toBeTruthy();
+    expect(transferButton).toBeTruthy();
+    expect(trashButton).toBeTruthy();
     expect(wallets).toBeTruthy();
   });
 });
