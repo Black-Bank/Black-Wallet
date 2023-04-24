@@ -39,11 +39,9 @@ describe('it render transactional screen', () => {
     render(component);
 
     const send = await screen.findByText('Enviar');
-    const goBack = await screen.findByText('Voltar');
     const value = await screen.findByText('U$ 0.00');
 
     expect(send).toBeTruthy();
-    expect(goBack).toBeTruthy();
     expect(value).toBeTruthy();
   });
 

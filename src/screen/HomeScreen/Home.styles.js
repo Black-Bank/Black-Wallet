@@ -63,6 +63,7 @@ export const OptionButtonAll = styled.View`
 
 export const LoadingContainer = styled.View`
   height: 100%;
+
   align-items: center;
   justify-content: center;
 `;
