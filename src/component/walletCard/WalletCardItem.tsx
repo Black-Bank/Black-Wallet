@@ -14,7 +14,7 @@ import {
 import {numberFormatter} from '../utils/functions/Format';
 import {ECoinType} from '../types/interfaces';
 
-export const WalletCard = ({
+export const WalletCardItem = ({
   name,
   coin,
   address,

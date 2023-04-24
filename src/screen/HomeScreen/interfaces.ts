@@ -1,7 +1,7 @@
 export interface IWallet {
-  name: string;
+  name?: string;
   address: string;
-  WalletType: string;
+  WalletType?: string;
 }
 
 export interface IWalletData {
