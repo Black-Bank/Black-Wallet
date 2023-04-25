@@ -78,3 +78,12 @@ export const CREATE_USER = gql`
     CreateUser(token: $token)
   }
 `;
+
+export const SEND_CODE_EMAIL = gql`
+  mutation SendEmail($email: String!) {
+    SendCodePassEmail(Email: $email) {
+      code
+      isSend
+    }
+  }
+`;

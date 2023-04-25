@@ -14,7 +14,11 @@ import {ActivityIndicator, StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import Toast from 'react-native-toast-message';
+import {useMutation} from '@apollo/client';
+import {SEND_CODE_EMAIL} from '../../component/client/queries/queries';
+import Crypto from '../../component/services/ComunicationSystemsAuth';
 
+const crypto = new Crypto();
 const validationSchema = yup.object().shape({
   email: yup.string().email('Email Inválido').required('O email é obrigatório'),
 });
@@ -22,30 +26,42 @@ const validationSchema = yup.object().shape({
 export function ForgotScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [code, setCode] = useState<number>();
+  const [code, setCode] = useState<string>('');
+  const [SendCode] = useMutation(SEND_CODE_EMAIL);
 
-  const handleSendCode = async (values: any) => {
+  const handleSendCode = async (values: {email: string; code?: string}) => {
     setIsLoading(true);
-
-    // Simula o envio do código para o email informado
-    const randomNumber = Math.floor(1000 + Math.random() * 9000);
-    setCode(randomNumber);
-
-    Toast.show({
-      type: 'success',
-      text1: 'Código enviado com sucesso',
-      visibilityTime: 3000,
-      autoHide: true,
-    });
     const handleConfirmation = () => {
       navigation.navigate('AuthScreen', {
         email: values.email,
-        code: randomNumber,
+        code: code,
       });
     };
 
-    setIsLoading(false);
-    setTimeout(handleConfirmation, 3000);
+    try {
+      const {data} = await SendCode({
+        variables: {
+          email: values.email,
+        },
+      });
+      setCode(crypto.decrypt(data.SendCodePassEmail.code));
+      Toast.show({
+        type: 'success',
+        text1: 'Código enviado com sucesso',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
+      setTimeout(handleConfirmation, 3000);
+    } catch (error: any) {
+      Toast.show({
+        type: 'error',
+        text1: 'Não foi enviar o código para este email',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCancel = () => {
@@ -61,7 +77,7 @@ export function ForgotScreen() {
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
           <Container marginTop={StatusBar.currentHeight}>
-            <Title>Esqueci minha senha</Title>
+            <Title>Digite seu Email abaixo</Title>
             <InputContainer>
               <InputStyled
                 placeholderTextColor="#ccc"

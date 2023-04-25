@@ -5,12 +5,8 @@ import {WalletScreen} from '../../screen/WalletScreen/WalletScreen';
 import {TransactionScreen} from '../../screen/TransactionScreen/TransactionScreen';
 import {useContext} from 'react';
 
-import {AuthScreen} from '../../screen/AuthScreen/AuthScreen';
 import {AuthContext} from '../../contexts/auth';
-import {SignupScreen} from '../../screen/SignUpScreen/SignUpScreen';
 import {EvoBalance} from '../../screen/EvolutionBalanceScreen/EvoBalance';
-import {ForgotScreen} from '../../screen/ForgotScreen/ForgotScreen';
-import {ForgotRoutes} from '../../screen/ForgotScreen/ForgotRoutes';
 import {AuthRoutes} from '../../screen/AuthScreen/AuthRoutes';
 
 const Stack = createNativeStackNavigator();
