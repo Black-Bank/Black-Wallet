@@ -61,6 +61,24 @@ export const LoginButton = styled.TouchableOpacity`
   margin-top: 16px;
 `;
 
+export const SignLink = styled.TouchableOpacity`
+  background-color: transparent;
+  justify-content: center;
+  width: 80%;
+  border: none;
+  align-items: center;
+  margin-top: 60px;
+  cursor: default;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const SignLinkText = styled.Text`
+  color: #fff;
+  text-decoration: none;
+`;
 export const SignButton = styled.TouchableOpacity`
   background-color: #7159c1;
   justify-content: center;
@@ -69,12 +87,15 @@ export const SignButton = styled.TouchableOpacity`
   border-radius: 8px;
   align-items: center;
   margin-top: 16px;
+  cursor: pointer;
 `;
 
 export const SignText = styled.Text`
   color: #fff;
   font-size: 16px;
   text-decoration-line: underline;
+  cursor: pointer;
+  text-decoration: underline;
 `;
 
 export const Error = styled.Text`

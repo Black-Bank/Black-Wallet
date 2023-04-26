@@ -2,28 +2,25 @@
 import React, {useEffect, useState} from 'react';
 import {Dimensions, TouchableOpacity} from 'react-native';
 import {
-  ButtonTitle,
+  ButtonChartTitle,
   Container,
   ContainerChartButton,
   GeneralButtonStyles,
 } from '../styles/styles';
 import {LineChart} from 'react-native-chart-kit';
 import {RefactorData} from './functions/chartFunctions';
-import {useGetBalance} from '../hooks/useGetBalance';
-import {useMutation} from '@apollo/client';
-import {INSERT_BALANCE} from '../client/queries/queries';
-import AuthStore from '../../screen/AuthScreen/AuthStore';
+import ChartController from './controller/chartController';
 
-export function Chart({TotalBalance}: {TotalBalance: number}) {
+export function Chart() {
   const date = new Date();
-  const {data, refetch} = useGetBalance();
+  const chartInstance = ChartController.getInstance();
+  const data = chartInstance?.data;
   let DataSemester = data?.getBalance.month;
   let DataWeek = data?.getBalance.week;
   let DataDay = data?.getBalance.day;
   const actualYear = date?.getFullYear();
   const Month = date.getMonth() + 1;
   const day = date.getDate();
-  const todayDate = `${day}/${Month}/${actualYear}`;
   const DATA = RefactorData(
     actualYear,
     Month,
@@ -43,29 +40,8 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
 
   const [period, setPeriod] = useState<string[]>(obj.labelDay);
   const [periodData, setPeriodData] = useState<any>(DataDay);
-  const [profit, setProfit] = useState<boolean>(true);
-  const [insertBalance] = useMutation(INSERT_BALANCE);
-  const loginInstance = AuthStore.getInstance();
-  const Email = loginInstance.email;
-  const refetchTime = 10;
-  const CheckProfit = (periode: string) => {
-    if (periode === 'diario') {
-      const balance = DataDay[DataDay.length - 1] - DataDay[DataDay.length - 2];
-      setProfit(Boolean(balance > 0));
-    } else if (periode === 'semanal') {
-      const balance =
-        DataWeek[DataWeek.length - 1] - DataWeek[DataWeek.length - 2];
-      setProfit(Boolean(balance > 0));
-    } else if (periode === 'mensal') {
-      const balance =
-        DataSemester[DataSemester.length - 1] -
-        DataSemester[DataSemester.length - 2];
-      setProfit(Boolean(balance > 0));
-    }
-  };
 
   const ManagePeriod = (periode: string) => {
-    CheckProfit(periode);
     if (periode === 'diario') {
       setPeriod(obj.labelDay);
       setPeriodData(DataDay);
@@ -77,29 +53,13 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
       setPeriodData(DATA?.dataSemester);
     }
   };
-  const isChartUpdate = Boolean(
-    data && data?.getBalance.updateDate !== todayDate && TotalBalance >= 0,
-  );
 
   useEffect(() => {
-    if (isChartUpdate) {
-      insertBalance({
-        variables: {
-          Email: Email,
-          newBalance: TotalBalance,
-        },
-      }).then(() => setTimeout(refetch, refetchTime));
-    }
-  }, [data, TotalBalance]);
-
-  useEffect(() => {
-    if (data) {
-      ManagePeriod('diario');
-    }
-  }, [data]);
+    ManagePeriod('diario');
+  }, []);
 
   const padding = 100;
-  const defaultColor = '#121212';
+  const defaultColor = '#f3ecec';
   return (
     <>
       <Container>
@@ -121,11 +81,8 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
             backgroundGradientFrom: defaultColor,
             backgroundGradientTo: defaultColor,
             decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) =>
-              profit
-                ? `rgba(127, 255, 0, ${opacity})`
-                : `rgba(255, 20, 60, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             style: {
               borderRadius: 16,
             },
@@ -144,17 +101,17 @@ export function Chart({TotalBalance}: {TotalBalance: number}) {
         <ContainerChartButton>
           <TouchableOpacity onPress={() => ManagePeriod('mensal')}>
             <GeneralButtonStyles>
-              <ButtonTitle>mensal</ButtonTitle>
+              <ButtonChartTitle>mensal</ButtonChartTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => ManagePeriod('semanal')}>
             <GeneralButtonStyles>
-              <ButtonTitle>semanal</ButtonTitle>
+              <ButtonChartTitle>semanal</ButtonChartTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => ManagePeriod('diario')}>
             <GeneralButtonStyles>
-              <ButtonTitle>diario</ButtonTitle>
+              <ButtonChartTitle>diario</ButtonChartTitle>
             </GeneralButtonStyles>
           </TouchableOpacity>
         </ContainerChartButton>

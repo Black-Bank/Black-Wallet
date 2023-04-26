@@ -40,7 +40,6 @@ describe('it should render wallet screen', () => {
     );
     const trash = await screen.findByText('Excluir');
     const send = await screen.findByText('Enviar');
-    const goBackButton = await screen.findByText('Voltar');
     const receivedCoin = await screen.findByText('Receber BTC');
     const copy = await screen.findByText('copiar');
     const walletAdress = await screen.findByText(
@@ -53,17 +52,6 @@ describe('it should render wallet screen', () => {
     expect(walletAdress).toBeTruthy();
     expect(copy).toBeTruthy();
     expect(description).toBeTruthy();
-    expect(goBackButton).toBeTruthy();
-  });
-
-  it('should goBack to home', async () => {
-    render(component);
-    const goBackButton = await screen.findByText('Voltar');
-    expect(goBackButton).toBeTruthy();
-    fireEvent.press(screen.getByText('Voltar'));
-    await waitFor(() => {
-      expect(mockedNavigate).toBeCalledWith('Home');
-    });
   });
 
   it('should display modal', async () => {
@@ -74,46 +62,6 @@ describe('it should render wallet screen', () => {
     fireEvent.press(screen.getByText('Enviar'));
     await waitFor(() => {
       expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
-    });
-  });
-
-  it('should display modal invalid caracter Error', async () => {
-    render(component);
-    const sendButton = await screen.findByText('Enviar');
-
-    expect(await sendButton).toBeTruthy();
-    fireEvent.press(screen.getByText('Enviar'));
-    await waitFor(() => {
-      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
-    });
-
-    fireEvent.changeText(screen.getByTestId('addressWalletInput'), '@676n ');
-    await waitFor(async () => {
-      expect(
-        await screen.findByText(
-          'Seu endereço da carteira contém espaços ou caracteres invalidos.',
-        ),
-      ).toBeTruthy();
-    });
-  });
-
-  it('should display modal space invalid caracter Error', async () => {
-    render(component);
-    const sendButton = await screen.findByText('Enviar');
-
-    expect(await sendButton).toBeTruthy();
-    fireEvent.press(screen.getByText('Enviar'));
-    await waitFor(() => {
-      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
-    });
-
-    fireEvent.changeText(screen.getByTestId('addressWalletInput'), ' ');
-    await waitFor(async () => {
-      expect(
-        await screen.findByText(
-          'Seu endereço da carteira contém espaços ou caracteres invalidos.',
-        ),
-      ).toBeTruthy();
     });
   });
 

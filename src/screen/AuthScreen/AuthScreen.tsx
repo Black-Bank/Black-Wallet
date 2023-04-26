@@ -12,10 +12,11 @@ import {
   SignButton,
   SignText,
   LoginButton,
+  SignLink,
+  SignLinkText,
 } from './Auth.style';
 import {useMutation} from '@apollo/client';
 import {VERIFY_USER} from '../../component/client/queries/queries';
-import config from '../../../config';
 import {ActivityIndicator, StatusBar} from 'react-native';
 import {Cypher} from './Cypher';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
@@ -43,12 +44,14 @@ export function AuthScreen() {
   const handleSignUp = () => {
     navigation.navigate('SignUpScreen');
   };
+  const handleForgot = () => {
+    navigation.navigate('ForgotScreen');
+  };
   const handleLogin = async ({email, password}: AuthType) => {
     const currentTimeMillis = new Date().getTime();
     const objToken = {
       passWord: Cypher(password),
       email: email,
-      key: config.KEY_SECRET_MONGODB,
       timer: currentTimeMillis,
     };
     const objTokenText = JSON.stringify(objToken);
@@ -80,7 +83,6 @@ export function AuthScreen() {
       console.error('Ocorreu um erro ao executar a consulta: ', error);
     } finally {
       setIsLoading(false);
-      // limpa recursos ou atualiza a interface do usuário
     }
   };
 
@@ -145,6 +147,9 @@ export function AuthScreen() {
               <SignButton onPress={handleSignUp}>
                 <SignText>Cadastre-se</SignText>
               </SignButton>
+              <SignLink onPress={handleForgot}>
+                <SignLinkText>Esqueci minha senha</SignLinkText>
+              </SignLink>
             </>
           )}
         </Formik>

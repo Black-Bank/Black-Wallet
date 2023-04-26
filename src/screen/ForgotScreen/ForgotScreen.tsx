@@ -1,0 +1,106 @@
+import React, {useState} from 'react';
+import {
+  Button,
+  ButtonText,
+  Container,
+  InputContainer,
+  InputStyled,
+  Title,
+  Error,
+} from '../SignUpScreen/SignUpScreen.style';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import {ActivityIndicator, StatusBar} from 'react-native';
+import {Formik} from 'formik';
+import * as yup from 'yup';
+import Toast from 'react-native-toast-message';
+import {useMutation} from '@apollo/client';
+import {SEND_CODE_EMAIL} from '../../component/client/queries/queries';
+import Crypto from '../../component/services/ComunicationSystemsAuth';
+
+const crypto = new Crypto();
+const validationSchema = yup.object().shape({
+  email: yup.string().email('Email Inválido').required('O email é obrigatório'),
+});
+
+export function ForgotScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [code, setCode] = useState<string>('');
+  const [SendCode] = useMutation(SEND_CODE_EMAIL);
+
+  const handleSendCode = async (values: {email: string; code?: string}) => {
+    setIsLoading(true);
+    const handleConfirmation = () => {
+      navigation.navigate('AuthScreen', {
+        email: values.email,
+        code: code,
+      });
+    };
+
+    try {
+      const {data} = await SendCode({
+        variables: {
+          email: values.email,
+        },
+      });
+      setCode(crypto.decrypt(data.SendCodePassEmail.code));
+      Toast.show({
+        type: 'success',
+        text1: 'Código enviado com sucesso',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
+      setTimeout(handleConfirmation, 3000);
+    } catch (error: any) {
+      Toast.show({
+        type: 'error',
+        text1: 'Não foi enviar o código para este email',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    navigation.goBack();
+  };
+
+  return (
+    <>
+      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <Formik
+        initialValues={{email: ''}}
+        onSubmit={handleSendCode}
+        validationSchema={validationSchema}>
+        {({handleChange, handleSubmit, values, errors, touched}) => (
+          <Container marginTop={StatusBar.currentHeight}>
+            <Title>Digite seu Email abaixo</Title>
+            <InputContainer>
+              <InputStyled
+                placeholderTextColor="#ccc"
+                placeholder="Email"
+                value={values.email}
+                onChangeText={handleChange('email')}
+                autoCapitalize="none"
+              />
+              {errors.email && touched.email && <Error>{errors.email}</Error>}
+            </InputContainer>
+            <Button onPress={handleSubmit}>
+              {isLoading ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <ButtonText>Enviar código</ButtonText>
+              )}
+            </Button>
+            <Button onPress={handleCancel}>
+              <ButtonText>Cancelar</ButtonText>
+            </Button>
+          </Container>
+        )}
+      </Formik>
+    </>
+  );
+}

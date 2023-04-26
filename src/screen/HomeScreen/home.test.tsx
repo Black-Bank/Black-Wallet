@@ -6,7 +6,17 @@ import {Home} from './home';
 import {WalletMock} from './walletMock';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
-
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
+const mockedNavigate = jest.fn();
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 describe('it should render home screen', () => {
   it('render home screen', async () => {
     const component = (
@@ -18,6 +28,15 @@ describe('it should render home screen', () => {
     );
     render(component);
     const wallets = await screen.findByText('Carteiras');
+    const evoButton = await screen.findByText('Evolução');
+    const addButton = await screen.findByText('Adicionar');
+    const transferButton = await screen.findByText('Transferir');
+    const trashButton = await screen.findByText('Excluir');
+
+    expect(evoButton).toBeTruthy();
+    expect(addButton).toBeTruthy();
+    expect(transferButton).toBeTruthy();
+    expect(trashButton).toBeTruthy();
     expect(wallets).toBeTruthy();
   });
 });
