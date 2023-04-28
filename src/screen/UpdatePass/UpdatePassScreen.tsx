@@ -17,6 +17,7 @@ import * as yup from 'yup';
 import {UPDATE_PASS} from '../../component/client/queries/queries';
 import {useMutation} from '@apollo/client';
 import Toast from 'react-native-toast-message';
+import {Cypher} from '../AuthScreen/Cypher';
 
 const validationSchema = yup.object().shape({
   password: yup
@@ -52,7 +53,7 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
       const {data} = await UpdatePass({
         variables: {
           email: email,
-          passWord: values.password,
+          passWord: Cypher(values.password),
         },
       });
 

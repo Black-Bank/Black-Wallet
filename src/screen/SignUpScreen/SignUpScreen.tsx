@@ -77,7 +77,6 @@ export function SignupScreen() {
       setIsLoading(false);
     }
   };
-  23;
 
   const handleCancel = () => {
     navigation.goBack();
