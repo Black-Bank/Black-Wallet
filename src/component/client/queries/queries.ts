@@ -87,3 +87,9 @@ export const SEND_CODE_EMAIL = gql`
     }
   }
 `;
+
+export const UPDATE_PASS = gql`
+  mutation UpdatePass($passWord: String!, $email: String!) {
+    UpdatePass(passWord: $passWord, Email: $email)
+  }
+`;

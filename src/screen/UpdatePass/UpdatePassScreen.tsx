@@ -8,20 +8,18 @@ import {
   InputStyled,
   Title,
   Error,
-} from './SignUpScreen.style';
+} from './UpdatePass.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {ActivityIndicator, StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {CREATE_USER} from '../../component/client/queries/queries';
+import {UPDATE_PASS} from '../../component/client/queries/queries';
 import {useMutation} from '@apollo/client';
-import Crypto from '../../component/services/ComunicationSystemsAuth';
-import {Cypher} from '../AuthScreen/Cypher';
 import Toast from 'react-native-toast-message';
+import {Cypher} from '../AuthScreen/Cypher';
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email('Email Inválido').required('O email é obrigatório'),
   password: yup
     .string()
     .min(8, 'Senha precisa ter pelo menos 8 caracteres')
@@ -33,43 +31,47 @@ const validationSchema = yup.object().shape({
     .required('Confirme a senha'),
 });
 
-export function SignupScreen() {
-  const crypto = new Crypto();
-  const [createUser] = useMutation(CREATE_USER);
+interface UpdateScreenProps {
+  route?: {
+    params: {
+      email: string;
+    };
+  };
+}
+
+export function UpdatePassScreen({route}: UpdateScreenProps) {
+  const {email} = route!.params;
+  const [UpdatePass] = useMutation(UPDATE_PASS);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSignup = async (values: any) => {
+  const handleChangePass = async (values: any) => {
     setIsLoading(true);
-    const objToken = {
-      passWord: Cypher(values.password),
-      email: values.email,
-    };
-    const objTokenText = JSON.stringify(objToken);
 
     try {
       setIsLoading(true);
-      const {data} = await createUser({
+      const {data} = await UpdatePass({
         variables: {
-          token: crypto.encrypt(objTokenText),
+          email: email,
+          passWord: Cypher(values.password),
         },
       });
 
-      if (data.CreateUser) {
+      if (data.UpdatePass) {
         Toast.show({
           type: 'success',
-          text1: 'Usuário criado com sucesso',
+          text1: 'Senha Alterada com Sucesso',
           visibilityTime: 3000,
           autoHide: true,
         });
-        setTimeout(() => navigation.goBack(), 3000);
+        setTimeout(() => navigation.navigate('AuthScreen'), 3000);
       }
     } catch (error: any) {
       Toast.show({
         type: 'error',
         text1: error.message
           ? error.message
-          : 'Não foi possível cadastrar o usuário',
+          : 'Não foi possível Alterar a Senha, tente novamente',
         visibilityTime: 3000,
         autoHide: true,
       });
@@ -77,9 +79,10 @@ export function SignupScreen() {
       setIsLoading(false);
     }
   };
+  23;
 
   const handleCancel = () => {
-    navigation.goBack();
+    navigation.navigate('AuthScreen');
   };
 
   return (
@@ -87,21 +90,12 @@ export function SignupScreen() {
       <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
       <Formik
         initialValues={{email: '', password: '', confirmPassword: ''}}
-        onSubmit={handleSignup}
+        onSubmit={handleChangePass}
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
           <Container marginTop={StatusBar.currentHeight}>
-            <Title>Cadastro</Title>
-            <InputContainer>
-              <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Email"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                autoCapitalize="none"
-              />
-              {errors.email && touched.email && <Error>{errors.email}</Error>}
-            </InputContainer>
+            <Title>Redefinir senha</Title>
+
             <InputContainer>
               <InputStyled
                 placeholderTextColor="#ccc"
@@ -130,7 +124,7 @@ export function SignupScreen() {
               {isLoading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
-                <ButtonText>Cadastrar</ButtonText>
+                <ButtonText>Redefinir Senha</ButtonText>
               )}
             </Button>
             <Button onPress={handleCancel}>
