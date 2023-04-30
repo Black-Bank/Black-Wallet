@@ -88,18 +88,15 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
   };
 
   const handleConfirmCode = () => {
-    const clickTime = new Date().getTime();
-    const diff = clickTime - currentTimeMillis;
-
     const text = codeInput.toUpperCase();
-    if (diff > expTime) {
+    if (timeRemaining <= 0) {
       Toast.show({
         type: 'error',
         text1: 'Código Expirado',
         visibilityTime: 3000,
         autoHide: true,
       });
-    } else if (code === text || RemaindCode === text) {
+    } else if (code === text || Boolean(RemaindCode && RemaindCode === text)) {
       navigation.navigate('UpdatePassScreen', {
         email: email,
       });
