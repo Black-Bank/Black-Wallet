@@ -5,6 +5,7 @@ import {SignupScreen} from '../SignUpScreen/SignUpScreen';
 import {ForgotScreen} from '../ForgotScreen/ForgotScreen';
 import {ConfirmCodeScreen} from '../Confirmation/Confirmation';
 import {UpdatePassScreen} from '../UpdatePass/UpdatePassScreen';
+import {ConfirmSignUpScreen} from '../SignUpScreen/ConfirmSignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,11 @@ export function AuthRoutes() {
       <Stack.Screen
         name="ConfirmationScreen"
         component={ConfirmCodeScreen}
+        options={optionsStyle}
+      />
+      <Stack.Screen
+        name="ConfirmationSignUpScreen"
+        component={ConfirmSignUpScreen}
         options={optionsStyle}
       />
       <Stack.Screen

@@ -40,7 +40,6 @@ export function ForgotScreen() {
   const handleSendCode = async (values: {email: string; code?: string}) => {
     setIsLoading(true);
     setEmail(values.email);
-    console.log('flags', values.email);
     try {
       const {data} = await SendCode({
         variables: {

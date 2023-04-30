@@ -1,5 +1,5 @@
-/* eslint-disable no-extra-boolean-cast */
-import React, {useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   ButtonText,
@@ -14,10 +14,9 @@ import {useNavigation} from '@react-navigation/native';
 import {ActivityIndicator, StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {CREATE_USER} from '../../component/client/queries/queries';
+import {SEND_CODE_SIGNUP_EMAIL} from '../../component/client/queries/queries';
 import {useMutation} from '@apollo/client';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
-import {Cypher} from '../AuthScreen/Cypher';
 import Toast from 'react-native-toast-message';
 
 const validationSchema = yup.object().shape({
@@ -35,41 +34,35 @@ const validationSchema = yup.object().shape({
 
 export function SignupScreen() {
   const crypto = new Crypto();
-  const [createUser] = useMutation(CREATE_USER);
+  const [SendCode] = useMutation(SEND_CODE_SIGNUP_EMAIL);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleSignup = async (values: any) => {
+  const [code, setCode] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const handleContinue = async (values: {password: string; email: string}) => {
     setIsLoading(true);
-    const objToken = {
-      passWord: Cypher(values.password),
-      email: values.email,
-    };
-    const objTokenText = JSON.stringify(objToken);
 
     try {
-      setIsLoading(true);
-      const {data} = await createUser({
+      setEmail(values.email);
+      setPassword(values.password);
+      const {data} = await SendCode({
         variables: {
-          token: crypto.encrypt(objTokenText),
+          email: values.email,
         },
       });
+      setCode(crypto.decrypt(data.SendSignUpCodePassEmail.code));
 
-      if (data.CreateUser) {
-        Toast.show({
-          type: 'success',
-          text1: 'Usuário criado com sucesso',
-          visibilityTime: 3000,
-          autoHide: true,
-        });
-        setTimeout(() => navigation.goBack(), 3000);
-      }
+      Toast.show({
+        type: 'success',
+        text1: 'Código enviado com sucesso',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
     } catch (error: any) {
       Toast.show({
         type: 'error',
-        text1: error.message
-          ? error.message
-          : 'Não foi possível cadastrar o usuário',
+        text1: 'Não foi enviar o código para este email',
         visibilityTime: 3000,
         autoHide: true,
       });
@@ -78,16 +71,30 @@ export function SignupScreen() {
     }
   };
 
+  const handleConfirmation = () => {
+    navigation.navigate('ConfirmationSignUpScreen', {
+      email: email,
+      code: code,
+      password: password,
+    });
+  };
+
   const handleCancel = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    if (code.length && email.length && password.length) {
+      setTimeout(handleConfirmation, 3000);
+    }
+  }, [code, email]);
 
   return (
     <>
       <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
       <Formik
         initialValues={{email: '', password: '', confirmPassword: ''}}
-        onSubmit={handleSignup}
+        onSubmit={handleContinue}
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
           <Container marginTop={StatusBar.currentHeight}>
@@ -130,7 +137,7 @@ export function SignupScreen() {
               {isLoading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
-                <ButtonText>Cadastrar</ButtonText>
+                <ButtonText>Seguir</ButtonText>
               )}
             </Button>
             <Button onPress={handleCancel}>
