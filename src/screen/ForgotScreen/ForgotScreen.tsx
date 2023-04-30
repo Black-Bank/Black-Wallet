@@ -35,6 +35,8 @@ export function ForgotScreen() {
     navigation.navigate('ConfirmationScreen', {
       email: email,
       code: code,
+      screenTo: 'UpdatePassScreen',
+      screenCancel: 'AuthScreen',
     });
   };
   const handleSendCode = async (values: {email: string; code?: string}) => {

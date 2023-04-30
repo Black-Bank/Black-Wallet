@@ -32,19 +32,20 @@ interface ConfirmationScreenProps {
     params: {
       email: string;
       code: string;
+      screenTo: string;
+      screenCancel: string;
     };
   };
 }
 
 export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
   const crypto = new Crypto();
-  const {email, code} = route!.params;
+  const {email, code, screenTo, screenCancel} = route!.params;
   const [SendCode] = useMutation(SEND_CODE_EMAIL);
   const [codeInput, setCode] = useState('');
   const [RemaindCode, setRemaindCode] = useState<string>('');
   const codeFields = useRef<(TextInput | null)[]>([]);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const currentTimeMillis = new Date().getTime();
   const expTime = 120000;
 
   const [timeRemaining, setTimeRemaining] = useState<number>(expTime);
@@ -97,7 +98,7 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
         autoHide: true,
       });
     } else if (code === text || Boolean(RemaindCode && RemaindCode === text)) {
-      navigation.navigate('UpdatePassScreen', {
+      navigation.navigate(screenTo, {
         email: email,
       });
     } else {
@@ -110,7 +111,7 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
     }
   };
   const handleCancel = () => {
-    navigation.navigate('AuthScreen');
+    navigation.navigate(screenCancel);
   };
 
   const handleReSendCode = async () => {
