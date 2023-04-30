@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useRef, useEffect} from 'react';
 import {TextInput} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
