@@ -24,7 +24,7 @@ import {FormatMinutes} from '../../component/utils/functions/FormatMinutes';
 import {useMutation} from '@apollo/client';
 import {
   DELETE_WALLET,
-  SEND_CODE_EMAIL,
+  SEND_DELETE_WALLET_EMAIL,
 } from '../../component/client/queries/queries';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 import {ActivityIndicator} from 'react-native-paper';
@@ -43,13 +43,12 @@ interface ConfirmationScreenProps {
 export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
   const crypto = new Crypto();
   const {email, code, address} = route!.params;
-  const [SendCode] = useMutation(SEND_CODE_EMAIL);
+  const [SendCode] = useMutation(SEND_DELETE_WALLET_EMAIL);
   const [deleteWallet] = useMutation(DELETE_WALLET);
   const [codeInput, setCode] = useState('');
   const [RemaindCode, setRemaindCode] = useState<string>('');
   const codeFields = useRef<(TextInput | null)[]>([]);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const currentTimeMillis = new Date().getTime();
   const expTime = 120000;
 
   const [timeRemaining, setTimeRemaining] = useState<number>(expTime);
@@ -110,23 +109,21 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
     });
     setTimeout(() => {
       navigation.navigate('Home');
+      setIsUpdate(!isUpdate);
     }, 2000);
-    setIsUpdate(!isUpdate);
   };
 
   const handleConfirmCode = async () => {
-    const clickTime = new Date().getTime();
-    const diff = clickTime - currentTimeMillis;
-
     const text = codeInput.toUpperCase();
-    if (diff > expTime) {
+
+    if (timeRemaining <= 0) {
       Toast.show({
         type: 'error',
         text1: 'Código Expirado',
         visibilityTime: 3000,
         autoHide: true,
       });
-    } else if (code === text || RemaindCode === text) {
+    } else if (code === text || Boolean(RemaindCode && RemaindCode === text)) {
       await deleteWalletConfirm();
     } else {
       Toast.show({
@@ -150,7 +147,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
           email: email,
         },
       });
-      setRemaindCode(crypto.decrypt(data.SendCodePassEmail.code));
+      setRemaindCode(crypto.decrypt(data.SendDeleteWalletCodeEmail.code));
 
       Toast.show({
         type: 'success',

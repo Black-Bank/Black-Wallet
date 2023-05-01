@@ -9,7 +9,7 @@ import * as W from './styles';
 import AuthStore from '../AuthScreen/AuthStore';
 import {useMutation} from '@apollo/client';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import {SEND_CODE_EMAIL} from '../../component/client/queries/queries';
+import {SEND_CODE_EMAIL, SEND_DELETE_WALLET_EMAIL} from '../../component/client/queries/queries';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 
 export function ModalScreen({
@@ -23,7 +23,7 @@ export function ModalScreen({
   const email = loginInstance.email;
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [code, setCode] = useState<string>('');
-  const [sendCode] = useMutation(SEND_CODE_EMAIL);
+  const [sendCode] = useMutation(SEND_DELETE_WALLET_EMAIL);
   const crypto = new Crypto();
 
   const handleConfirmation = () => {
@@ -41,7 +41,7 @@ export function ModalScreen({
           email: email,
         },
       });
-      setCode(crypto.decrypt(data.SendCodePassEmail.code));
+      setCode(crypto.decrypt(data.SendDeleteWalletCodeEmail.code));
 
       Toast.show({
         type: 'success',

@@ -95,6 +95,14 @@ export const SEND_CODE_SIGNUP_EMAIL = gql`
     }
   }
 `;
+export const SEND_DELETE_WALLET_EMAIL = gql`
+  mutation SendEmail($email: String!) {
+    SendDeleteWalletCodeEmail(Email: $email) {
+      code
+      isSend
+    }
+  }
+`;
 export const UPDATE_PASS = gql`
   mutation UpdatePass($passWord: String!, $email: String!) {
     UpdatePass(passWord: $passWord, Email: $email)
