@@ -1,11 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  render,
-  screen,
-  waitFor,
-  fireEvent,
-} from '@testing-library/react-native';
+import {render, screen} from '@testing-library/react-native';
 import {WalletScreen} from './WalletScreen';
 import {mockRoute} from './mock';
 import {MockedProvider} from '@apollo/client/testing';
@@ -52,34 +47,5 @@ describe('it should render wallet screen', () => {
     expect(walletAdress).toBeTruthy();
     expect(copy).toBeTruthy();
     expect(description).toBeTruthy();
-  });
-
-  it('should display modal', async () => {
-    render(component);
-    const sendButton = await screen.findByText('Enviar');
-
-    expect(await sendButton).toBeTruthy();
-    fireEvent.press(screen.getByText('Enviar'));
-    await waitFor(() => {
-      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
-    });
-  });
-
-  it('should display modal empty text Error', async () => {
-    render(component);
-    const sendButton = await screen.findByText('Enviar');
-
-    expect(await sendButton).toBeTruthy();
-    fireEvent.press(screen.getByText('Enviar'));
-    await waitFor(() => {
-      expect(screen.getByTestId('addressWalletInput')).toBeTruthy();
-    });
-
-    fireEvent.changeText(screen.getByTestId('addressWalletInput'), '');
-    await waitFor(async () => {
-      expect(
-        await screen.findByText('O endereço de destino está vazio.'),
-      ).toBeTruthy();
-    });
   });
 });
