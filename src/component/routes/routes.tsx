@@ -8,6 +8,7 @@ import {useContext} from 'react';
 import {AuthContext} from '../../contexts/auth';
 import {EvoBalance} from '../../screen/EvolutionBalanceScreen/EvoBalance';
 import {AuthRoutes} from '../../screen/AuthScreen/AuthRoutes';
+import {ConfirmDeleteWallet} from '../../screen/ConfirmationDeleteWallet/ConfirmationDeleteWallet';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,11 @@ export function Routes() {
             name="EvoScreen"
             component={EvoBalance}
             options={optionsStyle}
+          />
+          <Stack.Screen
+            name="ConfirmDeleteWallet"
+            component={ConfirmDeleteWallet}
+            options={optionsHomeStyle}
           />
         </>
       ) : (

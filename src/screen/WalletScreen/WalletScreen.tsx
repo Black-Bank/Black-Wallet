@@ -19,7 +19,7 @@ export function WalletScreen({
     };
   };
 }) {
-  const {walletAddress, coin, privateKey, balance} = route!.params;
+  const {walletAddress, coin} = route!.params;
   const coinBaseName = (coinBase: string): string => {
     if (coinBase === ECoinType.BTC) {
       return WALLET_SCREEN.SendOnlyBTC;
@@ -49,20 +49,10 @@ export function WalletScreen({
       )}
       <W.ModalBox>
         <View>
-          <ModalScreen
-            coin={coin}
-            title={WALLET_SCREEN.Trash}
-            address={walletAddress}
-          />
+          <ModalScreen title={WALLET_SCREEN.Trash} address={walletAddress} />
         </View>
         <View>
-          <ModalScreen
-            coin={coin}
-            title={WALLET_SCREEN.Send}
-            address={walletAddress}
-            privateKey={privateKey}
-            balance={balance}
-          />
+          <ModalScreen title={WALLET_SCREEN.Send} address={walletAddress} />
         </View>
       </W.ModalBox>
       <S.WalletCard>
