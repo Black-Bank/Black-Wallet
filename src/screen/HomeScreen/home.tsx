@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {ActivityIndicator, StatusBar} from 'react-native';
+import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
 
@@ -28,7 +28,6 @@ import {
   FeatureBlockSmallThumbnail,
   FeatureBlockSmallText,
 } from './Home.styles';
-import {ScrollView} from 'react-native-gesture-handler';
 import BankIcon from '../../assets/bank.svg';
 import TransferIcon from '../../assets/transfer.svg';
 import WalletIcon from '../../assets/wallet.svg';
@@ -96,6 +95,8 @@ export function Home() {
     );
   };
 
+  console.log('renderizou');
+
   return (
     <>
       <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
@@ -118,15 +119,13 @@ export function Home() {
             </AccountContainerSupport>
 
             <OptionsContainer>
-              <ScrollView horizontal>
-                {menuItems.map((item, index) => (
-                  <RenderMenuCarousel
-                    icon={item.icon}
-                    name={item.name}
-                    index={index}
-                  />
-                ))}
-              </ScrollView>
+              {menuItems.map((item, index) => (
+                <RenderMenuCarousel
+                  icon={item.icon}
+                  name={item.name}
+                  index={index}
+                />
+              ))}
             </OptionsContainer>
 
             <Divider />

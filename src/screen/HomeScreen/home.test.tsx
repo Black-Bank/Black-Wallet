@@ -26,7 +26,9 @@ describe('it should render home screen', () => {
         </MockedProvider>
       </NavigationContainer>
     );
+
     render(component);
+
     const evoButton = await screen.findByText('Evolução');
     const addButton = await screen.findByText('Adicionar');
     const transferButton = await screen.findByText('Transferir');
