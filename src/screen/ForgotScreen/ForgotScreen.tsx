@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   ButtonText,
@@ -27,17 +28,18 @@ export function ForgotScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [code, setCode] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [SendCode] = useMutation(SEND_CODE_EMAIL);
 
+  const handleConfirmation = () => {
+    navigation.navigate('ConfirmationScreen', {
+      email: email,
+      code: code,
+    });
+  };
   const handleSendCode = async (values: {email: string; code?: string}) => {
     setIsLoading(true);
-    const handleConfirmation = () => {
-      navigation.navigate('AuthScreen', {
-        email: values.email,
-        code: code,
-      });
-    };
-
+    setEmail(values.email);
     try {
       const {data} = await SendCode({
         variables: {
@@ -45,13 +47,13 @@ export function ForgotScreen() {
         },
       });
       setCode(crypto.decrypt(data.SendCodePassEmail.code));
+
       Toast.show({
         type: 'success',
         text1: 'Código enviado com sucesso',
         visibilityTime: 3000,
         autoHide: true,
       });
-      setTimeout(handleConfirmation, 3000);
     } catch (error: any) {
       Toast.show({
         type: 'error',
@@ -67,6 +69,12 @@ export function ForgotScreen() {
   const handleCancel = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    if (code.length && email.length) {
+      setTimeout(handleConfirmation, 3000);
+    }
+  }, [code]);
 
   return (
     <>

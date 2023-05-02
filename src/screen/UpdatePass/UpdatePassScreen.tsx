@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+/* eslint-disable no-extra-boolean-cast */
+import React, {useState} from 'react';
 import {
   Button,
   ButtonText,
@@ -8,19 +8,18 @@ import {
   InputStyled,
   Title,
   Error,
-} from './SignUpScreen.style';
+} from './UpdatePass.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {ActivityIndicator, StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {SEND_CODE_SIGNUP_EMAIL} from '../../component/client/queries/queries';
+import {UPDATE_PASS} from '../../component/client/queries/queries';
 import {useMutation} from '@apollo/client';
-import Crypto from '../../component/services/ComunicationSystemsAuth';
 import Toast from 'react-native-toast-message';
+import {Cypher} from '../AuthScreen/Cypher';
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email('Email Inválido').required('O email é obrigatório'),
   password: yup
     .string()
     .min(8, 'Senha precisa ter pelo menos 8 caracteres')
@@ -32,37 +31,47 @@ const validationSchema = yup.object().shape({
     .required('Confirme a senha'),
 });
 
-export function SignupScreen() {
-  const crypto = new Crypto();
-  const [SendCode] = useMutation(SEND_CODE_SIGNUP_EMAIL);
+interface UpdateScreenProps {
+  route?: {
+    params: {
+      email: string;
+    };
+  };
+}
+
+export function UpdatePassScreen({route}: UpdateScreenProps) {
+  const {email} = route!.params;
+  const [UpdatePass] = useMutation(UPDATE_PASS);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [code, setCode] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const handleContinue = async (values: {password: string; email: string}) => {
+
+  const handleChangePass = async (values: any) => {
     setIsLoading(true);
 
     try {
-      setEmail(values.email);
-      setPassword(values.password);
-      const {data} = await SendCode({
+      setIsLoading(true);
+      const {data} = await UpdatePass({
         variables: {
-          email: values.email,
+          email: email,
+          passWord: Cypher(values.password),
         },
       });
-      setCode(crypto.decrypt(data.SendSignUpCodePassEmail.code));
 
-      Toast.show({
-        type: 'success',
-        text1: 'Código enviado com sucesso',
-        visibilityTime: 3000,
-        autoHide: true,
-      });
+      if (data.UpdatePass) {
+        Toast.show({
+          type: 'success',
+          text1: 'Senha Alterada com Sucesso',
+          visibilityTime: 3000,
+          autoHide: true,
+        });
+        setTimeout(() => navigation.navigate('AuthScreen'), 3000);
+      }
     } catch (error: any) {
       Toast.show({
         type: 'error',
-        text1: 'Não foi enviar o código para este email',
+        text1: error.message
+          ? error.message
+          : 'Não foi possível Alterar a Senha, tente novamente',
         visibilityTime: 3000,
         autoHide: true,
       });
@@ -70,45 +79,23 @@ export function SignupScreen() {
       setIsLoading(false);
     }
   };
-
-  const handleConfirmation = () => {
-    navigation.navigate('ConfirmationSignUpScreen', {
-      email: email,
-      code: code,
-      password: password,
-    });
-  };
+  23;
 
   const handleCancel = () => {
-    navigation.goBack();
+    navigation.navigate('AuthScreen');
   };
-
-  useEffect(() => {
-    if (code.length && email.length && password.length) {
-      setTimeout(handleConfirmation, 3000);
-    }
-  }, [code, email]);
 
   return (
     <>
       <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
       <Formik
         initialValues={{email: '', password: '', confirmPassword: ''}}
-        onSubmit={handleContinue}
+        onSubmit={handleChangePass}
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
           <Container marginTop={StatusBar.currentHeight}>
-            <Title>Cadastro</Title>
-            <InputContainer>
-              <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Email"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                autoCapitalize="none"
-              />
-              {errors.email && touched.email && <Error>{errors.email}</Error>}
-            </InputContainer>
+            <Title>Redefinir senha</Title>
+
             <InputContainer>
               <InputStyled
                 placeholderTextColor="#ccc"
@@ -137,7 +124,7 @@ export function SignupScreen() {
               {isLoading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
-                <ButtonText>Seguir</ButtonText>
+                <ButtonText>Redefinir Senha</ButtonText>
               )}
             </Button>
             <Button onPress={handleCancel}>
