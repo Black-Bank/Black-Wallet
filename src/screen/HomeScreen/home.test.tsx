@@ -26,8 +26,9 @@ describe('it should render home screen', () => {
         </MockedProvider>
       </NavigationContainer>
     );
+
     render(component);
-    const wallets = await screen.findByText('Carteiras');
+
     const evoButton = await screen.findByText('Evolução');
     const addButton = await screen.findByText('Adicionar');
     const transferButton = await screen.findByText('Transferir');
@@ -37,6 +38,5 @@ describe('it should render home screen', () => {
     expect(addButton).toBeTruthy();
     expect(transferButton).toBeTruthy();
     expect(trashButton).toBeTruthy();
-    expect(wallets).toBeTruthy();
   });
 });

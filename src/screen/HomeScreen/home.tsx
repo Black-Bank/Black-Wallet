@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {ActivityIndicator, StatusBar} from 'react-native';
+import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
 
@@ -16,12 +16,36 @@ import {
   OptionButtonAll,
   OptionsButton,
   OptionsContainer,
+  Divider,
+  FeatureCard,
+  FeatureCardContent,
+  CardName,
+  FeatureBlockLarge,
+  FeaturesWrapper,
+  FeatureBlockLargeThumbnail,
+  FeatureBlockLargeText,
+  FeatureBlockSmall,
+  FeatureBlockSmallThumbnail,
+  FeatureBlockSmallText,
 } from './Home.styles';
 import BankIcon from '../../assets/bank.svg';
 import TransferIcon from '../../assets/transfer.svg';
 import WalletIcon from '../../assets/wallet.svg';
+import PlusIcon from '../../assets/plus.svg';
 import TrashIcon from '../../assets/trash.svg';
-import {WalletList} from '../../component/walletList/WalletList';
+import CaretRightIcon from '../../assets/caret-right.svg';
+// import {WalletList} from '../../component/walletList/WalletList';
+
+interface IMenuItem {
+  icon: any;
+  name: string;
+}
+
+interface IRenderMenuCarouselProps {
+  icon: any;
+  name: string;
+  index: number;
+}
 
 export function Home() {
   const {isUpdate} = useContext(AuthContext);
@@ -37,6 +61,42 @@ export function Home() {
     setTimeout(refetch, refetchTime);
   }, [refetch, isUpdate]);
 
+  const menuItems: IMenuItem[] = [
+    {
+      icon: <BankIcon width={20} height={30} fill="#212121" />,
+      name: 'Evolução',
+    },
+    {
+      icon: <PlusIcon width={20} height={30} fill="#212121" />,
+      name: 'Adicionar',
+    },
+    {
+      icon: <TrashIcon width={20} height={30} fill="#212121" />,
+      name: 'Excluir',
+    },
+    {
+      icon: <TransferIcon width={30} height={40} fill="#212121" />,
+      name: 'Transferir',
+    },
+  ];
+
+  const RenderMenuCarousel: React.FC<IRenderMenuCarouselProps> = ({
+    icon,
+    name,
+    index,
+  }) => {
+    return (
+      <OptionButtonAll key={index}>
+        <OptionsButton onPress={() => navigation.navigate('EvoScreen')}>
+          {icon}
+        </OptionsButton>
+        <Description>{name}</Description>
+      </OptionButtonAll>
+    );
+  };
+
+  console.log('renderizou');
+
   return (
     <>
       <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
@@ -45,45 +105,82 @@ export function Home() {
           <ActivityIndicator size="large" color="#0a0909" />
         </LoadingContainer>
       ) : (
-        <>
-          <AccountContainerSupport
-            onPress={() => navigation.navigate('EvoScreen')}>
-            <AccountBalanceContainer>
-              <BalanceText>Conta</BalanceText>
-              <BalanceText>US$ {totalBalance?.toFixed(2)}</BalanceText>
-            </AccountBalanceContainer>
-            <IconContainer>
-              <BankIcon width={30} height={30} fill="#212121" />
-            </IconContainer>
-          </AccountContainerSupport>
-          <OptionsContainer>
-            <OptionButtonAll>
-              <OptionsButton onPress={() => navigation.navigate('EvoScreen')}>
-                <BankIcon width={20} height={30} fill="#212121" />
-              </OptionsButton>
-              <Description>Evolução</Description>
-            </OptionButtonAll>
-            <OptionButtonAll>
-              <OptionsButton>
-                <WalletIcon width={20} height={30} fill="#212121" />
-              </OptionsButton>
-              <Description>Adicionar</Description>
-            </OptionButtonAll>
-            <OptionButtonAll>
-              <OptionsButton>
-                <TransferIcon width={30} height={40} fill="#212121" />
-              </OptionsButton>
-              <Description>Transferir</Description>
-            </OptionButtonAll>
-            <OptionButtonAll>
-              <OptionsButton>
-                <TrashIcon width={20} height={30} fill="#212121" />
-              </OptionsButton>
-              <Description>Excluir</Description>
-            </OptionButtonAll>
-          </OptionsContainer>
-          <WalletList data={data} isUpdate={isUpdate} />
-        </>
+        <ScrollView>
+          <>
+            <AccountContainerSupport
+              onPress={() => navigation.navigate('EvoScreen')}>
+              <AccountBalanceContainer>
+                <BalanceText>Conta</BalanceText>
+                <BalanceText>US$ {totalBalance?.toFixed(2)}</BalanceText>
+              </AccountBalanceContainer>
+              <IconContainer>
+                <CaretRightIcon width={20} height={20} fill="#202020" />
+              </IconContainer>
+            </AccountContainerSupport>
+
+            <OptionsContainer>
+              {menuItems.map((item, index) => (
+                <RenderMenuCarousel
+                  icon={item.icon}
+                  name={item.name}
+                  index={index}
+                />
+              ))}
+            </OptionsContainer>
+
+            <Divider />
+
+            <FeatureCard>
+              <FeatureCardContent>
+                <WalletIcon height={30} width={30} fill={'#272727'} />
+
+                <CardName>Carteiras</CardName>
+              </FeatureCardContent>
+            </FeatureCard>
+
+            <FeaturesWrapper>
+              <FeatureBlockLarge>
+                <FeatureBlockLargeThumbnail
+                  source={require('../../assets/horizon.png')}
+                />
+
+                <FeatureBlockLargeText>
+                  Convide seus amigos!
+                </FeatureBlockLargeText>
+              </FeatureBlockLarge>
+            </FeaturesWrapper>
+
+            <FeaturesWrapper>
+              <FeatureBlockSmall>
+                <FeatureBlockSmallThumbnail
+                  source={require('../../assets/buy-bitcoin.png')}
+                />
+
+                <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
+              </FeatureBlockSmall>
+
+              <FeatureBlockSmall>
+                <FeatureBlockSmallThumbnail
+                  source={require('../../assets/ethereum.png')}
+                />
+
+                <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
+              </FeatureBlockSmall>
+            </FeaturesWrapper>
+
+            <FeaturesWrapper>
+              <FeatureBlockLarge>
+                <FeatureBlockLargeThumbnail
+                  source={require('../../assets/help.png')}
+                />
+
+                <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
+              </FeatureBlockLarge>
+            </FeaturesWrapper>
+
+            {/* <WalletList data={data} isUpdate={isUpdate} /> */}
+          </>
+        </ScrollView>
       )}
     </>
   );
