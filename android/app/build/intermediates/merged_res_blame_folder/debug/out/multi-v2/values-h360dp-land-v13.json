@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\2003s\\OneDrive\\Ambiente de Trabalho\\Black-Wallet\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-h360dp-land-v13\\values-h360dp-land-v13.xml",
+            "outputFile": "C:\\documentos\\Nova pasta\\Black-Wallet\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-h360dp-land-v13\\values-h360dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\2003s\\.gradle\\caches\\transforms-3\\19f285c5360101e74a65ffd2dd8f0c51\\transformed\\material-1.1.0\\res\\values-h360dp-land-v13\\values-h360dp-land-v13.xml",
+                    "source": "C:\\Users\\makso\\.gradle\\caches\\transforms-3\\d66390e9f57cd03f4fe478c67b878d95\\transformed\\material-1.1.0\\res\\values-h360dp-land-v13\\values-h360dp-land-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
