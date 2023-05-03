@@ -34,7 +34,6 @@ import WalletIcon from '../../assets/wallet.svg';
 import PlusIcon from '../../assets/plus.svg';
 import TrashIcon from '../../assets/trash.svg';
 import CaretRightIcon from '../../assets/caret-right.svg';
-// import {WalletList} from '../../component/walletList/WalletList';
 
 interface IMenuItem {
   icon: any;
@@ -177,8 +176,6 @@ export function Home() {
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
               </FeatureBlockLarge>
             </FeaturesWrapper>
-
-            {/* <WalletList data={data} isUpdate={isUpdate} /> */}
           </>
         </ScrollView>
       )}
