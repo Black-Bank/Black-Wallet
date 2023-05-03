@@ -1,8 +1,16 @@
 import * as React from 'react';
-import {useState} from 'react'
-import {ActivityIndicator} from 'react-native';
-import { ButtonText, ContainerCreateWallet, CreateWalletButton, Error, InputContainer, InputStyled, Title } from "./style";
-import { Formik, FormikProps } from 'formik';
+import {useState} from 'react';
+// import {ActivityIndicator} from 'react-native';
+import {
+  // ButtonText,
+  ContainerCreateWallet,
+  // CreateWalletButton,
+  Error,
+  InputContainer,
+  InputStyled,
+  Title,
+} from './style';
+import {Formik, FormikProps} from 'formik';
 import DropDownPicker, {ItemType} from 'react-native-dropdown-picker';
 import * as yup from 'yup';
 
@@ -15,49 +23,48 @@ interface FormValues {
   cryptocurrency: string;
 }
 
-export function CreateWallet () {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isOpenSelect, setIsOpenSelect] = useState<boolean>(false);
-    const [valueSelect, setValueSelect] = useState<string | null>(null);
-    const [itemsSelect, setItemsSelect] = useState<ItemTypeWithKey<string>[]>([
-      { label: 'Bitcoin', value: 'bitcoin', key: 'btc' },
-      { label: 'Ethereum', value: 'ethereum', key: 'eth' },
-    ]);
+export function CreateWallet() {
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpenSelect, setIsOpenSelect] = useState<boolean>(false);
+  const [valueSelect, setValueSelect] = useState<string | null>(null);
+  const [itemsSelect, setItemsSelect] = useState<ItemTypeWithKey<string>[]>([
+    {label: 'Bitcoin', value: 'bitcoin', key: 'btc'},
+    {label: 'Ethereum', value: 'ethereum', key: 'eth'},
+  ]);
 
-    const createWalletValidationSchema = yup.object().shape({
-        name: yup.string().required(),
-        cryptocurrency: yup.string().required(),
-    });
+  const createWalletValidationSchema = yup.object().shape({
+    name: yup.string().required(),
+    cryptocurrency: yup.string().required(),
+  });
 
-    // const handleCreateWallet = async ({name, cryptocurrency}: CreateWalletType) => {
-    //     console.log("*******", name, "***", cryptocurrency)
-    // };
+  // const handleCreateWallet = async ({name, cryptocurrency}: CreateWalletType) => {
+  //     console.log("*******", name, "***", cryptocurrency)
+  // };
 
-    // const options: ItemTypeWithKey<string>[] = [
-    //   { label: 'Bitcoin', value: 'bitcoin', key: 'btc' },
-    //   { label: 'Ethereum', value: 'ethereum', key: 'eth' },
-    // ];
+  // const options: ItemTypeWithKey<string>[] = [
+  //   { label: 'Bitcoin', value: 'bitcoin', key: 'btc' },
+  //   { label: 'Ethereum', value: 'ethereum', key: 'eth' },
+  // ];
 
-    return (
-        <>
-          <ContainerCreateWallet>
-            <Title>Criar carteira</Title>
-            <Formik <FormValues>
-                initialValues={{ name: '', cryptocurrency: 'ete'}}
-                validationSchema={createWalletValidationSchema}
-                onSubmit={(values) => {
-                  console.log(values)
-                  console.log(valueSelect)
-                }}
-            >
-            {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-            }: FormikProps<FormValues>) => (
+  return (
+    <>
+      <ContainerCreateWallet>
+        <Title>Criar carteira</Title>
+        <Formik<FormValues>
+          initialValues={{name: '', cryptocurrency: 'ete'}}
+          validationSchema={createWalletValidationSchema}
+          onSubmit={values => {
+            console.log(values);
+            console.log(valueSelect);
+          }}>
+          {({
+            handleChange,
+            handleBlur,
+            // handleSubmit,
+            values,
+            errors,
+            touched,
+          }: FormikProps<FormValues>) => (
             <>
               <InputContainer>
                 <InputStyled
@@ -72,7 +79,7 @@ export function CreateWallet () {
 
               <InputContainer>
                 <DropDownPicker
-                  placeholder='Selecione um item'
+                  placeholder="Selecione um item"
                   open={isOpenSelect}
                   value={valueSelect}
                   items={itemsSelect}
@@ -89,22 +96,22 @@ export function CreateWallet () {
                   {...(DropDownPicker as any).props}
                   keyExtractor={(item: ItemTypeWithKey<string>) => item.key}
                 />
-                {touched.cryptocurrency && errors.cryptocurrency && <Error>{errors.cryptocurrency}</Error>}
+                {touched.cryptocurrency && errors.cryptocurrency && (
+                  <Error>{errors.cryptocurrency}</Error>
+                )}
               </InputContainer>
 
-              <CreateWalletButton onPress={handleSubmit}>
+              {/* <CreateWalletButton onPress={handleSubmit}>
                 {isLoading ? (
                   <ActivityIndicator size="small" color="#fff" />
                 ) : (
                   <ButtonText>Criar</ButtonText>
                 )}
-              </CreateWalletButton>
+              </CreateWalletButton> */}
             </>
           )}
-            </Formik>
-    
-            
-          </ContainerCreateWallet>
-        </>
-      );
+        </Formik>
+      </ContainerCreateWallet>
+    </>
+  );
 }
