@@ -9,6 +9,7 @@ import {AuthContext} from '../../contexts/auth';
 import {EvoBalance} from '../../screen/EvolutionBalanceScreen/EvoBalance';
 import {AuthRoutes} from '../../screen/AuthScreen/AuthRoutes';
 import {ConfirmDeleteWallet} from '../../screen/ConfirmationDeleteWallet/ConfirmationDeleteWallet';
+import { CreateWallet } from '../../screen/CreateWalletScreen/CreateWallet';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,16 @@ export function Routes() {
             options={optionsHomeStyle}
           />
           <Stack.Screen
+            name="EvoScreen"
+            component={EvoBalance}
+            options={optionsStyle}
+          />
+          <Stack.Screen 
+            name='CreateWallet' 
+            component={CreateWallet} 
+            options={optionsHomeStyle} 
+          />
+          <Stack.Screen
             name="WalletScren"
             component={WalletScreen}
             options={optionsHomeStyle}
@@ -54,11 +65,6 @@ export function Routes() {
           <Stack.Screen
             name="TransactionScreen"
             component={TransactionScreen}
-          />
-          <Stack.Screen
-            name="EvoScreen"
-            component={EvoBalance}
-            options={optionsStyle}
           />
           <Stack.Screen
             name="ConfirmDeleteWallet"

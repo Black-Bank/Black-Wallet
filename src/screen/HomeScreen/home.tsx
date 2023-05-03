@@ -38,12 +38,14 @@ import CaretRightIcon from '../../assets/caret-right.svg';
 interface IMenuItem {
   icon: any;
   name: string;
+  screen: string;
 }
 
 interface IRenderMenuCarouselProps {
   icon: any;
   name: string;
   index: number;
+  screen: string;
 }
 
 export function Home() {
@@ -64,18 +66,22 @@ export function Home() {
     {
       icon: <BankIcon width={20} height={30} fill="#212121" />,
       name: 'Evolução',
+      screen: 'EvoScreen',
     },
     {
       icon: <PlusIcon width={20} height={30} fill="#212121" />,
       name: 'Adicionar',
+      screen: 'CreateWallet',
     },
     {
       icon: <TrashIcon width={20} height={30} fill="#212121" />,
       name: 'Excluir',
+      screen: 'EvoScreen',
     },
     {
       icon: <TransferIcon width={30} height={40} fill="#212121" />,
       name: 'Transferir',
+      screen: 'EvoScreen'
     },
   ];
 
@@ -83,10 +89,11 @@ export function Home() {
     icon,
     name,
     index,
+    screen
   }) => {
     return (
       <OptionButtonAll key={index}>
-        <OptionsButton onPress={() => navigation.navigate('EvoScreen')}>
+        <OptionsButton onPress={() => navigation.navigate(screen)}>
           {icon}
         </OptionsButton>
         <Description>{name}</Description>
@@ -123,6 +130,7 @@ export function Home() {
                   icon={item.icon}
                   name={item.name}
                   index={index}
+                  screen={item.screen}
                 />
               ))}
             </OptionsContainer>
@@ -140,7 +148,7 @@ export function Home() {
             <FeaturesWrapper>
               <FeatureBlockLarge>
                 <FeatureBlockLargeThumbnail
-                  source={require('../../assets/horizon.png')}
+                  source={require('../../assets/horizon.jpg')}
                 />
 
                 <FeatureBlockLargeText>
@@ -152,7 +160,7 @@ export function Home() {
             <FeaturesWrapper>
               <FeatureBlockSmall>
                 <FeatureBlockSmallThumbnail
-                  source={require('../../assets/buy-bitcoin.png')}
+                  source={require('../../assets/buy-bitcoin.jpg')}
                 />
 
                 <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
@@ -160,7 +168,7 @@ export function Home() {
 
               <FeatureBlockSmall>
                 <FeatureBlockSmallThumbnail
-                  source={require('../../assets/ethereum.png')}
+                  source={require('../../assets/ETHLogo.png')}
                 />
 
                 <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
@@ -170,7 +178,7 @@ export function Home() {
             <FeaturesWrapper>
               <FeatureBlockLarge>
                 <FeatureBlockLargeThumbnail
-                  source={require('../../assets/help.png')}
+                  source={require('../../assets/help.jpg')}
                 />
 
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
