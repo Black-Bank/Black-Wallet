@@ -17,6 +17,7 @@ export const Title = styled.Text`
 export const InputContainer = styled.View`
   width: 80%;
   margin-bottom: 16px;
+  position: relative;
 `;
 
 export const InputStyled = styled.TextInput`
@@ -48,4 +49,13 @@ export const CreateWalletButton = styled.TouchableOpacity`
 export const ButtonText = styled.Text`
   color: #fff;
   font-size: 16px;
+`;
+
+export const ViewDropDown = styled.View`
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  border-radius: 5px;
+  width: 100%;
+  top: 105%;
 `;

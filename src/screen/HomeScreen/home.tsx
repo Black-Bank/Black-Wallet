@@ -34,6 +34,7 @@ import WalletIcon from '../../assets/wallet.svg';
 import PlusIcon from '../../assets/plus.svg';
 import TrashIcon from '../../assets/trash.svg';
 import CaretRightIcon from '../../assets/caret-right.svg';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 interface IMenuItem {
   icon: any;
@@ -93,7 +94,19 @@ export function Home() {
   }) => {
     return (
       <OptionButtonAll key={index}>
-        <OptionsButton onPress={() => navigation.navigate(screen)}>
+        <OptionsButton
+          onPress={() => {
+            if (screen === 'CreateWallet') {
+              data.getFormatedData.length < 6
+                ? navigation.navigate(screen)
+                : Toast.show({
+                    type: 'error',
+                    text1: 'Máximo 6 carteiras, exclua alguma existente.',
+                  });
+            } else {
+              navigation.navigate(screen);
+            }
+          }}>
           {icon}
         </OptionsButton>
         <Description>{name}</Description>
