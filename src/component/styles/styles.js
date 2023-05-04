@@ -47,11 +47,12 @@ export const ContainerChartButton = styled.View`
   flex-direction: row;
 `;
 export const WalletContainer = styled.View`
-  display: flex;
   flex: 1;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f3ecec;
+  padding-top: 100px;
 `;
 
 export const Title = styled.Text`
