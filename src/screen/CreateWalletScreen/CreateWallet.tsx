@@ -28,7 +28,7 @@ import {AuthContext} from '../../contexts/auth';
 
 interface RequestData {
   name: string;
-  WalletType: 'BTC' | 'ETH' | '';
+  WalletType: string;
 }
 
 export function CreateWallet() {
