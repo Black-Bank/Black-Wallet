@@ -80,8 +80,8 @@ export function Home() {
     },
     {
       icon: <TrashIcon width={20} height={30} fill="#212121" />,
-      name: 'Excluir',
-      screen: 'EvoScreen',
+      name: 'Futuros',
+      screen: 'FutureScreen',
     },
     {
       icon: <TransferIcon width={30} height={40} fill="#212121" />,
@@ -117,8 +117,6 @@ export function Home() {
       </OptionButtonAll>
     );
   };
-
-  console.log('renderizou');
 
   return (
     <>

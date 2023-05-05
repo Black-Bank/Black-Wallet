@@ -11,6 +11,7 @@ import {AuthRoutes} from '../../screen/AuthScreen/AuthRoutes';
 import {ConfirmDeleteWallet} from '../../screen/ConfirmationDeleteWallet/ConfirmationDeleteWallet';
 import {CreateWallet} from '../../screen/CreateWalletScreen/CreateWallet';
 import {WalletListScreen} from '../../screen/WalletListScreen/WalletListScreen';
+import {FutureScreen} from '../../screen/FutureScreen/FutureScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -75,6 +76,11 @@ export function Routes() {
           <Stack.Screen
             name="WalletListScreen"
             component={WalletListScreen}
+            options={optionsHomeStyle}
+          />
+          <Stack.Screen
+            name="FutureScreen"
+            component={FutureScreen}
             options={optionsHomeStyle}
           />
         </>

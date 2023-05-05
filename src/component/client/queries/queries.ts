@@ -21,6 +21,7 @@ export const GET_WALLETS = gql`
       privateKey
       coinPrice
       totalBalance
+      unconfirmedBalance
     }
   }
 `;
