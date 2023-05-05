@@ -59,6 +59,10 @@ export function Home() {
 
   useUpdateChart(totalBalance);
 
+  const walletsNavigate = () => {
+    navigation.navigate('WalletListScreen');
+  };
+
   useEffect(() => {
     setTimeout(refetch, refetchTime);
   }, [refetch, isUpdate]);
@@ -150,7 +154,7 @@ export function Home() {
 
             <Divider />
 
-            <FeatureCard>
+            <FeatureCard onPress={walletsNavigate}>
               <FeatureCardContent>
                 <WalletIcon height={30} width={30} fill={'#272727'} />
 

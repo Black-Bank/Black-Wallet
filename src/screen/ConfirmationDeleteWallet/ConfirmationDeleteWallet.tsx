@@ -108,7 +108,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
       autoHide: true,
     });
     setTimeout(() => {
-      navigation.navigate('Home');
+      navigation.navigate('WalletListScreen');
       setIsUpdate(!isUpdate);
     }, 2000);
   };
