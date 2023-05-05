@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\documentos\\Nova pasta\\Black-Wallet\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lo\\values-lo.xml",
+            "outputFile": "C:\\Users\\2003s\\OneDrive\\Ambiente de Trabalho\\Black-Wallet\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lo\\values-lo.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\makso\\.gradle\\caches\\transforms-3\\53122dfddfd0b682fe74c9823d5d0125\\transformed\\appcompat-1.4.1\\res\\values-lo\\values-lo.xml",
+                    "source": "C:\\Users\\2003s\\.gradle\\caches\\transforms-3\\a5da391e889210c4d2ba1ae6744f6033\\transformed\\appcompat-1.4.1\\res\\values-lo\\values-lo.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\makso\\.gradle\\caches\\transforms-3\\efc5fbdc5cddabff1e6dbe6ad771c56d\\transformed\\core-1.7.0\\res\\values-lo\\values-lo.xml",
+                    "source": "C:\\Users\\2003s\\.gradle\\caches\\transforms-3\\b5a8e99dac667ebea08e9f9757d3b404\\transformed\\core-1.7.0\\res\\values-lo\\values-lo.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
