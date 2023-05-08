@@ -32,7 +32,7 @@ describe('it should render home screen', () => {
     const evoButton = await screen.findByText('Evolução');
     const addButton = await screen.findByText('Adicionar');
     const transferButton = await screen.findByText('Transferir');
-    const trashButton = await screen.findByText('Excluir');
+    const trashButton = await screen.findByText('Futuros');
 
     expect(evoButton).toBeTruthy();
     expect(addButton).toBeTruthy();
