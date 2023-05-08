@@ -28,9 +28,9 @@ export function FutureCardItem({name, value, walletType}: IFutureCard) {
           </FutureCardWallet>
           <BoxCardTitle>
             {value > 0 ? (
-              <MoneyIn>Depósito: US$ {numberFormatter(value)}</MoneyIn>
+              <MoneyIn>Depósito: {numberFormatter(value)} USD</MoneyIn>
             ) : (
-              <MoneyOut>Retirada: -US$ {numberFormatter(value)}</MoneyOut>
+              <MoneyOut>Retirada: -{numberFormatter(value)} USD</MoneyOut>
             )}
           </BoxCardTitle>
         </FutureCard>
