@@ -89,7 +89,7 @@ export function Home() {
       screen: 'CreateWallet',
     },
     {
-      icon: <TrashIcon width={20} height={30} fill="#212121" />,
+      icon: <TransferIcon width={30} height={40} fill="#212121" />,
       name: 'Futuros',
       screen: 'FutureScreen',
       params: inTransactionalWallet,
