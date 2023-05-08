@@ -33,7 +33,6 @@ import BankIcon from '../../assets/bank.svg';
 import TransferIcon from '../../assets/transfer.svg';
 import WalletIcon from '../../assets/wallet.svg';
 import PlusIcon from '../../assets/plus.svg';
-import TrashIcon from '../../assets/trash.svg';
 import CaretRightIcon from '../../assets/caret-right.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
