@@ -5,7 +5,29 @@ export interface IFutureCard {
 }
 
 export interface IUnconfirmedWallet {
-  name: string;
-  unconfirmedBalance: number;
+  route: {
+    params: {
+      WalletType: string;
+      address: string;
+      balance: number;
+      coinPrice: number;
+      name: string;
+      privateKey: string;
+      totalBalance: number;
+      unconfirmedBalance: number;
+      __typename: string;
+    }[];
+  };
+}
+
+export interface IWalletType {
   WalletType: string;
+  address: string;
+  balance: number;
+  coinPrice: number;
+  name: string;
+  privateKey: string;
+  totalBalance: number;
+  unconfirmedBalance: number;
+  __typename: string;
 }

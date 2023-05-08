@@ -1,4 +1,5 @@
-import React, {useContext, useEffect} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
@@ -40,6 +41,7 @@ interface IMenuItem {
   icon: any;
   name: string;
   screen: string;
+  params?: any;
 }
 
 interface IRenderMenuCarouselProps {
@@ -47,12 +49,14 @@ interface IRenderMenuCarouselProps {
   name: string;
   index: number;
   screen: string;
+  params?: any;
 }
 
 export function Home() {
   const {isUpdate} = useContext(AuthContext);
 
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>([]);
   const refetchTime = 10;
   const {data, loading, refetch} = useGetWallets();
   const totalBalance = data?.getFormatedData[0].totalBalance;
@@ -65,6 +69,12 @@ export function Home() {
 
   useEffect(() => {
     setTimeout(refetch, refetchTime);
+    setInTransactionalWallet(
+      data?.getFormatedData.filter(
+        (wallets: {unconfirmedBalance: number}) =>
+          wallets.unconfirmedBalance !== 0,
+      ),
+    );
   }, [refetch, isUpdate]);
 
   const menuItems: IMenuItem[] = [
@@ -82,6 +92,7 @@ export function Home() {
       icon: <TrashIcon width={20} height={30} fill="#212121" />,
       name: 'Futuros',
       screen: 'FutureScreen',
+      params: inTransactionalWallet,
     },
     {
       icon: <TransferIcon width={30} height={40} fill="#212121" />,
@@ -95,6 +106,7 @@ export function Home() {
     name,
     index,
     screen,
+    params,
   }) => {
     return (
       <OptionButtonAll key={index}>
@@ -102,13 +114,16 @@ export function Home() {
           onPress={() => {
             if (screen === 'CreateWallet') {
               data.getFormatedData.length < 6
-                ? navigation.navigate(screen)
+                ? navigation.navigate(
+                    screen,
+                    params ? {paramScreens: params} : {},
+                  )
                 : Toast.show({
                     type: 'error',
                     text1: 'Máximo 6 carteiras, exclua alguma existente.',
                   });
             } else {
-              navigation.navigate(screen);
+              navigation.navigate(screen, params ? params : {});
             }
           }}>
           {icon}
@@ -146,6 +161,7 @@ export function Home() {
                   name={item.name}
                   index={index}
                   screen={item.screen}
+                  params={item.params}
                 />
               ))}
             </OptionsContainer>

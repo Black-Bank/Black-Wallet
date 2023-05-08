@@ -9,6 +9,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   font-size: 32px;
   color: black;
+  font-weight: bold;
   margin-bottom: 32px;
   margin-top: 80px;
 `;
@@ -52,10 +53,9 @@ export const FutureCardTitle = styled.Text`
 `;
 
 export const BoxCardTitle = styled.View`
-  margin-left: 10px;
   flex-direction: row;
   justify-content: flex-end;
-  margin-right: 30px;
+  margin-right: 10px;
 `;
 
 export const MoneyIn = styled.Text`
@@ -70,9 +70,37 @@ export const MoneyOut = styled.Text`
   color: red;
 `;
 
-export const FutureTotal = styled.View`
+export const FutureTotalContainer = styled.View`
+  background: rgba(153, 153, 153, 0.3);
+
   width: 320px;
+  border-radius: 8px;
   flex-direction: row;
-  justify-content: space-between;
-  padding-bottom: 30px;
+  padding: 0 16px;
+  padding-top: 20px;
+  padding-right: 20px;
+  margin-bottom: 10px;
+`;
+
+export const TextContainer = styled.View`
+  flex: 1;
+  align-items: flex-end;
+  padding-right: 10px;
+`;
+export const TotalText = styled.Text`
+  color: ${props => (props.value ? 'green' : 'red')};
+  font-weight: bold;
+  margin-left: 16px;
+`;
+export const DescText = styled.Text`
+  color: black;
+  font-weight: bold;
+  margin-left: 16px;
+  margin-bottom: 10px;
+  font-size: 16px;
+`;
+
+export const MoreButton = styled.TouchableOpacity`
+  margin-top: 10px;
+  margin-left: 16px;
 `;
