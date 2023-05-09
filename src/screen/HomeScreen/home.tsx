@@ -26,8 +26,6 @@ import {
   FeatureBlockLargeText,
   FeatureBlockSmall,
   FeatureBlockSmallText,
-  FeatureImageIconLarge,
-  FeatureImageIconSmall,
 } from './Home.styles';
 import BankIcon from '../../assets/bank.svg';
 import TransferIcon from '../../assets/transfer.svg';
@@ -35,6 +33,10 @@ import WalletIcon from '../../assets/wallet.svg';
 import PlusIcon from '../../assets/plus.svg';
 import CaretRightIcon from '../../assets/caret-right.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
+import BTCIcon from '../../assets/bitcoin.svg';
+import ETHIcon from '../../assets/ethereum.svg';
+import FriendIcon from '../../assets/friend.svg';
+import InfoIcon from '../../assets/info.svg';
 
 interface IMenuItem {
   icon: any;
@@ -177,9 +179,7 @@ export function Home() {
 
             <FeaturesWrapper>
               <FeatureBlockLarge>
-                <FeatureImageIconLarge
-                  source={require('../../assets/icon-amigo.png')}
-                />
+                <FriendIcon width={64} height={64} fill={'black'} />
 
                 <FeatureBlockLargeText>
                   Convide seus amigos!
@@ -189,25 +189,21 @@ export function Home() {
 
             <FeaturesWrapper>
               <FeatureBlockSmall>
-                <FeatureImageIconSmall
-                  source={require('../../assets/icon-bitcoin.png')}
-                />
+                <BTCIcon width={64} height={64} fill={'black'} />
                 <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
               </FeatureBlockSmall>
 
               <FeatureBlockSmall>
-                <FeatureImageIconSmall
-                  source={require('../../assets/icon-ethereum.png')}
-                />
+                <ETHIcon width={64} height={64} fill={'black'} />
+
                 <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
               </FeatureBlockSmall>
             </FeaturesWrapper>
 
             <FeaturesWrapper>
               <FeatureBlockLarge>
-                <FeatureImageIconLarge
-                  source={require('../../assets/icon-help.png')}
-                />
+                <InfoIcon width={64} height={64} fill={'black'} />
+
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
               </FeatureBlockLarge>
             </FeaturesWrapper>

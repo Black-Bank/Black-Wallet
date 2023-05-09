@@ -98,6 +98,7 @@ export const CardName = styled.Text`
 export const FeaturesWrapper = styled.View`
   padding: 15px;
   flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const FeatureBlockLarge = styled.TouchableOpacity`
@@ -106,45 +107,31 @@ export const FeatureBlockLarge = styled.TouchableOpacity`
   border-radius: 16px;
   background-color: #e6e6e6;
   align-items: center;
+  justify-content: center;
 `;
 
 export const FeatureBlockLargeText = styled.Text`
   height: 30px;
-  margin-top: 110px;
+  margin-top: 10px;
   margin-left: 10px;
   font-weight: bold;
   font-size: 18px;
-`;
-
-export const FeatureImageIconLarge = styled.Image`
-  width: 64px;
-  height: 64px;
-  position: absolute;
-  top: 30px;
-  left: 150px;
 `;
 
 export const FeatureBlockSmall = styled.TouchableOpacity`
   height: 160px;
   width: 170px;
   border-radius: 16px;
-  margin-right: 20px;
   background-color: #e6e6e6;
   position: relative;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const FeatureBlockSmallText = styled.Text`
   height: 30px;
-  margin-top: 120px;
+  margin-top: 10px;
   margin-left: 10px;
   font-weight: bold;
   font-size: 18px;
-`;
-
-export const FeatureImageIconSmall = styled.Image`
-  width: 64px;
-  height: 64px;
-  position: absolute;
-  top: 30px;
-  left: 55px;
 `;
