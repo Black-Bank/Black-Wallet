@@ -23,10 +23,8 @@ import {
   CardName,
   FeatureBlockLarge,
   FeaturesWrapper,
-  FeatureBlockLargeThumbnail,
   FeatureBlockLargeText,
   FeatureBlockSmall,
-  FeatureBlockSmallThumbnail,
   FeatureBlockSmallText,
 } from './Home.styles';
 import BankIcon from '../../assets/bank.svg';
@@ -35,6 +33,10 @@ import WalletIcon from '../../assets/wallet.svg';
 import PlusIcon from '../../assets/plus.svg';
 import CaretRightIcon from '../../assets/caret-right.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
+import BTCIcon from '../../assets/bitcoin.svg';
+import ETHIcon from '../../assets/ethereum.svg';
+import FriendIcon from '../../assets/friend.svg';
+import InfoIcon from '../../assets/info.svg';
 
 interface IMenuItem {
   icon: any;
@@ -177,9 +179,7 @@ export function Home() {
 
             <FeaturesWrapper>
               <FeatureBlockLarge>
-                <FeatureBlockLargeThumbnail
-                  source={require('../../assets/horizon.jpg')}
-                />
+                <FriendIcon width={64} height={64} fill={'black'} />
 
                 <FeatureBlockLargeText>
                   Convide seus amigos!
@@ -189,17 +189,12 @@ export function Home() {
 
             <FeaturesWrapper>
               <FeatureBlockSmall>
-                <FeatureBlockSmallThumbnail
-                  source={require('../../assets/buy-bitcoin.jpg')}
-                />
-
+                <BTCIcon width={64} height={64} fill={'black'} />
                 <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
               </FeatureBlockSmall>
 
               <FeatureBlockSmall>
-                <FeatureBlockSmallThumbnail
-                  source={require('../../assets/ETHLogo.png')}
-                />
+                <ETHIcon width={64} height={64} fill={'black'} />
 
                 <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
               </FeatureBlockSmall>
@@ -207,9 +202,7 @@ export function Home() {
 
             <FeaturesWrapper>
               <FeatureBlockLarge>
-                <FeatureBlockLargeThumbnail
-                  source={require('../../assets/help.jpg')}
-                />
+                <InfoIcon width={64} height={64} fill={'black'} />
 
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
               </FeatureBlockLarge>
