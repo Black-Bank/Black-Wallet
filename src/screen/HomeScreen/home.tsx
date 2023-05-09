@@ -23,11 +23,11 @@ import {
   CardName,
   FeatureBlockLarge,
   FeaturesWrapper,
-  FeatureBlockLargeThumbnail,
   FeatureBlockLargeText,
   FeatureBlockSmall,
-  FeatureBlockSmallThumbnail,
   FeatureBlockSmallText,
+  FeatureImageIconLarge,
+  FeatureImageIconSmall,
 } from './Home.styles';
 import BankIcon from '../../assets/bank.svg';
 import TransferIcon from '../../assets/transfer.svg';
@@ -177,8 +177,8 @@ export function Home() {
 
             <FeaturesWrapper>
               <FeatureBlockLarge>
-                <FeatureBlockLargeThumbnail
-                  source={require('../../assets/horizon.jpg')}
+                <FeatureImageIconLarge
+                  source={require('../../assets/icon-amigo.png')}
                 />
 
                 <FeatureBlockLargeText>
@@ -189,28 +189,25 @@ export function Home() {
 
             <FeaturesWrapper>
               <FeatureBlockSmall>
-                <FeatureBlockSmallThumbnail
-                  source={require('../../assets/buy-bitcoin.jpg')}
+                <FeatureImageIconSmall
+                  source={require('../../assets/icon-bitcoin.png')}
                 />
-
                 <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
               </FeatureBlockSmall>
 
               <FeatureBlockSmall>
-                <FeatureBlockSmallThumbnail
-                  source={require('../../assets/ETHLogo.png')}
+                <FeatureImageIconSmall
+                  source={require('../../assets/icon-ethereum.png')}
                 />
-
                 <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
               </FeatureBlockSmall>
             </FeaturesWrapper>
 
             <FeaturesWrapper>
               <FeatureBlockLarge>
-                <FeatureBlockLargeThumbnail
-                  source={require('../../assets/help.jpg')}
+                <FeatureImageIconLarge
+                  source={require('../../assets/icon-help.png')}
                 />
-
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
               </FeatureBlockLarge>
             </FeaturesWrapper>
