@@ -18,8 +18,10 @@ import ArrowDownIcon from '../../assets/ArrowDown.svg';
 
 export function FutureScreen({route}: IUnconfirmedWallet) {
   const wallets = route.params;
-  const btcWallets = wallets.filter(wallet => wallet.WalletType === 'BTC');
-  const btcPrice = btcWallets[0].coinPrice;
+  const btcWallets = Array.isArray(wallets)
+    ? wallets?.filter(wallet => wallet?.WalletType === 'BTC')
+    : [];
+  const btcPrice = btcWallets[0]?.coinPrice;
   const convertBTCFactor = 100000000;
   const SatoshisToDollar = btcPrice / convertBTCFactor;
   const [showDesc, setShowDesc] = useState<boolean>(false);
@@ -35,23 +37,29 @@ export function FutureScreen({route}: IUnconfirmedWallet) {
   };
 
   const totalUnconfirmedBTCBalance =
-    btcWallets.reduce((total, wallet) => total + wallet.unconfirmedBalance, 0) *
-    SatoshisToDollar;
-
+    btcWallets?.reduce(
+      (total, wallet) => total + wallet.unconfirmedBalance,
+      0,
+    ) * SatoshisToDollar;
   const isGain = Boolean(totalUnconfirmedBTCBalance >= 0);
-  //ArrowUpIcon
+  const hasBalance = Boolean(btcWallets.length);
+
   return (
     <Container>
       <Title>Lançamentos Futuros</Title>
       <FutureTotalContainer>
         <BankIcon width={24} height={24} fill="white" />
         <TextContainer>
-          <TotalText value={isGain}>
-            {isGain
-              ? numberFormatter(totalUnconfirmedBTCBalance)
-              : -numberFormatter(totalUnconfirmedBTCBalance)}{' '}
-            USD
-          </TotalText>
+          {hasBalance ? (
+            <TotalText value={isGain}>
+              {isGain
+                ? numberFormatter(totalUnconfirmedBTCBalance)
+                : -numberFormatter(totalUnconfirmedBTCBalance)}{' '}
+              USD
+            </TotalText>
+          ) : (
+            <TotalText value={isGain}>0.00 USD</TotalText>
+          )}
           <MoreButton onPress={() => setShowDesc(!showDesc)}>
             {showDesc ? (
               <ArrowUpIcon width={24} height={24} fill="#000" />

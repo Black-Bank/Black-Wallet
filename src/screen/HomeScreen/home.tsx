@@ -146,7 +146,9 @@ export function Home() {
               onPress={() => navigation.navigate('EvoScreen')}>
               <AccountBalanceContainer>
                 <BalanceText>Conta</BalanceText>
-                <BalanceText>US$ {totalBalance?.toFixed(2)}</BalanceText>
+                <BalanceText>
+                  {totalBalance?.toFixed(2) || '0.00'} USD
+                </BalanceText>
               </AccountBalanceContainer>
               <IconContainer>
                 <CaretRightIcon width={20} height={20} fill="#202020" />
