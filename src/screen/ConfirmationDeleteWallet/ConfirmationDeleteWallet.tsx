@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useState, useRef, useEffect, useContext} from 'react';
 import {TextInput} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -100,6 +101,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
         address: address,
       },
     });
+    setIsUpdate(!isUpdate);
 
     Toast.show({
       type: 'success',
@@ -108,8 +110,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
       autoHide: true,
     });
     setTimeout(() => {
-      navigation.navigate('WalletListScreen');
-      setIsUpdate(!isUpdate);
+      navigation.navigate('Home');
     }, 2000);
   };
 

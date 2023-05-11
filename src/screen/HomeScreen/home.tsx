@@ -59,13 +59,14 @@ export function Home() {
 
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>([]);
-  const refetchTime = 10;
+  const refetchTime = 100;
   const {data, loading, refetch} = useGetWallets();
-  const totalBalance = data?.getFormatedData[0].totalBalance;
-
+  const totalBalance = Boolean(data?.getFormatedData.length)
+    ? data?.getFormatedData[0].totalBalance
+    : 0;
   useUpdateChart(totalBalance);
 
-  const walletsNavigate = () => {
+  const walletsNavigate = async () => {
     navigation.navigate('WalletListScreen');
   };
 
@@ -115,7 +116,7 @@ export function Home() {
         <OptionsButton
           onPress={() => {
             if (screen === 'CreateWallet') {
-              data.getFormatedData.length < 6
+              data.getFormatedData.length < 6 || data === null
                 ? navigation.navigate(
                     screen,
                     params ? {paramScreens: params} : {},
