@@ -37,6 +37,7 @@ import BTCIcon from '../../assets/bitcoin.svg';
 import ETHIcon from '../../assets/ethereum.svg';
 import FriendIcon from '../../assets/friend.svg';
 import InfoIcon from '../../assets/info.svg';
+import {handleWhatsAppPress} from '../../component/services/wppServices';
 
 interface IMenuItem {
   icon: any;
@@ -190,12 +191,14 @@ export function Home() {
             </FeaturesWrapper>
 
             <FeaturesWrapper>
-              <FeatureBlockSmall>
+              <FeatureBlockSmall
+                onPress={() => handleWhatsAppPress('5521983206963')}>
                 <BTCIcon width={64} height={64} fill={'black'} />
                 <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
               </FeatureBlockSmall>
 
-              <FeatureBlockSmall>
+              <FeatureBlockSmall
+                onPress={() => handleWhatsAppPress('5521983206963')}>
                 <ETHIcon width={64} height={64} fill={'black'} />
 
                 <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
@@ -203,7 +206,8 @@ export function Home() {
             </FeaturesWrapper>
 
             <FeaturesWrapper>
-              <FeatureBlockLarge>
+              <FeatureBlockLarge
+                onPress={() => handleWhatsAppPress('5521983206963')}>
                 <InfoIcon width={64} height={64} fill={'black'} />
 
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
