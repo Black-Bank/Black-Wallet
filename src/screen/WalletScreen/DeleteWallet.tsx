@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import * as W from './styles';
 import AuthStore from '../AuthScreen/AuthStore';
@@ -9,16 +9,12 @@ import {useMutation} from '@apollo/client';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import {SEND_DELETE_WALLET_EMAIL} from '../../component/client/queries/queries';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
+import {AuthContext} from '../../contexts/auth';
 
-export function ModalScreen({
-  title,
-  address,
-}: {
-  title: string;
-  address: string;
-}) {
+export function DeleteWallet() {
   const loginInstance = AuthStore.getInstance();
   const email = loginInstance.email;
+  const {walletData} = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [code, setCode] = useState<string>('');
   const [sendCode] = useMutation(SEND_DELETE_WALLET_EMAIL);
@@ -28,7 +24,7 @@ export function ModalScreen({
     navigation.navigate('ConfirmDeleteWallet', {
       email: email,
       code: code,
-      address: address,
+      address: walletData.address,
     });
   };
 
@@ -67,7 +63,7 @@ export function ModalScreen({
     <>
       <TouchableOpacity onPress={handleSendCode}>
         <W.ModalContent>
-          <W.Title>{title}</W.Title>
+          <W.Title>{walletData.name}</W.Title>
         </W.ModalContent>
       </TouchableOpacity>
     </>

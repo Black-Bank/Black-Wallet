@@ -40,6 +40,7 @@ export const WalletCardItem = ({
           navigation: navigation,
           privateKey: thisWallet?.privateKey,
           balance: thisWallet?.balance,
+          name: name,
         })
       }>
       <CardWallet>

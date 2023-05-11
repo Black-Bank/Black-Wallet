@@ -12,6 +12,8 @@ import {ConfirmDeleteWallet} from '../../screen/ConfirmationDeleteWallet/Confirm
 import {CreateWallet} from '../../screen/CreateWalletScreen/CreateWallet';
 import {WalletListScreen} from '../../screen/WalletListScreen/WalletListScreen';
 import {FutureScreen} from '../../screen/FutureScreen/FutureScreen';
+import {WalletButtonRoute} from './WalletRouteButtons';
+import {DeleteWallet} from '../../screen/WalletScreen/DeleteWallet';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +29,18 @@ export function Routes() {
     headerTintColor: '#fff',
     headerTransparent: true,
     headerTitle: 'Home',
+  };
+  const optionsWalletStyle = {
+    headerStyle: {
+      backgroundColor: '#35224b',
+    },
+    headerTitleStyle: {
+      color: '#fff',
+    },
+    headerTintColor: '#fff',
+    headerTransparent: true,
+    headerTitle: '',
+    headerRight: () => <WalletButtonRoute />,
   };
   const optionsHomeStyle = {
     headerStyle: {
@@ -60,12 +74,18 @@ export function Routes() {
             options={optionsHomeStyle}
           />
           <Stack.Screen
-            name="WalletScren"
-            component={WalletScreen}
+            name="DeleteWalletScreen"
+            component={DeleteWallet}
             options={optionsHomeStyle}
           />
           <Stack.Screen
+            name="WalletScren"
+            component={WalletScreen}
+            options={optionsWalletStyle}
+          />
+          <Stack.Screen
             name="TransactionScreen"
+            options={optionsHomeStyle}
             component={TransactionScreen}
           />
           <Stack.Screen

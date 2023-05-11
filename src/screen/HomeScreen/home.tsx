@@ -116,7 +116,7 @@ export function Home() {
         <OptionsButton
           onPress={() => {
             if (screen === 'CreateWallet') {
-              data.getFormatedData.length < 6 || data === null
+              data?.getFormatedData.length < 6 || data === null
                 ? navigation.navigate(
                     screen,
                     params ? {paramScreens: params} : {},

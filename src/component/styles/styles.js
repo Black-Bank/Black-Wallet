@@ -114,6 +114,11 @@ export const WalletCard = styled.View`
   justify-content: center;
   align-items: center;
 `;
+export const ContentCard = styled.View`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`;
 
 export const SendCard = styled.View`
   flex: 1;
