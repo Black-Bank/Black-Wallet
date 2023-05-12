@@ -10,6 +10,7 @@ import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import {SEND_DELETE_WALLET_EMAIL} from '../../component/client/queries/queries';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 import {AuthContext} from '../../contexts/auth';
+import {ActivityIndicator} from 'react-native-paper';
 
 export function DeleteWallet() {
   const loginInstance = AuthStore.getInstance();
@@ -52,6 +53,9 @@ export function DeleteWallet() {
       });
     }
   };
+  useEffect(() => {
+    handleSendCode();
+  }, []);
 
   useEffect(() => {
     if (code !== '') {
@@ -60,12 +64,8 @@ export function DeleteWallet() {
   }, [code]);
 
   return (
-    <>
-      <TouchableOpacity onPress={handleSendCode}>
-        <W.ModalContent>
-          <W.Title>{walletData.name}</W.Title>
-        </W.ModalContent>
-      </TouchableOpacity>
-    </>
+    <W.ModalContainer>
+      <ActivityIndicator />
+    </W.ModalContainer>
   );
 }

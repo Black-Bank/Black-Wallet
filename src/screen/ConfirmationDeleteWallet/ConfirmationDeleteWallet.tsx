@@ -136,7 +136,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
     }
   };
   const handleCancel = () => {
-    navigation.goBack();
+    navigation.navigate('Home');
   };
 
   const handleReSendCode = async () => {
