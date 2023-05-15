@@ -26,6 +26,17 @@ export const GET_WALLETS = gql`
   }
 `;
 
+export const GET_TRANSFER_INFO = gql`
+  query GetTransferInfo($coin: String!) {
+    getTransferInfo(coin: $coin) {
+      LowFee
+      MediumFee
+      economicFee
+      fatestFee
+    }
+  }
+`;
+
 export const CREAT_ETH_WALLET = gql`
   mutation ($Email: String!, $name: String!) {
     createEthWallet(Email: $Email, name: $name)

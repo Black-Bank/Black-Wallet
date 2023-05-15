@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {GetCoinPrice} from './GetCoinPrice';
@@ -13,6 +13,7 @@ import {
   DotItem,
   EmptyDotItem,
   ErrorMessage,
+  FeeContainer,
   InputWalletAddress,
   InputWalletValue,
   InsideInternalBox,
@@ -41,6 +42,8 @@ import BTCIcon from '../../assets/BitcoinLogo.svg';
 import ETHIcon from '../../assets/ETHTransaction.svg';
 import BankIcon from '../../assets/bank.svg';
 import Clipboard from '@react-native-clipboard/clipboard';
+import {useGetTransferInfo} from '../../component/hooks/useGetTransferInfo';
+import {ITaxContract} from './types';
 
 export function TransactionScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -50,7 +53,9 @@ export function TransactionScreen() {
   const [valueError, setValueError] = useState<boolean>(true);
   const [valueAmountError, setValueAmountError] = useState<boolean>(true);
   const {walletData} = useContext(AuthContext);
+  const {data} = useGetTransferInfo();
   const [selectedOption, setSelectedOption] = useState<string>(walletData.coin);
+  const [selectedTaxOption, setSelectedTaxOption] = useState<string>('midle');
   const [value, setValue] = useState<string>('');
   const addressBTCRegex = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
   const addressETHRegex = /^0x[0-9a-fA-F]{40}$/;
@@ -58,6 +63,20 @@ export function TransactionScreen() {
   const isETHWallet = Boolean(walletData.coin === ECoinType.ETH);
   const dolarTotal = Number(
     (Number(walletData.balance) * coinPrice).toFixed(2),
+  );
+  const factor = isBTCWallet
+    ? 100000000
+    : isETHWallet
+    ? 1000000000000000000
+    : 1;
+  const taxContract: Record<string, string> = {
+    low: data?.getTransferInfo.LowFee,
+    midle: data?.getTransferInfo.MediumFee,
+    hight: data?.getTransferInfo.fatestFee,
+  };
+  const coinTax = Number(taxContract[selectedTaxOption]) / factor;
+  const usdTax = Number(
+    ((Number(taxContract[selectedTaxOption]) / factor) * coinPrice).toFixed(2),
   );
 
   useEffect(() => {
@@ -90,9 +109,11 @@ export function TransactionScreen() {
       setValueError(false);
     }
     if (selectedOption === walletData.coin) {
-      setValueAmountError(Boolean(Number(value) > walletData.balance));
+      setValueAmountError(
+        Boolean(Number(value) > walletData.balance - coinTax),
+      );
     } else if (selectedOption === ECoinType.USD) {
-      setValueAmountError(Boolean(Number(value) > dolarTotal));
+      setValueAmountError(Boolean(Number(value) > dolarTotal - usdTax));
     }
   };
 
@@ -104,6 +125,7 @@ export function TransactionScreen() {
     handleWalletAdress(address);
     handleValue(value);
   }, [address, value, selectedOption]);
+
   return (
     <>
       <TransactionContainer>
@@ -194,7 +216,39 @@ export function TransactionScreen() {
               {Number(value) / coinPrice} {walletData.coin}
             </SelectorText>
           )}
+
+          <FeeContainer>
+            {selectedOption === walletData.coin ? (
+              <TransactionTextItem>
+                Taxa: {coinTax} {walletData.coin}
+              </TransactionTextItem>
+            ) : (
+              <TransactionTextItem>Taxa: {usdTax} USD</TransactionTextItem>
+            )}
+
+            <SelectorButton>
+              {selectedTaxOption === 'hight' ? (
+                <DotItem onPress={() => setSelectedTaxOption('hight')} />
+              ) : (
+                <EmptyDotItem onPress={() => setSelectedTaxOption('hight')} />
+              )}
+              <SelectorText>Alta</SelectorText>
+              {selectedTaxOption === 'midle' ? (
+                <DotItem onPress={() => setSelectedTaxOption('midle')} />
+              ) : (
+                <EmptyDotItem onPress={() => setSelectedTaxOption('midle')} />
+              )}
+              <SelectorText>Média</SelectorText>
+              {selectedTaxOption === 'low' ? (
+                <DotItem onPress={() => setSelectedTaxOption('low')} />
+              ) : (
+                <EmptyDotItem onPress={() => setSelectedTaxOption('low')} />
+              )}
+              <SelectorText>Baixa</SelectorText>
+            </SelectorButton>
+          </FeeContainer>
         </QuantityContainer>
+
         <ValidationContainer>
           {addressError ? (
             <ErrorMessage>O endereço da carteira é compatível</ErrorMessage>

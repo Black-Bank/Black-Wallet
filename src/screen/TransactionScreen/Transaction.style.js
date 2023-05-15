@@ -28,6 +28,11 @@ export const TransactionQuantityItemContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
+export const FeeContainer = styled.View`
+  margin-top: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 export const TransactionTextItem = styled.Text`
   font-style: normal;
   font-weight: 600;
