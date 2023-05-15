@@ -186,6 +186,15 @@ export const ContinueButton = styled.TouchableOpacity`
   width: 328px;
   height: 52px;
 `;
+export const DisabledButton = styled.TouchableOpacity`
+  background-color: #ccc;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 328px;
+  height: 52px;
+  opacity: 0.6;
+`;
 
 export const ButtonContinueText = styled.Text`
   font-style: normal;
@@ -195,8 +204,20 @@ export const ButtonContinueText = styled.Text`
   color: #fff;
 `;
 
+export const ValidationContainer = styled.View`
+  margin-top: 24px;
+  margin-right: 16px;
+  margin-left: 16px;
+`;
+
 export const ErrorMessage = styled.Text`
   color: red;
+  font-size: 16px;
+  margin-top: 5px;
+`;
+
+export const SucessMessage = styled.Text`
+  color: green;
   font-size: 16px;
   margin-top: 5px;
 `;

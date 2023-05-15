@@ -9,6 +9,7 @@ import {
   ButtonContinueText,
   ContinueButton,
   ContinueButtonContainer,
+  DisabledButton,
   DotItem,
   EmptyDotItem,
   ErrorMessage,
@@ -23,6 +24,7 @@ import {
   QuantityContainer,
   SelectorButton,
   SelectorText,
+  SucessMessage,
   TransactionContainer,
   TransactionItemContainer,
   TransactionItemExternalBox,
@@ -30,6 +32,7 @@ import {
   TransactionItemExternalWalletAddress,
   TransactionQuantityItemContainer,
   TransactionTextItem,
+  ValidationContainer,
   WalletTitle,
   WalletValue,
 } from './Transaction.style';
@@ -43,6 +46,9 @@ export function TransactionScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [coinPrice, setCoinPrice] = useState(0);
   const [address, setAddress] = useState<string>('');
+  const [addressError, setAddressError] = useState<boolean>(true);
+  const [valueError, setValueError] = useState<boolean>(true);
+  const [valueAmountError, setValueAmountError] = useState<boolean>(true);
   const {walletData} = useContext(AuthContext);
   const [selectedOption, setSelectedOption] = useState<string>(walletData.coin);
   const [value, setValue] = useState<string>('');
@@ -50,6 +56,10 @@ export function TransactionScreen() {
   const addressETHRegex = /^0x[0-9a-fA-F]{40}$/;
   const isBTCWallet = Boolean(walletData.coin === ECoinType.BTC);
   const isETHWallet = Boolean(walletData.coin === ECoinType.ETH);
+  const dolarTotal = Number(
+    (Number(walletData.balance) * coinPrice).toFixed(2),
+  );
+
   useEffect(() => {
     const Set = async () => setCoinPrice(await GetCoinPrice(walletData.coin));
     Set();
@@ -62,10 +72,38 @@ export function TransactionScreen() {
   const pasteValue = async () => {
     setValue(String(walletData.balance));
   };
+  const handleWalletAdress = (addr: string) => {
+    setAddress(addr);
+    setAddressError(true);
+    if (isBTCWallet) {
+      setAddressError(!addressBTCRegex.test(address));
+    } else if (isETHWallet) {
+      setAddressError(!addressETHRegex.test(address));
+    }
+  };
+
+  const handleValue = (val: string) => {
+    setValue(val);
+    setValueError(true);
+    setValueAmountError(true);
+    if (Number(value) > 0) {
+      setValueError(false);
+    }
+    if (selectedOption === walletData.coin) {
+      setValueAmountError(Boolean(Number(value) > walletData.balance));
+    } else if (selectedOption === ECoinType.USD) {
+      setValueAmountError(Boolean(Number(value) > dolarTotal));
+    }
+  };
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
   };
+
+  useEffect(() => {
+    handleWalletAdress(address);
+    handleValue(value);
+  }, [address, value, selectedOption]);
   return (
     <>
       <TransactionContainer>
@@ -85,9 +123,15 @@ export function TransactionScreen() {
             <InternalItemBox>
               <InsideInternalBox>
                 <WalletTitle>{walletData.name}</WalletTitle>
-                <WalletValue>
-                  {walletData.balance} {walletData.coin}
-                </WalletValue>
+                {selectedOption === walletData.coin ? (
+                  <WalletValue>
+                    {walletData.balance} {walletData.coin}
+                  </WalletValue>
+                ) : (
+                  <WalletValue>
+                    {(walletData.balance * coinPrice).toFixed(2)} USD
+                  </WalletValue>
+                )}
               </InsideInternalBox>
 
               <BankIcon width={20} height={20} />
@@ -99,7 +143,7 @@ export function TransactionScreen() {
           <TransactionItemExternalWalletAddress>
             <InputWalletAddress
               placeholder="Endereço da carteira"
-              onChangeText={(text: string) => setAddress(text)}
+              onChangeText={(text: string) => handleWalletAdress(text)}
               value={address}
             />
             <PastButton onPress={pasteAddress}>
@@ -134,19 +178,58 @@ export function TransactionScreen() {
           <TransactionItemExternalQuantity>
             <InputWalletValue
               placeholder="Valor"
-              onChangeText={(payValue: string) => setValue(payValue)}
+              onChangeText={(payValue: string) => handleValue(payValue)}
               value={value}
             />
             <PastButton onPress={pasteValue}>
               <PastButtonText>Max</PastButtonText>
             </PastButton>
           </TransactionItemExternalQuantity>
-          <SelectorText>USD 50,00</SelectorText>
+          {selectedOption === walletData.coin ? (
+            <SelectorText>
+              USD {(Number(value) * coinPrice).toFixed(2)}
+            </SelectorText>
+          ) : (
+            <SelectorText>
+              {Number(value) / coinPrice} {walletData.coin}
+            </SelectorText>
+          )}
         </QuantityContainer>
+        <ValidationContainer>
+          {addressError ? (
+            <ErrorMessage>O endereço da carteira é compatível</ErrorMessage>
+          ) : (
+            <SucessMessage>O endereço da carteira é compatível</SucessMessage>
+          )}
+          {valueError ? (
+            <ErrorMessage>O valor deve ser maior que zero</ErrorMessage>
+          ) : (
+            <SucessMessage>O Valor deve ser maior que zero</SucessMessage>
+          )}
+          {valueAmountError ? (
+            <ErrorMessage>
+              O valor deve ser menor que o saldo mais a taxa
+            </ErrorMessage>
+          ) : (
+            <SucessMessage>
+              O valor deve ser menor que o saldo mais a taxa
+            </SucessMessage>
+          )}
+        </ValidationContainer>
         <ContinueButtonContainer>
-          <ContinueButton>
-            <ButtonContinueText>Continuar</ButtonContinueText>
-          </ContinueButton>
+          {
+            <>
+              {valueAmountError || valueError || addressError ? (
+                <DisabledButton>
+                  <ButtonContinueText>Continuar</ButtonContinueText>
+                </DisabledButton>
+              ) : (
+                <ContinueButton>
+                  <ButtonContinueText>Continuar</ButtonContinueText>
+                </ContinueButton>
+              )}
+            </>
+          }
         </ContinueButtonContainer>
       </TransactionContainer>
     </>
