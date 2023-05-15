@@ -100,7 +100,7 @@ export function Home() {
     {
       icon: <TransferIcon width={30} height={40} fill="#212121" />,
       name: 'Transferir',
-      screen: 'EvoScreen',
+      screen: 'WalletListScreen',
     },
   ];
 

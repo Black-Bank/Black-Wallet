@@ -25,7 +25,7 @@ export const WALLET_SCREEN = {
   Send: 'Enviar',
   next: 'Seguir',
   SendOnlyBTC: 'Envie somente Bitcoin',
-  SendOnlyETH: 'Envie somente Etherum',
+  SendOnlyETH: 'Envie somente Ethereum',
   lookAdress:
     'Confira o endereço antes de enviar qualquer valor.Caso o endereço de envio esteja incorreto, isso pode resultar em perdas permanentes.',
   beShure:

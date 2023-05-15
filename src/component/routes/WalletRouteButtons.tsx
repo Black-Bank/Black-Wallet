@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {
   DescriptionWalletHeader,
   OptionButtonAll,
@@ -7,20 +7,22 @@ import {
 } from '../../screen/HomeScreen/Home.styles';
 import TransferIcon from '../../assets/transfer.svg';
 import TrashIcon from '../../assets/trash.svg';
-import {AuthContext} from '../../contexts/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export const WalletButtonRoute = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {walletData} = useContext(AuthContext);
+
   const handleDelete = () => {
-    navigation.navigate('DeleteWalletScreen', walletData);
+    navigation.navigate('DeleteWalletScreen');
+  };
+  const handleTransaction = () => {
+    navigation.navigate('TransactionScreen');
   };
   return (
     <>
       <OptionsContainerWalletHeader>
         <OptionButtonAll>
-          <OptionsButton>
+          <OptionsButton onPress={handleTransaction}>
             <TransferIcon width={30} height={30} fill={'#fff'} />
           </OptionsButton>
           <DescriptionWalletHeader>Transferir</DescriptionWalletHeader>
