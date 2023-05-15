@@ -2,7 +2,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useContext, useEffect, useState} from 'react';
-import {TouchableOpacity} from 'react-native';
 import * as W from './styles';
 import AuthStore from '../AuthScreen/AuthStore';
 import {useMutation} from '@apollo/client';

@@ -14,11 +14,13 @@ import {WalletListScreen} from '../../screen/WalletListScreen/WalletListScreen';
 import {FutureScreen} from '../../screen/FutureScreen/FutureScreen';
 import {DeleteWallet} from '../../screen/WalletScreen/DeleteWallet';
 import {
+  optionsConfirmTransactionStyle,
   optionsHomeStyle,
   optionsHomeTransactionStyle,
   optionsStyle,
   optionsWalletStyle,
 } from './header.style';
+import {ConfirmTransaction} from '../../screen/TransactionScreen/ConfirmTransaction';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +60,11 @@ export function Routes() {
             name="TransactionScreen"
             options={optionsHomeTransactionStyle}
             component={TransactionScreen}
+          />
+          <Stack.Screen
+            name="ConfirmTransactionScreen"
+            options={optionsConfirmTransactionStyle}
+            component={ConfirmTransaction}
           />
           <Stack.Screen
             name="ConfirmDeleteWallet"

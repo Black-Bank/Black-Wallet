@@ -99,6 +99,14 @@ export const SEND_CODE_EMAIL = gql`
     }
   }
 `;
+export const SEND_TRANSFER_CODE_EMAIL = gql`
+  mutation SendEmail($email: String!) {
+    SendTransferCodeEmail(Email: $email) {
+      code
+      isSend
+    }
+  }
+`;
 export const SEND_CODE_SIGNUP_EMAIL = gql`
   mutation SendEmail($email: String!) {
     SendSignUpCodePassEmail(Email: $email) {

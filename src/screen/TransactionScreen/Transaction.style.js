@@ -179,12 +179,21 @@ export const SelectorText = styled.Text`
 `;
 
 export const ContinueButtonContainer = styled.View`
-  width: 100%;
-  margin-top: 40px;
+  flex: 1;
+  margin-top: 20px;
   align-items: center;
 `;
 export const ContinueButton = styled.TouchableOpacity`
   background-color: #624aa7;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 328px;
+  height: 52px;
+`;
+export const CancelButton = styled.TouchableOpacity`
+  margin-top: 20px;
+  background-color: #fff;
   border-radius: 8px;
   align-items: center;
   justify-content: center;
@@ -208,7 +217,13 @@ export const ButtonContinueText = styled.Text`
   line-height: 20px;
   color: #fff;
 `;
-
+export const ButtonCancelText = styled.Text`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #eb5757;
+`;
 export const ValidationContainer = styled.View`
   margin-top: 24px;
   margin-right: 16px;
@@ -226,3 +241,42 @@ export const SucessMessage = styled.Text`
   font-size: 16px;
   margin-top: 5px;
 `;
+
+export const InfoBox = styled.View`
+  flex: 1;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 40px;
+`;
+export const BoxItem = styled.View`
+  flex-direction: row;
+  height: 60px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  background-color: #fff;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const BoxTitle = styled.Text`
+  font-weight: bold;
+  font-size: 16px;
+  color: #828282;
+  margin-left: 16px;
+`;
+export const USDBoxTitle = styled.Text`
+  font-weight: bold;
+  font-size: 16px;
+  color: #262626;
+  margin-left: 16px;
+`;
+
+export const LogoItemContainer = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  margin-right: 16px;
+`;
+export const DateContainer = styled.View`
+  margin-right: 16px;
+  align-items: flex-end;
+`;
+export const TitleContainerHours = styled.View``;

@@ -51,7 +51,7 @@ export function TransactionScreen() {
   const [addressError, setAddressError] = useState<boolean>(true);
   const [valueError, setValueError] = useState<boolean>(true);
   const [valueAmountError, setValueAmountError] = useState<boolean>(true);
-  const {walletData} = useContext(AuthContext);
+  const {walletData, setTransactionData} = useContext(AuthContext);
   const {data} = useGetTransferInfo();
   const [selectedOption, setSelectedOption] = useState<string>(walletData.coin);
   const [selectedTaxOption, setSelectedTaxOption] = useState<string>('midle');
@@ -88,7 +88,13 @@ export function TransactionScreen() {
     setAddress(clipboardContent);
   };
   const pasteValue = async () => {
-    setValue(String(walletData.balance));
+    setValue(
+      selectedOption === walletData.coin
+        ? String(walletData.balance - coinTax)
+        : String(
+            (walletData.balance * coinPrice - usdTax - 0.01).toPrecision(2),
+          ),
+    );
   };
   const handleWalletAdress = (addr: string) => {
     setAddress(addr);
@@ -104,7 +110,7 @@ export function TransactionScreen() {
     setValue(val);
     setValueError(true);
     setValueAmountError(true);
-    if (Number(value) > 0) {
+    if (Number(value) >= 0) {
       setValueError(false);
     }
     if (selectedOption === walletData.coin) {
@@ -119,11 +125,24 @@ export function TransactionScreen() {
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
   };
+  const handleContinue = () => {
+    setTransactionData({
+      ...walletData,
+      fee: coinTax,
+      value:
+        selectedOption === walletData.coin
+          ? Number(value)
+          : Number(value) / coinPrice,
+      addressTo: address,
+      convertFactor: factor,
+    });
+    navigation.navigate('ConfirmTransactionScreen');
+  };
 
   useEffect(() => {
     handleWalletAdress(address);
     handleValue(value);
-  }, [address, value, selectedOption]);
+  }, [address, value, selectedOption, selectedTaxOption]);
 
   return (
     <>
@@ -268,22 +287,22 @@ export function TransactionScreen() {
               O valor deve ser menor que o saldo mais a taxa
             </SucessMessage>
           )}
+          <ContinueButtonContainer>
+            {
+              <>
+                {valueAmountError || valueError || addressError ? (
+                  <DisabledButton>
+                    <ButtonContinueText>Continuar</ButtonContinueText>
+                  </DisabledButton>
+                ) : (
+                  <ContinueButton onPress={handleContinue}>
+                    <ButtonContinueText>Continuar</ButtonContinueText>
+                  </ContinueButton>
+                )}
+              </>
+            }
+          </ContinueButtonContainer>
         </ValidationContainer>
-        <ContinueButtonContainer>
-          {
-            <>
-              {valueAmountError || valueError || addressError ? (
-                <DisabledButton>
-                  <ButtonContinueText>Continuar</ButtonContinueText>
-                </DisabledButton>
-              ) : (
-                <ContinueButton>
-                  <ButtonContinueText>Continuar</ButtonContinueText>
-                </ContinueButton>
-              )}
-            </>
-          }
-        </ContinueButtonContainer>
       </TransactionContainer>
     </>
   );

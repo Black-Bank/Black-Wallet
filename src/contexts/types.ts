@@ -5,3 +5,10 @@ export interface IWallet {
   balance: number;
   coin: string;
 }
+
+export interface ITransaction extends IWallet {
+  addressTo: string;
+  value: number;
+  fee: number;
+  convertFactor: number;
+}
