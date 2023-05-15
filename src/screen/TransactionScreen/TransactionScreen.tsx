@@ -43,7 +43,6 @@ import ETHIcon from '../../assets/ETHTransaction.svg';
 import BankIcon from '../../assets/bank.svg';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {useGetTransferInfo} from '../../component/hooks/useGetTransferInfo';
-import {ITaxContract} from './types';
 
 export function TransactionScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
