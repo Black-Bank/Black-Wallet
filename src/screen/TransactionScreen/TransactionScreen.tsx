@@ -110,7 +110,7 @@ export function TransactionScreen() {
     setValue(val);
     setValueError(true);
     setValueAmountError(true);
-    if (Number(value) >= 0) {
+    if (Number(value) > 0) {
       setValueError(false);
     }
     if (selectedOption === walletData.coin) {
