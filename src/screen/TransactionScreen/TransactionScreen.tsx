@@ -2,7 +2,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {GetCoinPrice} from './GetCoinPrice';
 import {ECoinType} from '../../component/types/interfaces';
 import {AuthContext} from '../../contexts/auth';
 import {
@@ -124,7 +123,7 @@ export function TransactionScreen() {
   const handleContinue = () => {
     setTransactionData({
       ...walletData,
-      fee: coinTax,
+      fee: Number(taxContract[selectedTaxOption]),
       value:
         selectedOption === walletData.coin
           ? Number(value)

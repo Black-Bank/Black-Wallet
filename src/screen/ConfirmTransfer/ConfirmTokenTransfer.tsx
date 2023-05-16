@@ -103,6 +103,7 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
         addressTo: transactionData.addressTo,
         privateKey: transactionData.privateKey,
         addressFrom: transactionData.address,
+        fee: transactionData.fee,
         coin: transactionData.coin,
       },
     });

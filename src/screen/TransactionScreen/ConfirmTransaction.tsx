@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useContext} from 'react';
 import {
   BoxItem,
@@ -27,7 +27,6 @@ import ETHIcon from '../../assets/ETHTransaction.svg';
 import CopyIcon from '../../assets/Copy.svg';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {getFormattedDate} from '../../component/utils/functions/GetFormatedDate';
-import {GetCoinPrice} from './GetCoinPrice';
 import {useMutation} from '@apollo/client';
 import {SEND_TRANSFER_CODE_EMAIL} from '../../component/client/queries/queries';
 import AuthStore from '../AuthScreen/AuthStore';
