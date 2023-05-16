@@ -95,9 +95,11 @@ export const TotalText = styled.Text`
 export const DescText = styled.Text`
   color: black;
   font-weight: bold;
+  width: 100%;
   margin-left: 16px;
   margin-bottom: 10px;
   font-size: 16px;
+  text-align: right;
 `;
 
 export const MoreButton = styled.TouchableOpacity`

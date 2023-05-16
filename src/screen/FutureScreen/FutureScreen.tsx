@@ -13,7 +13,7 @@ import {FutureCardItem} from './FutureCardItem';
 import {IUnconfirmedWallet, IWalletType} from './types';
 import {FlatList} from 'react-native';
 import {numberFormatter} from '../../component/utils/functions/Format';
-import BankIcon from '../../assets/bank.svg';
+import ClockIcon from '../../assets/Clock.svg';
 import ArrowUpIcon from '../../assets/Arrow.svg';
 import ArrowDownIcon from '../../assets/ArrowDown.svg';
 
@@ -50,7 +50,7 @@ export function FutureScreen({route}: IUnconfirmedWallet) {
     <Container>
       <Title>Lançamentos Futuros</Title>
       <FutureTotalContainer>
-        <BankIcon width={24} height={24} fill="white" />
+        <ClockIcon width={30} height={30} fill={'black'} />
         <TextContainer>
           {hasBalance ? (
             <TotalText value={isGain}>
