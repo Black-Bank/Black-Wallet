@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState} from 'react';
 import {
   Container,
@@ -18,6 +19,7 @@ import ArrowDownIcon from '../../assets/ArrowDown.svg';
 
 export function FutureScreen({route}: IUnconfirmedWallet) {
   const wallets = route.params;
+
   const btcWallets = Array.isArray(wallets)
     ? wallets?.filter(wallet => wallet?.WalletType === 'BTC')
     : [];

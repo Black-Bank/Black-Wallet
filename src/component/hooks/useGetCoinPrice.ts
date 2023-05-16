@@ -8,5 +8,5 @@ export const useGetCoinPrice = (coin: string) => {
     },
   });
 
-  return {coinPrice: data.CoinPrice, loading, error, refetch};
+  return {coinPrice: data?.CoinPrice, loading, error, refetch};
 };

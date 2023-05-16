@@ -58,9 +58,16 @@ export function Home() {
   const {isUpdate} = useContext(AuthContext);
 
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>([]);
+
   const refetchTime = 100;
   const {data, loading, refetch} = useGetWallets();
+  const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>(
+    data?.getFormatedData.filter(
+      (wallets: {unconfirmedBalance: number}) =>
+        wallets.unconfirmedBalance !== 0,
+    ),
+  );
+
   const totalBalance = Boolean(data?.getFormatedData.length)
     ? data?.getFormatedData[0].totalBalance
     : 0;
@@ -72,13 +79,20 @@ export function Home() {
 
   useEffect(() => {
     setTimeout(refetch, refetchTime);
-    setInTransactionalWallet(
-      data?.getFormatedData.filter(
-        (wallets: {unconfirmedBalance: number}) =>
-          wallets.unconfirmedBalance !== 0,
-      ),
-    );
   }, [refetch, isUpdate]);
+
+  useEffect(() => {
+    if (data) {
+      setInTransactionalWallet(
+        data?.getFormatedData.filter(
+          (wallets: {unconfirmedBalance: number}) =>
+            wallets.unconfirmedBalance !== 0,
+        ),
+      );
+    }
+  }, [data]);
+
+  console.log(data, 'DATA', inTransactionalWallet);
 
   const menuItems: IMenuItem[] = [
     {
@@ -139,7 +153,7 @@ export function Home() {
   return (
     <>
       <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
-      {loading ? (
+      {loading && !data ? (
         <LoadingContainer>
           <ActivityIndicator size="large" color="#0a0909" />
         </LoadingContainer>
