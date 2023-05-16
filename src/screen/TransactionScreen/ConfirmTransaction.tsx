@@ -34,6 +34,7 @@ import AuthStore from '../AuthScreen/AuthStore';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 import Toast from 'react-native-toast-message';
 import {ActivityIndicator} from 'react-native-paper';
+import {useGetCoinPrice} from '../../component/hooks/useGetCoinPrice';
 
 export function ConfirmTransaction() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -42,7 +43,8 @@ export function ConfirmTransaction() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [SendCode] = useMutation(SEND_TRANSFER_CODE_EMAIL);
   const addressTo = transactionData.addressTo;
-  const [coinPrice, setCoinPrice] = useState(0);
+
+  const {coinPrice} = useGetCoinPrice(transactionData.coin);
   const truncatedString = addressTo.slice(0, 3) + '...' + addressTo.slice(-3);
   const dateStrDay = getFormattedDate().slice(0, 11);
   const dateStrHour = getFormattedDate().slice(-11);
@@ -66,6 +68,9 @@ export function ConfirmTransaction() {
         visibilityTime: 3000,
         autoHide: true,
       });
+      if (code) {
+        navigation.navigate('ConfirmTokenTransaction', {code: code});
+      }
     } catch (error: any) {
       Toast.show({
         type: 'error',
@@ -77,11 +82,6 @@ export function ConfirmTransaction() {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    const Set = async () =>
-      setCoinPrice(await GetCoinPrice(transactionData.coin));
-    Set();
-  }, []);
 
   const handleContinue = () => {
     handleSendCode();

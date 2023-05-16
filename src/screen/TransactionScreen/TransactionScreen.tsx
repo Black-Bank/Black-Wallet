@@ -43,16 +43,17 @@ import ETHIcon from '../../assets/ETHTransaction.svg';
 import BankIcon from '../../assets/bank.svg';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {useGetTransferInfo} from '../../component/hooks/useGetTransferInfo';
+import {useGetCoinPrice} from '../../component/hooks/useGetCoinPrice';
 
 export function TransactionScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const [coinPrice, setCoinPrice] = useState(0);
   const [address, setAddress] = useState<string>('');
   const [addressError, setAddressError] = useState<boolean>(true);
   const [valueError, setValueError] = useState<boolean>(true);
   const [valueAmountError, setValueAmountError] = useState<boolean>(true);
   const {walletData, setTransactionData} = useContext(AuthContext);
   const {data} = useGetTransferInfo();
+  const {coinPrice} = useGetCoinPrice(walletData.coin);
   const [selectedOption, setSelectedOption] = useState<string>(walletData.coin);
   const [selectedTaxOption, setSelectedTaxOption] = useState<string>('midle');
   const [value, setValue] = useState<string>('');
@@ -77,11 +78,6 @@ export function TransactionScreen() {
   const usdTax = Number(
     ((Number(taxContract[selectedTaxOption]) / factor) * coinPrice).toFixed(2),
   );
-
-  useEffect(() => {
-    const Set = async () => setCoinPrice(await GetCoinPrice(walletData.coin));
-    Set();
-  }, []);
 
   const pasteAddress = async () => {
     const clipboardContent = await Clipboard.getString();

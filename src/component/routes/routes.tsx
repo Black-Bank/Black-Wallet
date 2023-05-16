@@ -21,6 +21,7 @@ import {
   optionsWalletStyle,
 } from './header.style';
 import {ConfirmTransaction} from '../../screen/TransactionScreen/ConfirmTransaction';
+import {ConfirmTransfer} from '../../screen/ConfirmTransfer/ConfirmTokenTransfer';
 
 const Stack = createNativeStackNavigator();
 
@@ -69,6 +70,11 @@ export function Routes() {
           <Stack.Screen
             name="ConfirmDeleteWallet"
             component={ConfirmDeleteWallet}
+            options={optionsHomeStyle}
+          />
+          <Stack.Screen
+            name="ConfirmTokenTransaction"
+            component={ConfirmTransfer}
             options={optionsHomeStyle}
           />
           <Stack.Screen

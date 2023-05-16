@@ -26,6 +26,12 @@ export const GET_WALLETS = gql`
   }
 `;
 
+export const GET_COIN_PRICE = gql`
+  query ($coin: String!) {
+    CoinPrice(coin: $coin)
+  }
+`;
+
 export const GET_TRANSFER_INFO = gql`
   query GetTransferInfo($coin: String!) {
     getTransferInfo(coin: $coin) {
