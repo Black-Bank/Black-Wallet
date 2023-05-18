@@ -1,16 +1,9 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  render,
-  screen,
-  waitFor,
-  fireEvent,
-} from '@testing-library/react-native';
+import {render, screen} from '@testing-library/react-native';
 import {TransactionScreen} from './TransactionScreen';
 import {MockedProvider} from '@apollo/client/testing';
 import {WalletMock} from '../HomeScreen/walletMock';
-import {mockRoute} from './mock';
-import {act} from 'react-test-renderer';
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
