@@ -28,7 +28,7 @@ jest.mock('@react-navigation/native', () => {
 const component = (
   <NavigationContainer>
     <MockedProvider mocks={WalletMock}>
-      <TransactionScreen route={mockRoute} />
+      <TransactionScreen />
     </MockedProvider>
   </NavigationContainer>
 );
@@ -38,37 +38,22 @@ describe('it render transactional screen', () => {
     jest.useFakeTimers();
     render(component);
 
-    const send = await screen.findByText('Enviar');
-    const value = await screen.findByText('U$ 0.00');
+    const send = await screen.findByText('Enviar de:');
+    const value = await screen.findByText('Enviar para:');
+    const checkAdress = await screen.findByText(
+      'O endereço da carteira é compatível',
+    );
+    const checkValue = await screen.findByText(
+      'O valor deve ser maior que zero',
+    );
 
+    const checkValueTax = await screen.findByText(
+      'O valor deve ser menor que o saldo mais a taxa',
+    );
     expect(send).toBeTruthy();
     expect(value).toBeTruthy();
-  });
-
-  it('render should return to home screen', async () => {
-    jest.useFakeTimers();
-    render(component);
-
-    fireEvent.press(screen.getByText('Voltar'));
-    await waitFor(() => {
-      expect(mockedNavigate).toBeCalledWith('Home');
-    });
-  });
-
-  it('render should change value show this.', async () => {
-    jest.useFakeTimers();
-    render(component);
-    const sendAmount = 1;
-
-    act(() => {
-      fireEvent.changeText(screen.getByTestId('valueInput'), `${sendAmount}`);
-    });
-    await waitFor(async () => {
-      expect(
-        await screen.findByText(
-          'Suas reservas de bitcoin são muito baixas para pagar o envio mais as taxas de rede.',
-        ),
-      ).toBeTruthy();
-    });
+    expect(checkAdress).toBeTruthy();
+    expect(checkValue).toBeTruthy();
+    expect(checkValueTax).toBeTruthy();
   });
 });
