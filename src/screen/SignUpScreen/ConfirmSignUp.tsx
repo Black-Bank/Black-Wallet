@@ -163,7 +163,7 @@ export function ConfirmSignUpScreen({route}: ConfirmationScreenProps) {
           email: email,
         },
       });
-      setRemaindCode(crypto.decrypt(data.SendCodePassEmail.code));
+      setRemaindCode(await crypto.decrypt(data.SendCodePassEmail.code));
 
       Toast.show({
         type: 'success',

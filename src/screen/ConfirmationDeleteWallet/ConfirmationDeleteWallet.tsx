@@ -148,7 +148,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
           email: email,
         },
       });
-      setRemaindCode(crypto.decrypt(data.SendDeleteWalletCodeEmail.code));
+      setRemaindCode(await crypto.decrypt(data.SendDeleteWalletCodeEmail.code));
 
       Toast.show({
         type: 'success',

@@ -51,7 +51,7 @@ export function SignupScreen() {
           email: values.email,
         },
       });
-      setCode(crypto.decrypt(data.SendSignUpCodePassEmail.code));
+      setCode(await crypto.decrypt(data.SendSignUpCodePassEmail.code));
 
       Toast.show({
         type: 'success',

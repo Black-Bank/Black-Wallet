@@ -22,6 +22,7 @@ import {
 } from './header.style';
 import {ConfirmTransaction} from '../../screen/TransactionScreen/ConfirmTransaction';
 import {ConfirmTransfer} from '../../screen/ConfirmTransfer/ConfirmTokenTransfer';
+import {ExtractScreen} from '../../screen/TransactionScreen/ExtractScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +57,11 @@ export function Routes() {
             name="WalletScren"
             component={WalletScreen}
             options={optionsWalletStyle}
+          />
+          <Stack.Screen
+            name="ExtractScreen"
+            options={optionsHomeStyle}
+            component={ExtractScreen}
           />
           <Stack.Screen
             name="TransactionScreen"

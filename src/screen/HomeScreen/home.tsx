@@ -92,8 +92,6 @@ export function Home() {
     }
   }, [data]);
 
-  console.log(data, 'DATA', inTransactionalWallet);
-
   const menuItems: IMenuItem[] = [
     {
       icon: <BankIcon width={20} height={30} fill="#212121" />,

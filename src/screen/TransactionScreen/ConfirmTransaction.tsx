@@ -38,7 +38,6 @@ import {useGetCoinPrice} from '../../component/hooks/useGetCoinPrice';
 export function ConfirmTransaction() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {transactionData} = useContext(AuthContext);
-  const [code, setCode] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [SendCode] = useMutation(SEND_TRANSFER_CODE_EMAIL);
   const addressTo = transactionData.addressTo;
@@ -59,7 +58,12 @@ export function ConfirmTransaction() {
           email: Email,
         },
       });
-      setCode(crypto.decrypt(data.SendTransferCodeEmail.code));
+      const decryptedCode = await crypto.decrypt(
+        data.SendTransferCodeEmail.code,
+      );
+      if (decryptedCode) {
+        navigation.navigate('ConfirmTokenTransaction', {code: decryptedCode});
+      }
 
       Toast.show({
         type: 'success',
@@ -67,9 +71,6 @@ export function ConfirmTransaction() {
         visibilityTime: 3000,
         autoHide: true,
       });
-      if (code) {
-        navigation.navigate('ConfirmTokenTransaction', {code: code});
-      }
     } catch (error: any) {
       Toast.show({
         type: 'error',

@@ -66,7 +66,7 @@ export function AuthScreen() {
       });
 
       const nowCurrentTimeMillis = new Date().getTime();
-      const authResponse = JSON.parse(crypto.decrypt(data?.VerifyUser));
+      const authResponse = JSON.parse(await crypto.decrypt(data?.VerifyUser));
 
       const isExpiredToken = Boolean(nowCurrentTimeMillis > authResponse.timer);
       setIsLoading(false);

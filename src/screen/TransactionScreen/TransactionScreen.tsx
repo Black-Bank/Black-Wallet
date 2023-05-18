@@ -86,9 +86,7 @@ export function TransactionScreen() {
     setValue(
       selectedOption === walletData.coin
         ? String(walletData.balance - coinTax)
-        : String(
-            (walletData.balance * coinPrice - usdTax - 0.01).toPrecision(2),
-          ),
+        : String((walletData.balance * coinPrice - usdTax).toFixed(2)),
     );
   };
   const handleWalletAdress = (addr: string) => {

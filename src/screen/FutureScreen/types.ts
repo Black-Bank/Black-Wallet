@@ -5,7 +5,7 @@ export interface IFutureCard {
 }
 
 export interface IUnconfirmedWallet {
-  route: {
+  route?: {
     params: {
       WalletType: string;
       address: string;

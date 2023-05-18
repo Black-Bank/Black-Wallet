@@ -115,7 +115,7 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
       autoHide: true,
     });
     setTimeout(() => {
-      navigation.navigate('Home');
+      navigation.navigate('ExtractScreen');
     }, 2000);
   };
 
@@ -138,6 +138,9 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
         visibilityTime: 3000,
         autoHide: true,
       });
+      setTimeout(() => {
+        navigation.navigate('ExtractScreen');
+      }, 2000);
     }
   };
   const handleCancel = () => {
@@ -153,7 +156,7 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
           email: Email,
         },
       });
-      setRemaindCode(crypto.decrypt(data.SendTransferCodeEmail.code));
+      setRemaindCode(await crypto.decrypt(data.SendTransferCodeEmail.code));
 
       Toast.show({
         type: 'success',

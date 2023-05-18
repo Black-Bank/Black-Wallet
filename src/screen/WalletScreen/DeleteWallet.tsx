@@ -35,7 +35,7 @@ export function DeleteWallet() {
           email: email,
         },
       });
-      setCode(crypto.decrypt(data.SendDeleteWalletCodeEmail.code));
+      setCode(await crypto.decrypt(data.SendDeleteWalletCodeEmail.code));
 
       Toast.show({
         type: 'success',

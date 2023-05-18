@@ -46,7 +46,7 @@ export const optionsHomeTransactionStyle = {
   headerTintColor: '#fff',
   headerTransparent: true,
   headerTitle: 'Enviar',
-  headerTitleAlign: 'center',
+  headerTitleAlign: 'center' as const,
 };
 
 export const optionsConfirmTransactionStyle = {
@@ -59,5 +59,5 @@ export const optionsConfirmTransactionStyle = {
   headerTintColor: '#fff',
   headerTransparent: true,
   headerTitle: 'Confirmar informações',
-  headerTitleAlign: 'center',
+  headerTitleAlign: 'center' as const,
 };
