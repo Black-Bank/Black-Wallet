@@ -97,7 +97,7 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
   };
 
   const TokenConfirm = async () => {
-    await createTransaction({
+    const {data: hashTransaction} = await createTransaction({
       variables: {
         value: transactionData.value * transactionData.convertFactor,
         addressTo: transactionData.addressTo,
@@ -115,7 +115,7 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
       autoHide: true,
     });
     setTimeout(() => {
-      navigation.navigate('ExtractScreen');
+      navigation.navigate('ExtractScreen', {hash: hashTransaction});
     }, 2000);
   };
 
@@ -138,9 +138,6 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
         visibilityTime: 3000,
         autoHide: true,
       });
-      setTimeout(() => {
-        navigation.navigate('ExtractScreen');
-      }, 2000);
     }
   };
   const handleCancel = () => {

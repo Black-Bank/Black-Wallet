@@ -25,14 +25,20 @@ import CopyIcon from '../../assets/Copy.svg';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {getFormattedDate} from '../../component/utils/functions/GetFormatedDate';
 import {useGetCoinPrice} from '../../component/hooks/useGetCoinPrice';
-
-export function ExtractScreen() {
+interface ExtractScreenProps {
+  route?: {
+    params: {
+      hash: string;
+    };
+  };
+}
+export function ExtractScreen({route}: ExtractScreenProps) {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {transactionData} = useContext(AuthContext);
-  const addressTo = transactionData.addressTo;
+  const hashString = route!.params.hash;
 
   const {coinPrice} = useGetCoinPrice(transactionData.coin);
-  const truncatedString = addressTo.slice(0, 3) + '...' + addressTo.slice(-3);
+  const truncatedString = hashString.slice(0, 3) + '...' + hashString.slice(-3);
   const dateStrDay = getFormattedDate().slice(0, 11);
   const dateStrHour = getFormattedDate().slice(-11);
 
@@ -58,7 +64,7 @@ export function ExtractScreen() {
           </BoxItem>
           <BoxItem>
             <BoxTitle>Hash da transação</BoxTitle>
-            <LogoItemContainer onPress={() => Clipboard.setString(addressTo)}>
+            <LogoItemContainer onPress={() => Clipboard.setString(hashString)}>
               <CopyIcon width={25} height={25} />
               <BoxTitle>{truncatedString}</BoxTitle>
             </LogoItemContainer>
