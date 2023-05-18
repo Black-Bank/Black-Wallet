@@ -20,6 +20,14 @@ export const Description = styled.Text`
   margin-top: 5px;
 `;
 
+export const DescriptionWalletHeader = styled.Text`
+  color: #fff;
+  font-size: 14px;
+  font-weight: semi-bold;
+  font-family: Helvetica;
+  margin-top: 5px;
+`;
+
 export const AccountHomeOptions = styled.View`
   margin-top: 10px;
   background-color: red;
@@ -33,7 +41,13 @@ export const AccountContainerSupport = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
 `;
-
+export const OptionsContainerWalletHeader = styled.View`
+  flex: 0.85;
+  align-items: center;
+  background-color: transparent;
+  flex-direction: row;
+  justify-content: center;
+`;
 export const OptionsContainer = styled.View`
   background-color: #f3ecec;
   flex-direction: row;

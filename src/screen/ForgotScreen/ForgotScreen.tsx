@@ -46,7 +46,7 @@ export function ForgotScreen() {
           email: values.email,
         },
       });
-      setCode(crypto.decrypt(data.SendCodePassEmail.code));
+      setCode(await crypto.decrypt(data.SendCodePassEmail.code));
 
       Toast.show({
         type: 'success',

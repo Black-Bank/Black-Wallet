@@ -9,7 +9,7 @@ class Crypto {
     return ciphertext;
   }
 
-  public decrypt(ciphertext: string): string {
+  public async decrypt(ciphertext: string): Promise<string> {
     const key = CryptoJS.enc.Hex.parse(config.AUTH_PRIVATE_KEY);
     const iv = CryptoJS.enc.Hex.parse(config.IV);
     const bytes = CryptoJS.AES.decrypt(ciphertext, key, {iv});

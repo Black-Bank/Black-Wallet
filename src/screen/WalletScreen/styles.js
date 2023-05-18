@@ -37,6 +37,7 @@ export const ModalBox = styled.View`
   align-items: center;
 `;
 export const ModalContent = styled.View`
+  margin-top: 70px;
   border: 1px solid #3c0f69;
   border-radius: 5px;
   height: 50px;

@@ -26,6 +26,23 @@ export const GET_WALLETS = gql`
   }
 `;
 
+export const GET_COIN_PRICE = gql`
+  query ($coin: String!) {
+    CoinPrice(coin: $coin)
+  }
+`;
+
+export const GET_TRANSFER_INFO = gql`
+  query GetTransferInfo($coin: String!) {
+    getTransferInfo(coin: $coin) {
+      LowFee
+      MediumFee
+      economicFee
+      fatestFee
+    }
+  }
+`;
+
 export const CREAT_ETH_WALLET = gql`
   mutation ($Email: String!, $name: String!) {
     createEthWallet(Email: $Email, name: $name)
@@ -39,8 +56,9 @@ export const CREAT_BTC_WALLET = gql`
 `;
 
 export const CREAT_TRANSACTION_WALLET = gql`
-  mutation createTransaction(
+  mutation Mutation(
     $value: Float!
+    $fee: Float!
     $addressTo: String!
     $privateKey: String!
     $addressFrom: String!
@@ -48,6 +66,7 @@ export const CREAT_TRANSACTION_WALLET = gql`
   ) {
     createTransaction(
       value: $value
+      fee: $fee
       addressTo: $addressTo
       privateKey: $privateKey
       addressFrom: $addressFrom
@@ -83,6 +102,14 @@ export const CREATE_USER = gql`
 export const SEND_CODE_EMAIL = gql`
   mutation SendEmail($email: String!) {
     SendCodePassEmail(Email: $email) {
+      code
+      isSend
+    }
+  }
+`;
+export const SEND_TRANSFER_CODE_EMAIL = gql`
+  mutation SendEmail($email: String!) {
+    SendTransferCodeEmail(Email: $email) {
       code
       isSend
     }

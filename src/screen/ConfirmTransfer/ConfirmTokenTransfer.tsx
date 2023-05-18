@@ -24,38 +24,40 @@ import Toast from 'react-native-toast-message';
 import {FormatMinutes} from '../../component/utils/functions/FormatMinutes';
 import {useMutation} from '@apollo/client';
 import {
-  DELETE_WALLET,
-  SEND_DELETE_WALLET_EMAIL,
+  CREAT_TRANSACTION_WALLET,
+  SEND_TRANSFER_CODE_EMAIL,
 } from '../../component/client/queries/queries';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 import {ActivityIndicator} from 'react-native-paper';
 import {AuthContext} from '../../contexts/auth';
+import AuthStore from '../AuthScreen/AuthStore';
 
 interface ConfirmationScreenProps {
   route?: {
     params: {
-      email: string;
       code: string;
       address: string;
     };
   };
 }
 
-export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
+export function ConfirmTransfer({route}: ConfirmationScreenProps) {
   const crypto = new Crypto();
-  const {email, code, address} = route!.params;
-  const [SendCode] = useMutation(SEND_DELETE_WALLET_EMAIL);
-  const [deleteWallet] = useMutation(DELETE_WALLET);
+  const {code} = route!.params;
+  const [SendCode] = useMutation(SEND_TRANSFER_CODE_EMAIL);
+  const [createTransaction] = useMutation(CREAT_TRANSACTION_WALLET);
   const [codeInput, setCode] = useState('');
   const [RemaindCode, setRemaindCode] = useState<string>('');
   const codeFields = useRef<(TextInput | null)[]>([]);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const loginInstance = AuthStore.getInstance();
+  const Email = loginInstance.email;
   const expTime = 120000;
 
   const [timeRemaining, setTimeRemaining] = useState<number>(expTime);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isCount, setIsCount] = useState<boolean>(false);
-  const {setIsUpdate, isUpdate} = useContext(AuthContext);
+  const {setIsUpdate, isUpdate, transactionData} = useContext(AuthContext);
 
   useEffect(() => {
     // decrementa o tempo restante a cada segundo
@@ -94,23 +96,26 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
     setCode(newCode.join(''));
   };
 
-  const deleteWalletConfirm = async () => {
-    await deleteWallet({
+  const TokenConfirm = async () => {
+    const {data: hashTransaction} = await createTransaction({
       variables: {
-        Email: email,
-        address: address,
+        value: transactionData.value * transactionData.convertFactor,
+        addressTo: transactionData.addressTo,
+        privateKey: transactionData.privateKey,
+        addressFrom: transactionData.address,
+        fee: transactionData.fee,
+        coin: transactionData.coin,
       },
     });
     setIsUpdate(!isUpdate);
-
     Toast.show({
       type: 'success',
-      text1: 'Carteira removida!',
+      text1: 'Transação Enviada!',
       visibilityTime: 3000,
       autoHide: true,
     });
     setTimeout(() => {
-      navigation.navigate('Home');
+      navigation.navigate('ExtractScreen', {hash: hashTransaction});
     }, 2000);
   };
 
@@ -125,7 +130,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
         autoHide: true,
       });
     } else if (code === text || Boolean(RemaindCode && RemaindCode === text)) {
-      await deleteWalletConfirm();
+      await TokenConfirm();
     } else {
       Toast.show({
         type: 'error',
@@ -145,10 +150,10 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
     try {
       const {data} = await SendCode({
         variables: {
-          email: email,
+          email: Email,
         },
       });
-      setRemaindCode(await crypto.decrypt(data.SendDeleteWalletCodeEmail.code));
+      setRemaindCode(await crypto.decrypt(data.SendTransferCodeEmail.code));
 
       Toast.show({
         type: 'success',
@@ -173,7 +178,7 @@ export function ConfirmDeleteWallet({route}: ConfirmationScreenProps) {
     <Container>
       <Title>Código de confirmação</Title>
       <Description>
-        Para sua segurança, por favor, confirme o código enviado para: {email}
+        Para sua segurança, por favor, confirme o código enviado para: {Email}
       </Description>
 
       <CodeinputContainer>

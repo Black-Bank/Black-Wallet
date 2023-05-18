@@ -12,33 +12,22 @@ import {ConfirmDeleteWallet} from '../../screen/ConfirmationDeleteWallet/Confirm
 import {CreateWallet} from '../../screen/CreateWalletScreen/CreateWallet';
 import {WalletListScreen} from '../../screen/WalletListScreen/WalletListScreen';
 import {FutureScreen} from '../../screen/FutureScreen/FutureScreen';
+import {DeleteWallet} from '../../screen/WalletScreen/DeleteWallet';
+import {
+  optionsConfirmTransactionStyle,
+  optionsHomeStyle,
+  optionsHomeTransactionStyle,
+  optionsStyle,
+  optionsWalletStyle,
+} from './header.style';
+import {ConfirmTransaction} from '../../screen/TransactionScreen/ConfirmTransaction';
+import {ConfirmTransfer} from '../../screen/ConfirmTransfer/ConfirmTokenTransfer';
+import {ExtractScreen} from '../../screen/TransactionScreen/ExtractScreen';
 
 const Stack = createNativeStackNavigator();
 
 export function Routes() {
   const {isAuthenticated} = useContext(AuthContext);
-  const optionsStyle = {
-    headerStyle: {
-      backgroundColor: '#35224b',
-    },
-    headerTitleStyle: {
-      color: '#fff',
-    },
-    headerTintColor: '#fff',
-    headerTransparent: true,
-    headerTitle: 'Home',
-  };
-  const optionsHomeStyle = {
-    headerStyle: {
-      backgroundColor: '#35224b',
-    },
-    headerTitleStyle: {
-      color: '#fff',
-    },
-    headerTintColor: '#fff',
-    headerTransparent: true,
-    headerTitle: '',
-  };
 
   return (
     <Stack.Navigator>
@@ -60,17 +49,38 @@ export function Routes() {
             options={optionsHomeStyle}
           />
           <Stack.Screen
-            name="WalletScren"
-            component={WalletScreen}
+            name="DeleteWalletScreen"
+            component={DeleteWallet}
             options={optionsHomeStyle}
           />
           <Stack.Screen
+            name="WalletScren"
+            component={WalletScreen}
+            options={optionsWalletStyle}
+          />
+          <Stack.Screen
+            name="ExtractScreen"
+            options={optionsHomeStyle}
+            component={ExtractScreen}
+          />
+          <Stack.Screen
             name="TransactionScreen"
+            options={optionsHomeTransactionStyle}
             component={TransactionScreen}
+          />
+          <Stack.Screen
+            name="ConfirmTransactionScreen"
+            options={optionsConfirmTransactionStyle}
+            component={ConfirmTransaction}
           />
           <Stack.Screen
             name="ConfirmDeleteWallet"
             component={ConfirmDeleteWallet}
+            options={optionsHomeStyle}
+          />
+          <Stack.Screen
+            name="ConfirmTokenTransaction"
+            component={ConfirmTransfer}
             options={optionsHomeStyle}
           />
           <Stack.Screen
