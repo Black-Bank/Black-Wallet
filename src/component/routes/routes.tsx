@@ -60,7 +60,7 @@ export function Routes() {
           />
           <Stack.Screen
             name="ExtractScreen"
-            options={optionsHomeStyle}
+            options={{...optionsHomeStyle, headerBackVisible: false}}
             component={ExtractScreen}
           />
           <Stack.Screen

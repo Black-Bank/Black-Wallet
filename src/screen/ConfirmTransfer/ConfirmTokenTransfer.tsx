@@ -115,7 +115,9 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
       autoHide: true,
     });
     setTimeout(() => {
-      navigation.navigate('ExtractScreen', {hash: hashTransaction});
+      navigation.navigate('ExtractScreen', {
+        hash: hashTransaction.createTransaction,
+      });
     }, 2000);
   };
 
