@@ -68,10 +68,9 @@ export function Home() {
     ),
   );
 
-  const totalBalance = Boolean(data?.getFormatedData.length)
+  const totalBalance = data?.getFormatedData.length
     ? data?.getFormatedData[0].totalBalance
     : 0;
-  useUpdateChart(totalBalance);
 
   const walletsNavigate = async () => {
     navigation.navigate('WalletListScreen');
@@ -91,6 +90,10 @@ export function Home() {
       );
     }
   }, [data]);
+  setTimeout(
+    useUpdateChart(totalBalance, Boolean(data)),
+    data ? 15000 : refetchTime,
+  );
 
   const menuItems: IMenuItem[] = [
     {
