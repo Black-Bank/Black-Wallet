@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {act, render, screen, waitFor} from '@testing-library/react-native';
+import {render, screen, waitFor} from '@testing-library/react-native';
 import {MockedProvider} from '@apollo/client/testing';
 import {Home} from './home';
 import {WalletMock} from './walletMock';
