@@ -180,6 +180,7 @@ export function Home() {
                   icon={item.icon}
                   name={item.name}
                   index={index}
+                  key={index}
                   screen={item.screen}
                   params={item.params}
                 />

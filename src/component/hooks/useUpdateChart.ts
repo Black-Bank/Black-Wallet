@@ -40,5 +40,5 @@ export function useUpdateChart(
   }, [data, TotalBalance]);
   chartInstance.setData(data);
 
-  return () => console.log('update chart');
+  return () => {};
 }

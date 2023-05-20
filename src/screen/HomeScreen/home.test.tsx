@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {render, screen} from '@testing-library/react-native';
+import {act, render, screen, waitFor} from '@testing-library/react-native';
 import {MockedProvider} from '@apollo/client/testing';
 import {Home} from './home';
 import {WalletMock} from './walletMock';
@@ -29,14 +29,11 @@ describe('it should render home screen', () => {
 
     render(component);
 
-    const evoButton = await screen.findByText('Evolução');
-    const addButton = await screen.findByText('Adicionar');
-    const transferButton = await screen.findByText('Transferir');
-    const trashButton = await screen.findByText('Futuros');
-
-    expect(evoButton).toBeTruthy();
-    expect(addButton).toBeTruthy();
-    expect(transferButton).toBeTruthy();
-    expect(trashButton).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByText('Evolução')).toBeTruthy();
+      expect(screen.getByText('Adicionar')).toBeTruthy();
+      expect(screen.getByText('Transferir')).toBeTruthy();
+      expect(screen.getByText('Futuros')).toBeTruthy();
+    });
   });
 });
