@@ -34,7 +34,7 @@ interface ExtractScreenProps {
 }
 export function ExtractScreen({route}: ExtractScreenProps) {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {transactionData} = useContext(AuthContext);
+  const {transactionData, setIsUpdate, isUpdate} = useContext(AuthContext);
   const hashString = route!.params.hash;
 
   const {coinPrice} = useGetCoinPrice(transactionData.coin);
@@ -43,6 +43,7 @@ export function ExtractScreen({route}: ExtractScreenProps) {
   const dateStrHour = getFormattedDate().slice(-11);
 
   const handleCancel = () => {
+    setIsUpdate(!isUpdate);
     navigation.navigate('Home');
   };
   return (

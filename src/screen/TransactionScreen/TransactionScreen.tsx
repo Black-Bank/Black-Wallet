@@ -85,8 +85,12 @@ export function TransactionScreen() {
   const pasteValue = async () => {
     setValue(
       selectedOption === walletData.coin
-        ? String(walletData.balance - coinTax)
-        : String((walletData.balance * coinPrice - usdTax).toFixed(2)),
+        ? String(walletData.balance - coinTax - 0.05 * coinTax)
+        : String(
+            (walletData.balance * coinPrice - usdTax - 0.05 * usdTax).toFixed(
+              2,
+            ),
+          ),
     );
   };
   const handleWalletAdress = (addr: string) => {
@@ -108,10 +112,10 @@ export function TransactionScreen() {
     }
     if (selectedOption === walletData.coin) {
       setValueAmountError(
-        Boolean(Number(value) > walletData.balance - coinTax),
+        Boolean(Number(value) >= walletData.balance - coinTax),
       );
     } else if (selectedOption === ECoinType.USD) {
-      setValueAmountError(Boolean(Number(value) > dolarTotal - usdTax));
+      setValueAmountError(Boolean(Number(value) >= dolarTotal - usdTax));
     }
   };
 

@@ -6,7 +6,10 @@ import {INSERT_BALANCE} from '../client/queries/queries';
 import AuthStore from '../../screen/AuthScreen/AuthStore';
 import ChartController from '../chart/controller/chartController';
 
-export function useUpdateChart(TotalBalance: number) {
+export function useUpdateChart(
+  TotalBalance: number,
+  isData: boolean,
+): () => void {
   const {data, refetch} = useGetBalance();
   const [insertBalance] = useMutation(INSERT_BALANCE);
   const date = new Date();
@@ -19,7 +22,10 @@ export function useUpdateChart(TotalBalance: number) {
   const chartInstance = ChartController.getInstance();
   const Email = loginInstance.email;
   const isChartUpdate = Boolean(
-    data && data?.getBalance.updateDate !== todayDate && TotalBalance >= 0,
+    data &&
+      isData &&
+      data?.getBalance.updateDate !== todayDate &&
+      TotalBalance >= 0,
   );
 
   useEffect(() => {
@@ -34,5 +40,5 @@ export function useUpdateChart(TotalBalance: number) {
   }, [data, TotalBalance]);
   chartInstance.setData(data);
 
-  return {};
+  return () => {};
 }

@@ -31,6 +31,7 @@ import Crypto from '../../component/services/ComunicationSystemsAuth';
 import {ActivityIndicator} from 'react-native-paper';
 import {AuthContext} from '../../contexts/auth';
 import AuthStore from '../AuthScreen/AuthStore';
+import {ECoinType} from '../../component/types/interfaces';
 
 interface ConfirmationScreenProps {
   route?: {
@@ -95,28 +96,44 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
     newCode[index] = '';
     setCode(newCode.join(''));
   };
-
   const TokenConfirm = async () => {
-    const {data: hashTransaction} = await createTransaction({
-      variables: {
-        value: transactionData.value * transactionData.convertFactor,
-        addressTo: transactionData.addressTo,
-        privateKey: transactionData.privateKey,
-        addressFrom: transactionData.address,
-        fee: transactionData.fee,
-        coin: transactionData.coin,
-      },
-    });
-    setIsUpdate(!isUpdate);
-    Toast.show({
-      type: 'success',
-      text1: 'Transação Enviada!',
-      visibilityTime: 3000,
-      autoHide: true,
-    });
-    setTimeout(() => {
-      navigation.navigate('ExtractScreen', {hash: hashTransaction});
-    }, 2000);
+    try {
+      setIsLoading(true);
+      const {data: hashTransaction} = await createTransaction({
+        variables: {
+          value: Number(transactionData.value.toFixed(12)),
+          addressTo: transactionData.addressTo,
+          privateKey: transactionData.privateKey,
+          addressFrom: transactionData.address,
+          fee:
+            transactionData.coin === ECoinType.ETH
+              ? 21000
+              : transactionData.fee,
+          coin: transactionData.coin,
+        },
+      });
+      setIsUpdate(!isUpdate);
+      Toast.show({
+        type: 'success',
+        text1: 'Transação Enviada!',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
+      setTimeout(() => {
+        navigation.navigate('ExtractScreen', {
+          hash: hashTransaction.createTransaction,
+        });
+      }, 2000);
+    } catch (err) {
+      Toast.show({
+        type: 'error',
+        text1: 'Algo deu errado!',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleConfirmCode = async () => {
@@ -203,9 +220,13 @@ export function ConfirmTransfer({route}: ConfirmationScreenProps) {
 
       <ButtonContainer>
         {timeRemaining > 0 ? (
-          <ConfirmationButton onPress={handleConfirmCode}>
-            <ConfirmationButtonText>Confirmar código</ConfirmationButtonText>
-          </ConfirmationButton>
+          isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <ConfirmationButton onPress={handleConfirmCode}>
+              <ConfirmationButtonText>Confirmar código</ConfirmationButtonText>
+            </ConfirmationButton>
+          )
         ) : isLoading ? (
           <ActivityIndicator />
         ) : (
