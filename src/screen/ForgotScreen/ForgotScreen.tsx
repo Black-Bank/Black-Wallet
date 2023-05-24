@@ -50,14 +50,14 @@ export function ForgotScreen() {
 
       Toast.show({
         type: 'success',
-        text1: 'Código enviado com sucesso',
+        text1: 'O código foi enviado para o seu email',
         visibilityTime: 3000,
         autoHide: true,
       });
     } catch (error: any) {
       Toast.show({
         type: 'error',
-        text1: 'Não foi enviar o código para este email',
+        text1: error.message,
         visibilityTime: 3000,
         autoHide: true,
       });

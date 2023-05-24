@@ -1,7 +1,9 @@
 import CryptoJS from 'crypto-js';
 import config from '../../../config';
 
-const isProd = Boolean(config.NODE_ENV === 'prod');
+const isProd = Boolean(
+  config.NODE_ENV === 'prod' || config.NODE_ENV === 'production',
+);
 class Crypto {
   public encrypt(plaintext: string): string {
     const key = CryptoJS.enc.Hex.parse(

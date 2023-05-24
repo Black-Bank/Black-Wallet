@@ -61,6 +61,7 @@ export function Home() {
 
   const refetchTime = 100;
   const {data, loading, refetch} = useGetWallets();
+
   const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>(
     data?.getFormatedData.filter(
       (wallets: {unconfirmedBalance: number}) =>
