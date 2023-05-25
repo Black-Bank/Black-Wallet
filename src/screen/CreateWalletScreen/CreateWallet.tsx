@@ -72,22 +72,20 @@ export function CreateWallet() {
         });
       }
 
-      Toast.show({
-        type: 'success',
-        text1: 'Carteira criada com sucesso',
-      });
-
+      setIsUpdate(!isUpdate);
       setTimeout(() => {
+        Toast.show({
+          type: 'success',
+          text1: 'Carteira criada com sucesso',
+        });
         navigation.navigate('Home');
-        setIsUpdate(!isUpdate);
-      }, 2000);
+        setIsLoading(false);
+      }, 3000);
     } catch (error: any) {
       Toast.show({
         type: 'error',
         text1: 'Não foi possível criar a carteira',
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
