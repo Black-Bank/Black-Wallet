@@ -128,7 +128,7 @@ export const FeatureBlockLargeText = styled.Text`
 `;
 
 export const FeatureBlockSmall = styled.TouchableOpacity`
-  height: 160px;
+  padding: 30px 12px;
   width: 48%;
   border-radius: 16px;
   background-color: #e6e6e6;
@@ -137,16 +137,13 @@ export const FeatureBlockSmall = styled.TouchableOpacity`
 `;
 
 export const FeatureBlockSmallText = styled.Text`
-  height: 30px;
-  margin-top: 10px;
-  margin-left: 10px;
+  text-align: center;
   font-weight: bold;
   font-size: 18px;
 `;
 
 export const FeaturesWrappers = styled.View`
   padding: 15px;
-  /* background-color: red; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
