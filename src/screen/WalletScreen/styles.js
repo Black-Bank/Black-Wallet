@@ -2,8 +2,8 @@ import styled from 'styled-components/native';
 
 export const AdressBox = styled.View`
   background-color: #d3d3d3;
-  height: 40px;
-  width: 90%;
+  padding: 10px 0;
+  /* width: 100%; */
   flex-direction: row;
   border-radius: 5px;
   justify-content: flex-end;
@@ -17,9 +17,7 @@ export const HorizontalSpaceViewDefault = styled.View`
 `;
 
 export const DescriptionBox = styled.View`
-  margin-left: 14px;
-  margin-right: 14px;
-  margin-top: 10px;
+  padding: 10px;
   align-items: center;
   justify-content: center;
 `;
