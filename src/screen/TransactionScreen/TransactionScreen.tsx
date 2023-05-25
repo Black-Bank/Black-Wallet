@@ -128,7 +128,13 @@ export function TransactionScreen() {
       fee: Number(taxContract[selectedTaxOption]),
       value:
         selectedOption === walletData.coin
-          ? Number(value)
+          ? Number(
+              walletData.coin === ECoinType.BTC
+                ? Number(Number(value).toFixed(5))
+                : value,
+            )
+          : walletData.coin === ECoinType.BTC
+          ? Number(Number(Number(value) / coinPrice).toFixed(5))
           : Number(value) / coinPrice,
       addressTo: address,
       convertFactor: factor,
