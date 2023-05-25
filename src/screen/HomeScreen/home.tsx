@@ -26,6 +26,7 @@ import {
   FeatureBlockLargeText,
   FeatureBlockSmall,
   FeatureBlockSmallText,
+  FeaturesWrappers,
 } from './Home.styles';
 import BankIcon from '../../assets/bank.svg';
 import TransferIcon from '../../assets/transfer.svg';
@@ -61,6 +62,7 @@ export function Home() {
 
   const refetchTime = 100;
   const {data, loading, refetch} = useGetWallets();
+
   const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>(
     data?.getFormatedData.filter(
       (wallets: {unconfirmedBalance: number}) =>
@@ -207,7 +209,7 @@ export function Home() {
               </FeatureBlockLarge>
             </FeaturesWrapper>
 
-            <FeaturesWrapper>
+            <FeaturesWrappers>
               <FeatureBlockSmall
                 onPress={() => handleWhatsAppPress('5521983206963')}>
                 <BTCIcon width={64} height={64} fill={'black'} />
@@ -220,7 +222,7 @@ export function Home() {
 
                 <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
               </FeatureBlockSmall>
-            </FeaturesWrapper>
+            </FeaturesWrappers>
 
             <FeaturesWrapper>
               <FeatureBlockLarge
