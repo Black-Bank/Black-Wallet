@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import {render} from '@testing-library/react-native';
 import {WalletScreen} from '../WalletScreen';
@@ -8,11 +7,15 @@ jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
 
 describe('it should render wallet screen', () => {
   it('render wallet screen', async () => {
-    render(
+    const component = (
       <NavigationContainer>
         <WalletScreen route={route} />
-      </NavigationContainer>,
+      </NavigationContainer>
     );
+
+    const {getByText} = render(component);
+
+    expect(getByText('1GfYUSqAbqGTpp6nnCfvTKUBE5QgEwLQX8')).toBeTruthy();
   });
 });
 
