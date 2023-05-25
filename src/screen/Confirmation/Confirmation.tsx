@@ -171,7 +171,7 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
       <ButtonContainer>
         {timeRemaining > 0 ? (
           <ConfirmationButton onPress={handleConfirmCode}>
-            <ConfirmationButtonText>Confirmar código</ConfirmationButtonText>
+            <ConfirmationButtonText>Confirmar</ConfirmationButtonText>
           </ConfirmationButton>
         ) : isLoading ? (
           <ActivityIndicator />
