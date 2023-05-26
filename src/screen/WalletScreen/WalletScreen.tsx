@@ -40,7 +40,6 @@ export function WalletScreen({
       return WALLET_SCREEN.SendOnlyETH;
     }
   };
-  const receivedCoin = `${WALLET_SCREEN.received} ${coin}`;
   const description = `${coinBaseName(coin)} ${
     WALLET_SCREEN.walletDescription
   }`;
