@@ -140,7 +140,12 @@ export function TransactionScreen() {
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
   };
+
   const handleContinue = () => {
+    const handleFormatBTCValue = (values: string): number => {
+      const roundedValue = Math.floor(Number(values) * 10000) / 10000;
+      return Number(roundedValue.toFixed(4));
+    };
     setTransactionData({
       ...walletData,
       fee: Number(taxContract[selectedTaxOption]),
@@ -148,11 +153,11 @@ export function TransactionScreen() {
         selectedOption === walletData.coin
           ? Number(
               walletData.coin === ECoinType.BTC
-                ? Number(Number(value).toFixed(4))
+                ? handleFormatBTCValue(value)
                 : value,
             )
           : walletData.coin === ECoinType.BTC
-          ? Number(Number(Number(value) / coinPrice).toFixed(4))
+          ? handleFormatBTCValue(String(Number(value) / coinPrice))
           : Number(value) / coinPrice,
       addressTo: address,
       convertFactor: factor,
