@@ -29,9 +29,7 @@ export const TransactionQuantityItemContainer = styled.View`
   justify-content: space-between;
 `;
 export const FeeContainer = styled.View`
-  margin-top: 20px;
-  flex-direction: row;
-  justify-content: space-between;
+  padding-top: 20px;
 `;
 export const TransactionTextItem = styled.Text`
   font-style: normal;
@@ -43,12 +41,12 @@ export const TransactionTextItem = styled.Text`
 `;
 
 export const TransactionItemExternalBox = styled.View`
+  background-color: #fff;
   margin-top: 8px;
   flex-direction: row;
-  background-color: #fff;
-  min-height: 74px;
   border-radius: 8px;
   align-items: center;
+  padding: 5px 12px;
 `;
 export const TransactionItemExternalWalletAddress = styled.View`
   margin-top: 8px;
@@ -67,16 +65,12 @@ export const TransactionItemExternalQuantity = styled.View`
   margin-top: 8px;
 `;
 
-export const LogoItem = styled.View`
-  margin-left: 12px;
-`;
+export const LogoItem = styled.View``;
 
 export const InternalItemBox = styled.View`
   flex: 1;
   flex-direction: row;
   margin-left: 16px;
-  min-height: 30px;
-  margin-right: 16px;
   justify-content: space-between;
 `;
 
@@ -146,6 +140,12 @@ export const PastButtonText = styled.Text`
 `;
 export const SelectorButton = styled.TouchableOpacity`
   background-color: transparent;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 8px;
+`;
+export const SelectorButtontaxation = styled.TouchableOpacity`
+  background-color: red;
   flex-direction: row;
   align-items: center;
   border-radius: 8px;

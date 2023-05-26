@@ -128,7 +128,13 @@ export function TransactionScreen() {
       fee: Number(taxContract[selectedTaxOption]),
       value:
         selectedOption === walletData.coin
-          ? Number(value)
+          ? Number(
+              walletData.coin === ECoinType.BTC
+                ? Number(Number(value).toFixed(5))
+                : value,
+            )
+          : walletData.coin === ECoinType.BTC
+          ? Number(Number(Number(value) / coinPrice).toFixed(5))
           : Number(value) / coinPrice,
       addressTo: address,
       convertFactor: factor,
@@ -216,7 +222,11 @@ export function TransactionScreen() {
             <InputWalletValue
               placeholder="Valor"
               onChangeText={(payValue: string) => handleValue(payValue)}
-              value={value}
+              value={
+                walletData.coin === ECoinType.BTC
+                  ? Number(value).toFixed(5)
+                  : value
+              }
             />
             <PastButton onPress={pasteValue}>
               <PastButtonText>Max</PastButtonText>
@@ -224,7 +234,10 @@ export function TransactionScreen() {
           </TransactionItemExternalQuantity>
           {selectedOption === walletData.coin ? (
             <SelectorText>
-              USD {(Number(value) * coinPrice).toFixed(2)}
+              USD{' '}
+              {walletData.coin === ECoinType.BTC
+                ? (Number(Number(value).toFixed(5)) * coinPrice).toFixed(2)
+                : (Number(value) * coinPrice).toFixed(2)}
             </SelectorText>
           ) : (
             <SelectorText>
@@ -233,14 +246,6 @@ export function TransactionScreen() {
           )}
 
           <FeeContainer>
-            {selectedOption === walletData.coin ? (
-              <TransactionTextItem>
-                Taxa: {coinTax} {walletData.coin}
-              </TransactionTextItem>
-            ) : (
-              <TransactionTextItem>Taxa: {usdTax} USD</TransactionTextItem>
-            )}
-
             <SelectorButton>
               {selectedTaxOption === 'hight' ? (
                 <DotItem onPress={() => setSelectedTaxOption('hight')} />
@@ -261,6 +266,13 @@ export function TransactionScreen() {
               )}
               <SelectorText>Baixa</SelectorText>
             </SelectorButton>
+            {selectedOption === walletData.coin ? (
+              <TransactionTextItem>
+                Taxa: {coinTax} {walletData.coin}
+              </TransactionTextItem>
+            ) : (
+              <TransactionTextItem>Taxa: {usdTax} USD</TransactionTextItem>
+            )}
           </FeeContainer>
         </QuantityContainer>
 
