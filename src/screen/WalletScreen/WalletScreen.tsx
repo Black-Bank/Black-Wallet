@@ -40,7 +40,6 @@ export function WalletScreen({
       return WALLET_SCREEN.SendOnlyETH;
     }
   };
-  const receivedCoin = `${WALLET_SCREEN.received} ${coin}`;
   const description = `${coinBaseName(coin)} ${
     WALLET_SCREEN.walletDescription
   }`;
@@ -48,7 +47,6 @@ export function WalletScreen({
   return (
     <>
       <S.WalletCard>
-        <S.HeaderWalletTitle> {receivedCoin}</S.HeaderWalletTitle>
         {coin === ECoinType.BTC && <BTCLogo width={300} height={300} />}
         {coin === ECoinType.ETH && <ETHLogo width={300} height={300} />}
         <S.ContentCard>
