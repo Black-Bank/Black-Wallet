@@ -48,7 +48,6 @@ export function WalletScreen({
   return (
     <>
       <S.WalletCard>
-        <S.HeaderWalletTitle> {receivedCoin}</S.HeaderWalletTitle>
         {coin === ECoinType.BTC && <BTCLogo width={300} height={300} />}
         {coin === ECoinType.ETH && <ETHLogo width={300} height={300} />}
         <S.ContentCard>
