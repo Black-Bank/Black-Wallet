@@ -211,13 +211,13 @@ export function Home() {
 
             <FeaturesWrappers>
               <FeatureBlockSmall
-                onPress={() => handleWhatsAppPress('5521983206963')}>
+                onPress={() => handleWhatsAppPress('5521977040408')}>
                 <BTCIcon width={64} height={64} fill={'black'} />
                 <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
               </FeatureBlockSmall>
 
               <FeatureBlockSmall
-                onPress={() => handleWhatsAppPress('5521983206963')}>
+                onPress={() => handleWhatsAppPress('5521977040408')}>
                 <ETHIcon width={64} height={64} fill={'black'} />
 
                 <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
