@@ -6,7 +6,6 @@ import {useGetWallets} from '../../component/hooks/useGetWallets';
 
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {useUpdateChart} from '../../component/hooks/useUpdateChart';
 import {
   AccountBalanceContainer,
   AccountContainerSupport,
@@ -92,10 +91,6 @@ export function Home() {
       );
     }
   }, [data]);
-  setTimeout(
-    useUpdateChart(totalBalance, Boolean(data)),
-    data ? 15000 : refetchTime,
-  );
 
   const menuItems: IMenuItem[] = [
     {
