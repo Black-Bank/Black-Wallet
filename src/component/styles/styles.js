@@ -110,7 +110,7 @@ export const CardCoin = styled.Text`
 export const WalletCard = styled.View`
   display: flex;
   flex: 1;
-  margin-top: 70px;
+  margin-top: 130px;
   justify-content: center;
   align-items: center;
 `;
