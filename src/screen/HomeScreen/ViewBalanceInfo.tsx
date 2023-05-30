@@ -86,7 +86,7 @@ export function ViewBanceInfo() {
           style={[styles.button, button2Pressed && styles.buttonPressed]}
           onPressIn={handleButton2PressIn}
           onPressOut={handleButton2PressOut}>
-          <Text>Enviada</Text>
+          <Text>Enviadas</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
