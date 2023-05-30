@@ -3,15 +3,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
-
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {
-  AccountBalanceContainer,
-  AccountContainerSupport,
-  BalanceText,
   Description,
-  IconContainer,
   LoadingContainer,
   OptionButtonAll,
   OptionsButton,
@@ -26,18 +21,19 @@ import {
   FeatureBlockSmall,
   FeatureBlockSmallText,
   FeaturesWrappers,
+  ContainerContentHome,
 } from './Home.styles';
 import BankIcon from '../../assets/bank.svg';
 import TransferIcon from '../../assets/transfer.svg';
 import WalletIcon from '../../assets/wallet.svg';
 import PlusIcon from '../../assets/plus.svg';
-import CaretRightIcon from '../../assets/caret-right.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import BTCIcon from '../../assets/bitcoin.svg';
 import ETHIcon from '../../assets/ethereum.svg';
 import FriendIcon from '../../assets/friend.svg';
 import InfoIcon from '../../assets/info.svg';
 import {handleWhatsAppPress} from '../../component/services/wppServices';
+import {ViewBanceInfo} from './ViewBalanceInfo';
 
 interface IMenuItem {
   icon: any;
@@ -69,9 +65,9 @@ export function Home() {
     ),
   );
 
-  const totalBalance = data?.getFormatedData.length
-    ? data?.getFormatedData[0].totalBalance
-    : 0;
+  // const totalBalance = data?.getFormatedData.length
+  //   ? data?.getFormatedData[0].totalBalance
+  //   : 0;
 
   const walletsNavigate = async () => {
     navigation.navigate('WalletListScreen');
@@ -150,26 +146,15 @@ export function Home() {
 
   return (
     <>
-      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       {loading && !data ? (
         <LoadingContainer>
           <ActivityIndicator size="large" color="#0a0909" />
         </LoadingContainer>
       ) : (
         <ScrollView>
-          <>
-            <AccountContainerSupport
-              onPress={() => navigation.navigate('EvoScreen')}>
-              <AccountBalanceContainer>
-                <BalanceText>Conta</BalanceText>
-                <BalanceText>
-                  {totalBalance?.toFixed(2) || '0.00'} USD
-                </BalanceText>
-              </AccountBalanceContainer>
-              <IconContainer>
-                <CaretRightIcon width={20} height={20} fill="#202020" />
-              </IconContainer>
-            </AccountContainerSupport>
+          <ContainerContentHome>
+            <ViewBanceInfo />
 
             <OptionsContainer>
               {menuItems.map((item, index) => (
@@ -227,7 +212,7 @@ export function Home() {
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
               </FeatureBlockLarge>
             </FeaturesWrapper>
-          </>
+          </ContainerContentHome>
         </ScrollView>
       )}
     </>
