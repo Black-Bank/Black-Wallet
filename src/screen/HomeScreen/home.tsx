@@ -24,7 +24,7 @@ import {
   ContainerContentHome,
 } from './Home.styles';
 import BankIcon from '../../assets/bank.svg';
-import TransferIcon from '../../assets/transfer.svg';
+import SendIcon from '../../assets/send_item.svg';
 import WalletIcon from '../../assets/wallet.svg';
 import PlusIcon from '../../assets/plus.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
@@ -95,20 +95,20 @@ export function Home() {
       screen: 'EvoScreen',
     },
     {
-      icon: <PlusIcon width={20} height={30} fill="#212121" />,
-      name: 'Adicionar',
-      screen: 'CreateWallet',
-    },
-    {
-      icon: <TransferIcon width={30} height={40} fill="#212121" />,
+      icon: <SendIcon width={20} height={25} fill="#212121" />,
       name: 'Futuros',
       screen: 'FutureScreen',
       params: inTransactionalWallet,
     },
     {
-      icon: <TransferIcon width={30} height={40} fill="#212121" />,
-      name: 'Transferir',
+      icon: <SendIcon width={20} height={25} fill="#212121" />,
+      name: 'Enviar',
       screen: 'WalletListScreen',
+    },
+    {
+      icon: <PlusIcon width={20} height={30} fill="#212121" />,
+      name: 'Adicionar',
+      screen: 'CreateWallet',
     },
   ];
 

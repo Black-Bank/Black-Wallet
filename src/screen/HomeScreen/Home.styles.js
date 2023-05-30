@@ -29,22 +29,24 @@ export const OptionsContainerWalletHeader = styled.View`
   justify-content: center;
 `;
 export const OptionsContainer = styled.View`
-  background-color: #f3ecec;
+  height: 120px;
+  background-color: white;
   flex-direction: row;
+  justify-content: space-evenly;
+  border-radius: 8px;
 `;
 
 export const OptionsButton = styled.TouchableOpacity`
-  background-color: rgba(153, 153, 153, 0.3);
+  background-color: #f2f3f5;
   width: 50px;
   height: 50px;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: 8px;
 `;
 
 export const OptionButtonAll = styled.View`
   height: 100px;
-  margin-left: 20px;
   justify-content: center;
   align-items: center;
 `;
