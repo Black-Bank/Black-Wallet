@@ -36,6 +36,7 @@ import FriendIcon from '../../assets/friend.svg';
 import InfoIcon from '../../assets/info.svg';
 import {handleWhatsAppPress} from '../../component/services/wppServices';
 import {ViewBanceInfo} from './ViewBalanceInfo';
+import {ViewButtons} from './ViewButtons';
 
 interface IMenuItem {
   icon: any;
@@ -156,7 +157,9 @@ export function Home() {
       ) : (
         <ScrollView>
           <ContainerContentHome>
-            <ViewBanceInfo />
+            <ViewBanceInfo>
+              <ViewButtons />
+            </ViewBanceInfo>
 
             <OptionsContainer>
               {menuItems.map((item, index) => (

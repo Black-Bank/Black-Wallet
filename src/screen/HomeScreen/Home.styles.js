@@ -141,7 +141,7 @@ export const ContentTop = styled.View`
   background-color: #ffffff;
   border-radius: 8px;
   padding-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 `;
 
 export const ContainerLogoMenu = styled.View`
@@ -201,18 +201,29 @@ export const ViewPercentual = styled.View`
   padding-bottom: 15px;
 `;
 
-export const TextGreen = styled.Text`
-  color: #51ae6f;
+export const Textpercentage = styled.Text`
+  color: ${props => (props.value >= 0 ? '#51ae6f' : 'red')};
   margin-left: 10px;
 `;
 
-export const ViewButtonsFilter = styled.View`
-  flex-direction: row;
-  background-color: blue;
-  justify-content: space-between;
-  padding: 15px 40px;
+export const ViewChildrenBalanceInfo = styled.View`
+  background-color: #f9fafb;
+  padding: 10px;
 `;
 
-export const ButtonFilter = styled.TouchableOpacity`
-  background-color: red;
+export const ButtonFilterHome = styled.TouchableOpacity`
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: ${props => (props.isPressed ? '#624AA7' : 'transparent')};
+`;
+
+export const ContainerButtonsFilter = styled.View`
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+export const TextButtonFilter = styled.Text`
+  color: ${props => (props.isPressed ? '#ffffff' : '#828282')};
+  font-weight: ${props => (props.isPressed ? 600 : 300)};
 `;
