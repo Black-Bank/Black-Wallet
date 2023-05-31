@@ -7,11 +7,7 @@ import {useGetWallets} from '../../component/hooks/useGetWallets';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {
-  AccountBalanceContainer,
-  AccountContainerSupport,
-  BalanceText,
   Description,
-  IconContainer,
   LoadingContainer,
   OptionButtonAll,
   OptionsButton,
@@ -26,18 +22,20 @@ import {
   FeatureBlockSmall,
   FeatureBlockSmallText,
   FeaturesWrappers,
+  ContainerContentHome,
 } from './Home.styles';
-import BankIcon from '../../assets/bank.svg';
-import TransferIcon from '../../assets/transfer.svg';
+import ToReceiveIcon from '../../assets/toReceive.svg';
+import TransactionIcon from '../../assets/transactions.svg';
 import WalletIcon from '../../assets/wallet.svg';
-import PlusIcon from '../../assets/plus.svg';
-import CaretRightIcon from '../../assets/caret-right.svg';
+import SendIcon from '../../assets/send.svg';
+import AddIcon from '../../assets/add.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import BTCIcon from '../../assets/bitcoin.svg';
 import ETHIcon from '../../assets/ethereum.svg';
 import FriendIcon from '../../assets/friend.svg';
 import InfoIcon from '../../assets/info.svg';
 import {handleWhatsAppPress} from '../../component/services/wppServices';
+import {ViewBanceInfo} from './ViewBalanceInfo';
 
 interface IMenuItem {
   icon: any;
@@ -69,9 +67,9 @@ export function Home() {
     ),
   );
 
-  const totalBalance = data?.getFormatedData.length
-    ? data?.getFormatedData[0].totalBalance
-    : 0;
+  // const totalBalance = data?.getFormatedData.length
+  //   ? data?.getFormatedData[0].totalBalance
+  //   : 0;
 
   const walletsNavigate = async () => {
     navigation.navigate('WalletListScreen');
@@ -94,25 +92,25 @@ export function Home() {
 
   const menuItems: IMenuItem[] = [
     {
-      icon: <BankIcon width={20} height={30} fill="#212121" />,
-      name: 'Evolução',
+      icon: <SendIcon width={25} height={30} fill="#212121" />,
+      name: 'Enviar',
+      screen: 'WalletListScreen',
+    },
+    {
+      icon: <ToReceiveIcon width={20} height={30} fill="#212121" />,
+      name: 'Receber',
       screen: 'EvoScreen',
     },
     {
-      icon: <PlusIcon width={20} height={30} fill="#212121" />,
-      name: 'Adicionar',
-      screen: 'CreateWallet',
-    },
-    {
-      icon: <TransferIcon width={30} height={40} fill="#212121" />,
-      name: 'Futuros',
+      icon: <TransactionIcon width={20} height={30} fill="#212121" />,
+      name: 'Transações',
       screen: 'FutureScreen',
       params: inTransactionalWallet,
     },
     {
-      icon: <TransferIcon width={30} height={40} fill="#212121" />,
-      name: 'Transferir',
-      screen: 'WalletListScreen',
+      icon: <AddIcon width={20} height={30} fill="#212121" />,
+      name: 'Nova Carteira',
+      screen: 'CreateWallet',
     },
   ];
 
@@ -150,26 +148,15 @@ export function Home() {
 
   return (
     <>
-      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       {loading && !data ? (
         <LoadingContainer>
           <ActivityIndicator size="large" color="#0a0909" />
         </LoadingContainer>
       ) : (
         <ScrollView>
-          <>
-            <AccountContainerSupport
-              onPress={() => navigation.navigate('EvoScreen')}>
-              <AccountBalanceContainer>
-                <BalanceText>Conta</BalanceText>
-                <BalanceText>
-                  {totalBalance?.toFixed(2) || '0.00'} USD
-                </BalanceText>
-              </AccountBalanceContainer>
-              <IconContainer>
-                <CaretRightIcon width={20} height={20} fill="#202020" />
-              </IconContainer>
-            </AccountContainerSupport>
+          <ContainerContentHome>
+            <ViewBanceInfo />
 
             <OptionsContainer>
               {menuItems.map((item, index) => (
@@ -227,7 +214,7 @@ export function Home() {
                 <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
               </FeatureBlockLarge>
             </FeaturesWrapper>
-          </>
+          </ContainerContentHome>
         </ScrollView>
       )}
     </>

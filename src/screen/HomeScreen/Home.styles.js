@@ -1,23 +1,13 @@
 import styled from 'styled-components/native';
 
-export const AccountBalanceContainer = styled.View`
-  margin-left: 10px;
-`;
-
-export const BalanceText = styled.Text`
-  color: #000;
-  font-size: 16px;
-  font-weight: bold;
-  font-family: Helvetica;
-  margin-bottom: 10px;
-`;
-
 export const Description = styled.Text`
-  color: #000;
+  color: #4f4f4f;
   font-size: 14px;
   font-weight: semi-bold;
   font-family: Helvetica;
   margin-top: 5px;
+  text-align: center;
+  padding: 4px 0;
 `;
 
 export const DescriptionWalletHeader = styled.Text`
@@ -33,14 +23,6 @@ export const AccountHomeOptions = styled.View`
   background-color: red;
 `;
 
-export const AccountContainerSupport = styled.TouchableOpacity`
-  height: 100px;
-  margin-top: 50px;
-  background-color: #f3ecec;
-  padding: 20px;
-  flex-direction: row;
-  justify-content: space-between;
-`;
 export const OptionsContainerWalletHeader = styled.View`
   flex: 0.85;
   align-items: center;
@@ -49,33 +31,33 @@ export const OptionsContainerWalletHeader = styled.View`
   justify-content: center;
 `;
 export const OptionsContainer = styled.View`
-  background-color: #f3ecec;
+  background-color: white;
   flex-direction: row;
-`;
-export const IconContainer = styled.View`
-  height: 60px;
-  justify-content: center;
+  height: 120px;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 8px;
 `;
 
 export const OptionsButton = styled.TouchableOpacity`
-  background-color: rgba(153, 153, 153, 0.3);
+  background-color: #f2f3f5;
   width: 50px;
   height: 50px;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: 8px;
 `;
 
 export const OptionButtonAll = styled.View`
-  height: 100px;
-  margin-left: 20px;
-  justify-content: center;
+  height: 90px;
+  width: 75px;
+  justify-content: space-between;
+  align-items: center;
   align-items: center;
 `;
 
 export const LoadingContainer = styled.View`
   height: 100%;
-
   align-items: center;
   justify-content: center;
 `;
@@ -148,4 +130,89 @@ export const FeaturesWrappers = styled.View`
   flex-direction: row;
   justify-content: space-between;
   gap: 30px;
+`;
+
+export const ContainerContentHome = styled.View`
+  background-color: #f2f3f5;
+  padding: 15px 20px;
+`;
+
+export const ContentTop = styled.View`
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+`;
+
+export const ContainerLogoMenu = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+`;
+
+export const ContainerTotalBalance = styled.View`
+  padding: 15px 15px 0;
+`;
+
+export const TextGray1Bold = styled.Text`
+  color: #828282;
+  font-weight: bold;
+  font-size: 14px;
+`;
+
+export const TextGray1Normal = styled.Text`
+  color: #828282;
+  font-weight: 400;
+  font-size: 14px;
+`;
+
+export const ContainerValue = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 15px;
+`;
+
+export const TextGray2Large = styled.Text`
+  color: #414561;
+  font-size: 48px;
+`;
+
+export const TextGray2Small = styled.Text`
+  color: #414561;
+  font-size: 14px;
+  position: absolute;
+  right: -30;
+  top: 8;
+`;
+
+export const ViewSuport = styled.View`
+  position: relative;
+`;
+
+export const ViewLastContent = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const ViewPercentual = styled.View`
+  flex-direction: row;
+  padding-bottom: 15px;
+`;
+
+export const TextGreen = styled.Text`
+  color: #51ae6f;
+  margin-left: 10px;
+`;
+
+export const ViewButtonsFilter = styled.View`
+  flex-direction: row;
+  background-color: blue;
+  justify-content: space-between;
+  padding: 15px 40px;
+`;
+
+export const ButtonFilter = styled.TouchableOpacity`
+  background-color: red;
 `;
