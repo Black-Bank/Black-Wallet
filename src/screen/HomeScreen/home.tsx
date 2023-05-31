@@ -37,6 +37,7 @@ import InfoIcon from '../../assets/info.svg';
 import {handleWhatsAppPress} from '../../component/services/wppServices';
 import {ViewBanceInfo} from './ViewBalanceInfo';
 import {ViewButtons} from './ViewButtons';
+import {Footer} from '../../component/footer/Footer';
 
 interface IMenuItem {
   icon: any;
@@ -155,70 +156,75 @@ export function Home() {
           <ActivityIndicator size="large" color="#0a0909" />
         </LoadingContainer>
       ) : (
-        <ScrollView>
-          <ContainerContentHome>
-            <ViewBanceInfo>
-              <ViewButtons />
-            </ViewBanceInfo>
+        <>
+          <ScrollView>
+            <ContainerContentHome>
+              <ViewBanceInfo>
+                <ViewButtons />
+              </ViewBanceInfo>
 
-            <OptionsContainer>
-              {menuItems.map((item, index) => (
-                <RenderMenuCarousel
-                  icon={item.icon}
-                  name={item.name}
-                  index={index}
-                  key={index}
-                  screen={item.screen}
-                  params={item.params}
-                />
-              ))}
-            </OptionsContainer>
+              <OptionsContainer>
+                {menuItems.map((item, index) => (
+                  <RenderMenuCarousel
+                    icon={item.icon}
+                    name={item.name}
+                    index={index}
+                    key={index}
+                    screen={item.screen}
+                    params={item.params}
+                  />
+                ))}
+              </OptionsContainer>
 
-            <Divider />
+              <Divider />
 
-            <FeatureCard onPress={walletsNavigate}>
-              <FeatureCardContent>
-                <WalletIcon height={30} width={30} fill={'#272727'} />
+              <FeatureCard onPress={walletsNavigate}>
+                <FeatureCardContent>
+                  <WalletIcon height={30} width={30} fill={'#272727'} />
 
-                <CardName>Carteiras</CardName>
-              </FeatureCardContent>
-            </FeatureCard>
+                  <CardName>Carteiras</CardName>
+                </FeatureCardContent>
+              </FeatureCard>
 
-            <FeaturesWrapper>
-              <FeatureBlockLarge>
-                <FriendIcon width={64} height={64} fill={'black'} />
+              <FeaturesWrapper>
+                <FeatureBlockLarge>
+                  <FriendIcon width={64} height={64} fill={'black'} />
 
-                <FeatureBlockLargeText>
-                  Convide seus amigos!
-                </FeatureBlockLargeText>
-              </FeatureBlockLarge>
-            </FeaturesWrapper>
+                  <FeatureBlockLargeText>
+                    Convide seus amigos!
+                  </FeatureBlockLargeText>
+                </FeatureBlockLarge>
+              </FeaturesWrapper>
 
-            <FeaturesWrappers>
-              <FeatureBlockSmall
-                onPress={() => handleWhatsAppPress('5521983206963')}>
-                <BTCIcon width={64} height={64} fill={'black'} />
-                <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
-              </FeatureBlockSmall>
+              <FeaturesWrappers>
+                <FeatureBlockSmall
+                  onPress={() => handleWhatsAppPress('5521983206963')}>
+                  <BTCIcon width={64} height={64} fill={'black'} />
+                  <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
+                </FeatureBlockSmall>
 
-              <FeatureBlockSmall
-                onPress={() => handleWhatsAppPress('5521983206963')}>
-                <ETHIcon width={64} height={64} fill={'black'} />
+                <FeatureBlockSmall
+                  onPress={() => handleWhatsAppPress('5521983206963')}>
+                  <ETHIcon width={64} height={64} fill={'black'} />
 
-                <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
-              </FeatureBlockSmall>
-            </FeaturesWrappers>
+                  <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
+                </FeatureBlockSmall>
+              </FeaturesWrappers>
 
-            <FeaturesWrapper>
-              <FeatureBlockLarge
-                onPress={() => handleWhatsAppPress('5521983206963')}>
-                <InfoIcon width={64} height={64} fill={'black'} />
+              <FeaturesWrapper>
+                <FeatureBlockLarge
+                  onPress={() => handleWhatsAppPress('5521983206963')}>
+                  <InfoIcon width={64} height={64} fill={'black'} />
 
-                <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
-              </FeatureBlockLarge>
-            </FeaturesWrapper>
-          </ContainerContentHome>
-        </ScrollView>
+                  <FeatureBlockLargeText>
+                    Precisa de ajuda?
+                  </FeatureBlockLargeText>
+                </FeatureBlockLarge>
+              </FeaturesWrapper>
+            </ContainerContentHome>
+          </ScrollView>
+          <Footer />
+        </>
       )}
     </>
   );
