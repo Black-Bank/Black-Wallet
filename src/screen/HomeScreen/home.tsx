@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
@@ -12,33 +12,25 @@ import {
   OptionButtonAll,
   OptionsButton,
   OptionsContainer,
-  Divider,
-  FeatureCard,
-  FeatureCardContent,
-  CardName,
-  FeatureBlockLarge,
-  FeaturesWrapper,
-  FeatureBlockLargeText,
-  FeatureBlockSmall,
-  FeatureBlockSmallText,
-  FeaturesWrappers,
   ContainerContentHome,
+  ContainerCards,
+  ContentBuyCoins,
+  DescriptionContent,
+  TitleContent,
+  Card,
 } from './Home.styles';
 import ToReceiveIcon from '../../assets/toReceive.svg';
 import TransactionIcon from '../../assets/transactions.svg';
-import WalletIcon from '../../assets/wallet.svg';
 import SendIcon from '../../assets/send.svg';
 import AddIcon from '../../assets/add.svg';
+import RightIcon from '../../assets/rightButton.svg';
+import EthereumIcon from '../../assets/coinEthereum.svg';
+import BitcoinIcon from '../../assets/coinBitcoin.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import BTCIcon from '../../assets/bitcoin.svg';
-import ETHIcon from '../../assets/ethereum.svg';
-import FriendIcon from '../../assets/friend.svg';
-import InfoIcon from '../../assets/info.svg';
-import {handleWhatsAppPress} from '../../component/services/wppServices';
+// import {handleWhatsAppPress} from '../../component/services/wppServices';
 import {ViewBanceInfo} from './ViewBalanceInfo';
 import {ViewButtons} from './ViewButtons';
 import {Footer} from '../../component/footer/Footer';
-
 interface IMenuItem {
   icon: any;
   name: string;
@@ -73,9 +65,9 @@ export function Home() {
   //   ? data?.getFormatedData[0].totalBalance
   //   : 0;
 
-  const walletsNavigate = async () => {
-    navigation.navigate('WalletListScreen');
-  };
+  // const walletsNavigate = async () => {
+  //   navigation.navigate('WalletListScreen');
+  // };
 
   useEffect(() => {
     setTimeout(refetch, refetchTime);
@@ -176,51 +168,37 @@ export function Home() {
                 ))}
               </OptionsContainer>
 
-              <Divider />
+              <ContainerCards>
+                <Card style={{backgroundColor: '#0661c8'}}>
+                  <EthereumIcon
+                    width={40}
+                    height={40}
+                    style={{marginBottom: 10}}
+                  />
+                  <ContentBuyCoins>
+                    <TitleContent>Compre Ethereum</TitleContent>
+                    <DescriptionContent>
+                      Your new way for all familiar payments
+                    </DescriptionContent>
+                  </ContentBuyCoins>
+                  <RightIcon width={30} height={30} />
+                </Card>
 
-              <FeatureCard onPress={walletsNavigate}>
-                <FeatureCardContent>
-                  <WalletIcon height={30} width={30} fill={'#272727'} />
-
-                  <CardName>Carteiras</CardName>
-                </FeatureCardContent>
-              </FeatureCard>
-
-              <FeaturesWrapper>
-                <FeatureBlockLarge>
-                  <FriendIcon width={64} height={64} fill={'black'} />
-
-                  <FeatureBlockLargeText>
-                    Convide seus amigos!
-                  </FeatureBlockLargeText>
-                </FeatureBlockLarge>
-              </FeaturesWrapper>
-
-              <FeaturesWrappers>
-                <FeatureBlockSmall
-                  onPress={() => handleWhatsAppPress('5521983206963')}>
-                  <BTCIcon width={64} height={64} fill={'black'} />
-                  <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
-                </FeatureBlockSmall>
-
-                <FeatureBlockSmall
-                  onPress={() => handleWhatsAppPress('5521983206963')}>
-                  <ETHIcon width={64} height={64} fill={'black'} />
-
-                  <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
-                </FeatureBlockSmall>
-              </FeaturesWrappers>
-
-              <FeaturesWrapper>
-                <FeatureBlockLarge
-                  onPress={() => handleWhatsAppPress('5521983206963')}>
-                  <InfoIcon width={64} height={64} fill={'black'} />
-
-                  <FeatureBlockLargeText>
-                    Precisa de ajuda?
-                  </FeatureBlockLargeText>
-                </FeatureBlockLarge>
-              </FeaturesWrapper>
+                <Card style={{backgroundColor: '#de6d00'}}>
+                  <BitcoinIcon
+                    width={40}
+                    height={40}
+                    style={{marginBottom: 10}}
+                  />
+                  <ContentBuyCoins>
+                    <TitleContent>Compre Bitcoin</TitleContent>
+                    <DescriptionContent>
+                      Your new way for all familiar payments
+                    </DescriptionContent>
+                  </ContentBuyCoins>
+                  <RightIcon width={30} height={30} />
+                </Card>
+              </ContainerCards>
             </ContainerContentHome>
           </ScrollView>
           <Footer />

@@ -62,74 +62,32 @@ export const LoadingContainer = styled.View`
   justify-content: center;
 `;
 
-export const Divider = styled.View`
-  height: 1px;
-  background-color: rgba(153, 153, 153, 0.5);
-  margin-top: 30px;
-  margin-bottom: 30px;
-`;
+export const ContainerCards = styled.View``;
 
-export const FeatureCard = styled.TouchableOpacity`
-  padding: 15px;
-`;
-
-export const FeatureCardContent = styled.View`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const Card = styled.TouchableOpacity`
+  height: 95px;
+  margin-top: 15px;
+  border-radius: 8px;
   flex-direction: row;
-  background-color: #e6e6e6;
-  padding: 15px;
-  border-radius: 12px;
-`;
-
-export const CardName = styled.Text`
-  margin-left: 10px;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-export const FeaturesWrapper = styled.View`
-  padding: 15px;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const FeatureBlockLarge = styled.TouchableOpacity`
-  height: 150px;
-  width: 100%;
-  border-radius: 16px;
-  background-color: #e6e6e6;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 `;
 
-export const FeatureBlockLargeText = styled.Text`
-  font-weight: bold;
-  font-size: 18px;
+export const ContentBuyCoins = styled.View`
+  width: 55%;
+  margin-bottom: 10px;
 `;
 
-export const FeatureBlockSmall = styled.TouchableOpacity`
-  padding: 30px 12px;
-  width: 48%;
-  border-radius: 16px;
-  background-color: #e6e6e6;
-  align-items: center;
-  justify-content: center;
+export const TitleContent = styled.Text`
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
 `;
 
-export const FeatureBlockSmallText = styled.Text`
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-export const FeaturesWrappers = styled.View`
-  padding: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 30px;
+export const DescriptionContent = styled.Text`
+  color: white;
+  font-weight: 300;
+  margin-top: 5px;
 `;
 
 export const ContainerContentHome = styled.View`
