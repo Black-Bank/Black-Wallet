@@ -1,4 +1,8 @@
 import React from 'react';
+import LogoHomeIcon from '../../assets/LogoHome.svg';
+import MenuBurguerIcon from '../../assets/MenuBurguer.svg';
+import EyeIcon from '../../assets/Eye.svg';
+import {Text} from 'react-native';
 import {
   ContainerLogoMenu,
   ContainerTotalBalance,
@@ -13,11 +17,7 @@ import {
   ViewLastContent,
   ViewPercentual,
   ViewSuport,
-} from './Home.styles';
-import LogoHomeIcon from '../../assets/LogoHome.svg';
-import MenuBurguerIcon from '../../assets/MenuBurguer.svg';
-import EyeIcon from '../../assets/Eye.svg';
-import {Text} from 'react-native';
+} from './CardBalanceInfo.style';
 
 interface IViewBalanceInfo {
   children: React.ReactNode;

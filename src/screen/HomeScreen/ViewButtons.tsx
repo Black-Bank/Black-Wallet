@@ -49,12 +49,6 @@ export function ViewButtons() {
           Recebidas
         </TextButtonFilter>
       </ButtonFilterHome>
-      {/* <TouchableOpacity
-          style={[styles.button, button3Pressed && styles.buttonPressed]}
-          onPressIn={handleButton3PressIn}
-          onPressOut={handleButton3PressOut}>
-          <Text>Recebidas</Text>
-        </TouchableOpacity> */}
     </ContainerButtonsFilter>
   );
 }

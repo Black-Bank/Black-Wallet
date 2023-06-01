@@ -3,7 +3,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
-
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -13,24 +12,19 @@ import {
   OptionsButton,
   OptionsContainer,
   ContainerContentHome,
-  ContainerCards,
-  ContentBuyCoins,
-  DescriptionContent,
-  TitleContent,
-  Card,
 } from './Home.styles';
 import ToReceiveIcon from '../../assets/toReceive.svg';
 import TransactionIcon from '../../assets/transactions.svg';
 import SendIcon from '../../assets/send.svg';
 import AddIcon from '../../assets/add.svg';
-import RightIcon from '../../assets/rightButton.svg';
-import EthereumIcon from '../../assets/coinEthereum.svg';
-import BitcoinIcon from '../../assets/coinBitcoin.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 // import {handleWhatsAppPress} from '../../component/services/wppServices';
-import {ViewBanceInfo} from './ViewBalanceInfo';
+import {ViewBanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
 import {ViewButtons} from './ViewButtons';
 import {Footer} from '../../component/footer/Footer';
+import {CardInviteFriends} from './CardInviteFriends';
+import {CardsBuyCryptos} from './CardsBuyCryptos';
+
 interface IMenuItem {
   icon: any;
   name: string;
@@ -168,37 +162,9 @@ export function Home() {
                 ))}
               </OptionsContainer>
 
-              <ContainerCards>
-                <Card style={{backgroundColor: '#0661c8'}}>
-                  <EthereumIcon
-                    width={40}
-                    height={40}
-                    style={{marginBottom: 10}}
-                  />
-                  <ContentBuyCoins>
-                    <TitleContent>Compre Ethereum</TitleContent>
-                    <DescriptionContent>
-                      Your new way for all familiar payments
-                    </DescriptionContent>
-                  </ContentBuyCoins>
-                  <RightIcon width={30} height={30} />
-                </Card>
+              <CardInviteFriends />
 
-                <Card style={{backgroundColor: '#de6d00'}}>
-                  <BitcoinIcon
-                    width={40}
-                    height={40}
-                    style={{marginBottom: 10}}
-                  />
-                  <ContentBuyCoins>
-                    <TitleContent>Compre Bitcoin</TitleContent>
-                    <DescriptionContent>
-                      Your new way for all familiar payments
-                    </DescriptionContent>
-                  </ContentBuyCoins>
-                  <RightIcon width={30} height={30} />
-                </Card>
-              </ContainerCards>
+              <CardsBuyCryptos />
             </ContainerContentHome>
           </ScrollView>
           <Footer />
