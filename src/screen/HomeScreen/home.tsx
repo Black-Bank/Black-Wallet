@@ -24,6 +24,7 @@ import {ViewButtons} from './ViewButtons';
 import {Footer} from '../../component/footer/Footer';
 import {CardInviteFriends} from './CardInviteFriends';
 import {CardsBuyCryptos} from './CardsBuyCryptos';
+import {WalletsOrTransactions} from './WalletsOrTransactions';
 
 interface IMenuItem {
   icon: any;
@@ -163,6 +164,8 @@ export function Home() {
               </OptionsContainer>
 
               <CardInviteFriends />
+
+              <WalletsOrTransactions />
 
               <CardsBuyCryptos />
             </ContainerContentHome>

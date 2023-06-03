@@ -1,8 +1,8 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {Title, WalletContainer} from '../styles/styles';
+import {WalletContainer} from '../styles/styles';
 import {IWallet, IWalletData} from '../../screen/HomeScreen/interfaces';
-import {HOME} from '../strings/pt-br';
+// import {HOME} from '../strings/pt-br';
 import {WalletCardItem} from '../walletCard/WalletCardItem';
 
 const renderIWalletCard = ({
@@ -32,7 +32,7 @@ export const WalletList = ({
   return (
     <>
       <WalletContainer>
-        <Title>{HOME.wallets}</Title>
+        {/* <Title>{HOME.wallets}</Title> */}
         <FlatList
           data={data?.getFormatedData}
           renderItem={({item}) => renderIWalletCard({item, data})}

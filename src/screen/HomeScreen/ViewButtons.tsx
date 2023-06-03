@@ -3,7 +3,7 @@ import {
   ButtonFilterHome,
   ContainerButtonsFilter,
   TextButtonFilter,
-} from './Home.styles';
+} from './ViewButton.styles';
 
 export function ViewButtons() {
   const [button1Pressed, setButton1Pressed] = useState(true);
@@ -40,14 +40,12 @@ export function ViewButtons() {
       <ButtonFilterHome
         isPressed={button2Pressed}
         onPressIn={handleButton2Press}>
-        <TextButtonFilter isPressed={button2Pressed}>Enviadas</TextButtonFilter>
+        <TextButtonFilter isPressed={button2Pressed}>Bitcoin</TextButtonFilter>
       </ButtonFilterHome>
       <ButtonFilterHome
         isPressed={button3Pressed}
         onPressIn={handleButton3Press}>
-        <TextButtonFilter isPressed={button3Pressed}>
-          Recebidas
-        </TextButtonFilter>
+        <TextButtonFilter isPressed={button3Pressed}>Ethereum</TextButtonFilter>
       </ButtonFilterHome>
     </ContainerButtonsFilter>
   );

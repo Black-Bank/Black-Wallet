@@ -47,12 +47,7 @@ export const ContainerChartButton = styled.View`
   flex-direction: row;
 `;
 export const WalletContainer = styled.View`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f3ecec;
-  padding-top: 100px;
+  margin-top: 15px;
 `;
 
 export const Title = styled.Text`
@@ -66,11 +61,11 @@ export const AdressTitle = styled.Text`
   color: #121212;
 `;
 export const ButtonTitle = styled.Text`
-  font-size: 15px;
-  color: #000;
-  font-weight: bold;
-  align-self: center;
-  text-transform: uppercase;
+  /* font-size: 15px; */
+  /* color: #000; */
+  /* font-weight: bold; */
+  /* align-self: center; */
+  /* text-transform: uppercase; */
 `;
 export const ButtonChartTitle = styled.Text`
   font-size: 15px;
@@ -81,30 +76,30 @@ export const ButtonChartTitle = styled.Text`
 `;
 
 export const CardWalletContainer = styled.View`
-  margin-left: 10px;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
+  /* margin-left: 10px; */
+  /* flex-direction: row; */
+  /* width: 100%; */
+  /* justify-content: space-between; */
 `;
 
 export const CardWallet = styled.View`
-  width: 220px;
-  flex-direction: row;
-  flex: 1;
-  margin-top: 5px;
+  /* width: 220px; */
+  /* flex-direction: row; */
+  /* flex: 1; */
+  /* margin-top: 5px; */
 `;
 
 export const BoxCardTitle = styled.View`
-  margin-left: 10px;
-  flex-direction: row;
+  /* margin-left: 10px;
+  flex-direction: row; */
 `;
 export const CardCoin = styled.Text`
-  font-size: 15px;
+  /* font-size: 15px;
   color: #000;
   font-weight: bold;
   align-self: flex-start;
   margin-left: 40px;
-  text-transform: uppercase;
+  text-transform: uppercase; */
 `;
 
 export const WalletCard = styled.View`
