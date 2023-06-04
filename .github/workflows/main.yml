@@ -15,3 +15,7 @@ jobs:
         run: yarn run lint
       - name: Test code
         run: yarn run ci:test
+      - name: Generate coverage report
+        run: npm run coverage
+      - name: Check test coverage
+        run: npx istanbul check-coverage --statements 60
