@@ -16,6 +16,7 @@ import {
 import IconEth from '../../assets/icon-eth-wallet.svg';
 import IconBtc from '../../assets/icon-btc-wallet.svg';
 import {Text} from 'react-native';
+import {Graphic} from './Graphic';
 
 export const WalletCardItem = ({
   name,
@@ -57,6 +58,7 @@ export const WalletCardItem = ({
             </SubtitleCard>
           </ContainerWalletName>
         </ContainerHeaderCard>
+        <Graphic />
         <FooterCardWallet>
           {thisCoinPrice && (
             <ButtonTitle black>
