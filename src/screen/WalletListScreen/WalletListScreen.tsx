@@ -7,7 +7,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {ViewBanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
 import {Text} from 'react-native-svg';
 import {ContentWalletList} from './WalletList.styles';
-import {CardAddAndDelete} from './CardAddAndDelleteWallet';
+import {ManagementWallets} from './ManagementWallets';
+import {CardsBuyCryptos} from '../HomeScreen/CardsBuyCryptos';
 export const WalletListScreen = () => {
   const {data} = useGetWallets();
   const {isUpdate} = useContext(AuthContext);
@@ -19,8 +20,9 @@ export const WalletListScreen = () => {
           <ViewBanceInfo>
             <Text>Todas carteiras</Text>
           </ViewBanceInfo>
-          <CardAddAndDelete />
+          <ManagementWallets />
           <WalletList data={data} isUpdate={isUpdate} />
+          <CardsBuyCryptos />
         </ContentWalletList>
       </ScrollView>
       <Footer />
