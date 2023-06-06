@@ -87,7 +87,7 @@ export function Routes() {
           <Stack.Screen
             name="WalletListScreen"
             component={WalletListScreen}
-            options={optionsHomeStyle}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="FutureScreen"
