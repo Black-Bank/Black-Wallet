@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import LogoHomeIcon from '../../assets/LogoHome.svg';
 import MenuBurguerIcon from '../../assets/MenuBurguer.svg';
 import EyeIcon from '../../assets/Eye.svg';
@@ -18,12 +18,15 @@ import {
   ViewPercentual,
   ViewSuport,
 } from './CardBalanceInfo.style';
+import {ButtonSeeBallance} from '../../screen/HomeScreen/WalletsOrTransactions.style';
 
 interface IViewBalanceInfo {
   children: React.ReactNode;
 }
 
 export function ViewBanceInfo({children}: IViewBalanceInfo) {
+  const [seeBalanceInfo, setSeeBalanceInfo] = useState(true);
+
   return (
     <ContentTop>
       <ContainerLogoMenu>
@@ -34,16 +37,24 @@ export function ViewBanceInfo({children}: IViewBalanceInfo) {
         <TextGray1Bold>Saldo total</TextGray1Bold>
         <ContainerValue>
           <ViewSuport>
-            <TextGray2Large>4.000,40</TextGray2Large>
+            <TextGray2Large>
+              {seeBalanceInfo ? '4.000,40' : '*****'}
+            </TextGray2Large>
             <TextGray2Small>USD</TextGray2Small>
           </ViewSuport>
-          <EyeIcon />
+          <ButtonSeeBallance onPress={() => setSeeBalanceInfo(!seeBalanceInfo)}>
+            <EyeIcon />
+          </ButtonSeeBallance>
         </ContainerValue>
         <ViewLastContent>
-          <TextGray1Normal>≈ R$ 20.000,20</TextGray1Normal>
+          <TextGray1Normal>
+            {seeBalanceInfo ? '≈ R$ 20.000,20' : '* * * * *'}
+          </TextGray1Normal>
           <ViewPercentual>
             <Text>Este mês:</Text>
-            <Textpercentage value={-1}>-7.65%</Textpercentage>
+            <Textpercentage value={seeBalanceInfo ? -1 : 0}>
+              {seeBalanceInfo ? '-7.65%' : '* * *'}
+            </Textpercentage>
           </ViewPercentual>
         </ViewLastContent>
       </ContainerTotalBalance>

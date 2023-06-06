@@ -1,14 +1,24 @@
 import React, {useState, useContext} from 'react';
 import {
   ButtonFilterWalletsOrTransactions,
+  ContainerTransactionsDate,
+  Transactions,
   ContainerWalletsAndTransactions,
   OptionsWalletsOrTransactions,
+  Text1,
+  Text2,
   WalletsOrTransactionsText,
+  ContainerTransaction,
+  ViewCollumn,
+  ViewRow,
 } from './WalletsOrTransactions.style';
-import {Text} from 'react-native';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
 import {AuthContext} from '../../contexts/auth';
 import {WalletList} from '../../component/walletList/WalletList';
+import IconPending from '../../assets/icon-pending.svg';
+import IconReceived from '../../assets/icon-received.svg';
+import IconSent from '../../assets/icon-sent.svg';
+import IconRigth from '../../assets/icon-rigth.svg';
 
 export function WalletsOrTransactions() {
   const [button1Pressed, setButton1Pressed] = useState(true);
@@ -47,7 +57,58 @@ export function WalletsOrTransactions() {
       {button1Pressed ? (
         <WalletList data={data} isUpdate={isUpdate} />
       ) : (
-        <Text>Transações</Text>
+        <ContainerTransactionsDate>
+          <Text1>24 de junho</Text1>
+          <Transactions>
+            <ContainerTransaction>
+              <ViewRow>
+                <IconPending />
+                <ViewCollumn>
+                  <Text1>Enviado</Text1>
+                  <Text2>Nome da carteira</Text2>
+                </ViewCollumn>
+              </ViewRow>
+
+              <ViewCollumn>
+                <Text1>+ 0.00099 BTC</Text1>
+                <Text2>+ 4.45 USD</Text2>
+              </ViewCollumn>
+              <IconRigth />
+            </ContainerTransaction>
+
+            <ContainerTransaction>
+              <ViewRow>
+                <IconReceived />
+                <ViewCollumn>
+                  <Text1>Recebido</Text1>
+                  <Text2>Nome da carteira</Text2>
+                </ViewCollumn>
+              </ViewRow>
+
+              <ViewCollumn>
+                <Text1>+ 0.00099 BTC</Text1>
+                <Text2>+ 4.45 USD</Text2>
+              </ViewCollumn>
+              <IconRigth />
+            </ContainerTransaction>
+
+            <ContainerTransaction>
+              <ViewRow>
+                <IconSent />
+                <ViewCollumn>
+                  <Text1>Pendente</Text1>
+                  <Text2>Nome da carteira</Text2>
+                </ViewCollumn>
+              </ViewRow>
+
+              <ViewCollumn>
+                <Text1>+ 0.00099 BTC</Text1>
+                <Text2>+ 4.45 USD</Text2>
+              </ViewCollumn>
+              <IconRigth />
+            </ContainerTransaction>
+          </Transactions>
+        </ContainerTransactionsDate>
       )}
     </ContainerWalletsAndTransactions>
   );
