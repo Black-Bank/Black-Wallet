@@ -67,7 +67,6 @@ export const ChartContainer = styled.View`
   display: flex;
   justify-content: center;
   position: relative;
-  /* background-color: red; */
 
   &::after {
     content: '';
@@ -75,7 +74,7 @@ export const ChartContainer = styled.View`
     background: white;
     width: 50px;
     height: 50px;
-    border-radius: 25px; /* Define a borda como metade do tamanho para criar um círculo */
+    border-radius: 25px;
     z-index: 5;
   }
 `;
@@ -84,8 +83,8 @@ export const OverlayComponent = styled.View`
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -30px; /* Metade da altura */
-  margin-left: -30px; /* Metade da largura */
+  margin-top: -30px;
+  margin-left: -30px;
   width: 60px;
   height: 60px;
   background-color: white;

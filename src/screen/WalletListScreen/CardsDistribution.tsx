@@ -1,4 +1,3 @@
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import AddIcon from '../../assets/icon-add.svg';
