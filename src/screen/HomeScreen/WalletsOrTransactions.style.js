@@ -22,4 +22,40 @@ export const WalletsOrTransactionsText = styled.Text`
 
 export const ButtonFilterWalletsOrTransactions = styled.TouchableOpacity``;
 
-export const ContainerWallets = styled.View``;
+export const Transactions = styled.View`
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 15px 0;
+`;
+
+export const ContainerTransactionsDate = styled.View`
+  margin-top: 15px;
+`;
+
+export const ContainerTransaction = styled.TouchableOpacity`
+  background-color: #ffffff;
+  padding: 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Text1 = styled.Text`
+  font-weight: 600;
+  font-size: 14px;
+`;
+
+export const Text2 = styled.Text`
+  font-weight: 300;
+  font-size: 14px;
+`;
+
+export const ViewCollumn = styled.View`
+  margin-left: 5px;
+`;
+
+export const ViewRow = styled.View`
+  flex-direction: row;
+`;
+
+export const ButtonSeeBallance = styled.TouchableOpacity``;
