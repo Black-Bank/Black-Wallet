@@ -8,11 +8,19 @@ import {
 } from './CardAddAndDelete.styles';
 import AddIcon from '../../assets/icon-add.svg';
 import ArrIcon from '../../assets/arr.svg';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export const CardAddAndDelete = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const navigateCreateWallet = () => {
+    navigation.navigate('CreateWallet');
+  };
+
   return (
     <ContainerAddOrDeleteWallet>
-      <CardAddOrDeleteWallet>
+      <CardAddOrDeleteWallet onPress={() => navigateCreateWallet()}>
         <AddIcon width={40} height={40} style={{marginBottom: 15}} />
         <ContentText>
           <TitleCard>Adicionar Carteira</TitleCard>

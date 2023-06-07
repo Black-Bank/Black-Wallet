@@ -29,7 +29,7 @@ export const NumberCountWallet = styled.Text`
   color: #4f4f4f;
 `;
 
-export const ContentTextNotWallet = styled.TouchableOpacity`
+export const ContentTextNotWallet = styled.View`
   width: 130px;
   height: 150px;
   background-color: #ffff;
@@ -133,7 +133,7 @@ export const TextPercentageETH = styled.Text`
   border-bottom-width: 2;
 `;
 
-export const ContainetNotWallet = styled.TouchableOpacity`
+export const ContainetNotWallet = styled.View`
   width: 200px;
   height: 150px;
   background-color: #ffff;
@@ -141,3 +141,5 @@ export const ContainetNotWallet = styled.TouchableOpacity`
   justify-content: space-evenly;
   align-items: center;
 `;
+
+export const ButtonCreateWallet = styled.TouchableOpacity``;

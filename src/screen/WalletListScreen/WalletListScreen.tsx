@@ -23,10 +23,17 @@ import {CardsDistribuition} from './CardsDistribution';
 import BTCIcon from '../../assets/icon-btc-wallet.svg';
 import ETHIcon from '../../assets/icon-eth-wallet.svg';
 import {StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export const WalletListScreen = () => {
   const {data} = useGetWallets();
   const {isUpdate} = useContext(AuthContext);
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const navigateCreateWallet = () => {
+    navigation.navigate('CreateWallet');
+  };
 
   return (
     <>
@@ -52,7 +59,7 @@ export const WalletListScreen = () => {
                 <DescriptionCreateWallet>
                   Você ainda não possui uma carteira adicionada.
                 </DescriptionCreateWallet>
-                <ButtonCreateWallet>
+                <ButtonCreateWallet onPress={() => navigateCreateWallet()}>
                   <TextButton>Criar carteira</TextButton>
                 </ButtonCreateWallet>
               </CardCreateWallet>

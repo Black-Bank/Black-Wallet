@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import AddIcon from '../../assets/icon-add.svg';
 import BTCIcon from '../../assets/icon-btc-wallet.svg';
@@ -24,11 +23,19 @@ import {
   TextTitle,
 } from './CardsDistribution.styles';
 import {PieChart} from 'react-native-chart-kit';
-import {ContentText} from './CardAddAndDelete.styles';
 import {IWallet} from '../HomeScreen/interfaces';
+import {ButtonCreateWallet} from './CardsDistribution.styles';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export const CardsDistribuition = () => {
   const {data} = useGetWallets();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const navigateCreateWallet = () => {
+    navigation.navigate('CreateWallet');
+  };
+
   const countWalletsBTC = data.getFormatedData?.filter(
     (wallet: IWallet) => wallet.WalletType === 'BTC',
   ).length;
@@ -66,7 +73,9 @@ export const CardsDistribuition = () => {
           <TextNotWallet>
             Você ainda não possui uma carteira adicionada
           </TextNotWallet>
-          <AddIcon width={35} height={35} />
+          <ButtonCreateWallet onPress={() => navigateCreateWallet()}>
+            <AddIcon width={35} height={35} />
+          </ButtonCreateWallet>
         </ContentTextNotWallet>
       )}
       {quantidadeTotal !== 0 ? (
@@ -93,7 +102,9 @@ export const CardsDistribuition = () => {
           <TextNotWallet>
             Você ainda não possui uma carteira adicionada
           </TextNotWallet>
-          <AddIcon width={35} height={35} style={{marginBottom: 5}} />
+          <ButtonCreateWallet onPress={() => navigateCreateWallet()}>
+            <AddIcon width={35} height={35} style={{marginBottom: 5}} />
+          </ButtonCreateWallet>
         </ContainetNotWallet>
       )}
     </ContainerCountAndDistribution>
