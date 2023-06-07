@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "ci:test": "jest --ci",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "coverage": "yarn test --coverage"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
