@@ -46,9 +46,6 @@ export const CardsDistribuition = () => {
       ? Math.round((countWalletsETH / quantidadeTotal) * 100)
       : 0;
 
-  console.log(porcentagemBTC);
-  console.log(porcentagemETH);
-
   const base = [
     {name: 'Ethereum', y: porcentagemETH, color: '#5B95FF'},
     {name: 'Bitcoin', y: porcentagemBTC, color: '#FF7D00'},

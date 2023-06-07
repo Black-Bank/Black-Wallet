@@ -46,6 +46,7 @@ export const TextNotWallet = styled.Text`
   line-height: 20px;
   width: 90%;
   margin-bottom: 10px;
+  color: #414561;
 `;
 
 export const ContainerGraphic = styled.View`

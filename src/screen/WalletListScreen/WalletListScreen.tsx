@@ -5,11 +5,25 @@ import {Footer} from '../../component/footer/Footer';
 import {ScrollView} from 'react-native-gesture-handler';
 import {ViewBanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
 import {Text} from 'react-native-svg';
-import {ContentWalletList} from './WalletList.styles';
+import {
+  ButtonCreateWallet,
+  CardCreateWallet,
+  ContainerIconsWallet,
+  ContainerWallets,
+  ContentWalletList,
+  DescriptionCreateWallet,
+  TextButton,
+  TitleCreateWallet,
+  TitleWallets,
+} from './WalletList.styles';
 import {CardAddAndDelete} from './CardAddAndDelleteWallet';
 import {WalletList} from '../../component/walletList/WalletList';
 import {CardsBuyCryptos} from '../HomeScreen/CardsBuyCryptos';
 import {CardsDistribuition} from './CardsDistribution';
+import BTCIcon from '../../assets/icon-btc-wallet.svg';
+import ETHIcon from '../../assets/icon-eth-wallet.svg';
+import {StyleSheet} from 'react-native';
+
 export const WalletListScreen = () => {
   const {data} = useGetWallets();
   const {isUpdate} = useContext(AuthContext);
@@ -23,7 +37,27 @@ export const WalletListScreen = () => {
           </ViewBanceInfo>
           <CardAddAndDelete />
           <CardsDistribuition />
-          <WalletList data={data} isUpdate={isUpdate} />
+          <ContainerWallets>
+            <TitleWallets>Carteiras</TitleWallets>
+            {data.getFormatedData.length > 0 ? (
+              <WalletList data={data} isUpdate={isUpdate} />
+            ) : (
+              <CardCreateWallet>
+                <ContainerIconsWallet>
+                  <ETHIcon style={styles.ethIcon} />
+                  <BTCIcon style={styles.btcIcon} />
+                </ContainerIconsWallet>
+
+                <TitleCreateWallet>Crie uma carteira</TitleCreateWallet>
+                <DescriptionCreateWallet>
+                  Você ainda não possui uma carteira adicionada.
+                </DescriptionCreateWallet>
+                <ButtonCreateWallet>
+                  <TextButton>Criar carteira</TextButton>
+                </ButtonCreateWallet>
+              </CardCreateWallet>
+            )}
+          </ContainerWallets>
           <CardsBuyCryptos />
         </ContentWalletList>
       </ScrollView>
@@ -31,3 +65,12 @@ export const WalletListScreen = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  btcIcon: {
+    transform: [{translateX: -2.5}],
+  },
+  ethIcon: {
+    transform: [{translateX: 2.5}],
+  },
+});
