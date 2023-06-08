@@ -3,13 +3,8 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {EvoBalance} from '../EvoBalance';
 import {render} from '@testing-library/react-native';
-import config from '../../../../config';
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-
-const client = new ApolloClient({
-  uri: config.API_HEROKU, // substitua pela URL do seu servidor GraphQL
-  cache: new InMemoryCache(),
-});
+import {ApolloProvider} from '@apollo/client';
+import {client} from '../../../component/client/provider/clientprovider';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => {
