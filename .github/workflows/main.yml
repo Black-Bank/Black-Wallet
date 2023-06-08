@@ -18,4 +18,4 @@ jobs:
       - name: Generate coverage report
         run: npm run coverage
       - name: Check test coverage
-        run: npx istanbul check-coverage --statements 60
+        run: npx nyc check-coverage --statements 60
