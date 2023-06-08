@@ -2,15 +2,17 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import {WalletContainer} from '../styles/styles';
 import {IWallet, IWalletData} from '../../screen/HomeScreen/interfaces';
-// import {HOME} from '../strings/pt-br';
 import {WalletCardItem} from '../walletCard/WalletCardItem';
+import {ITypeExtract} from '../transactionList/type';
 
 const renderIWalletCard = ({
   item,
   data,
+  extract,
 }: {
   item: IWallet;
   data: {getFormatedData: IWalletData[]};
+  extract: {getExtract: ITypeExtract[]};
 }) => {
   return (
     <WalletCardItem
@@ -18,6 +20,7 @@ const renderIWalletCard = ({
       coin={item.WalletType || ''}
       address={item.address}
       data={data?.getFormatedData}
+      extract={extract?.getExtract}
     />
   );
 };
@@ -25,17 +28,18 @@ const renderIWalletCard = ({
 export const WalletList = ({
   data,
   isUpdate,
+  extract,
 }: {
   data: {getFormatedData: IWalletData[]};
   isUpdate: boolean;
+  extract: {getExtract: ITypeExtract[]};
 }) => {
   return (
     <>
       <WalletContainer>
-        {/* <Title>{HOME.wallets}</Title> */}
         <FlatList
           data={data?.getFormatedData}
-          renderItem={({item}) => renderIWalletCard({item, data})}
+          renderItem={({item}) => renderIWalletCard({item, data, extract})}
           keyExtractor={item => item.address}
           extraData={isUpdate}
         />

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {LineChart} from 'react-native-chart-kit';
+import { LineChart } from 'react-native-chart-kit';
 
 export const TouchableOpacityStyled = styled.TouchableOpacity`
   margin-bottom: 5px;
@@ -42,4 +42,8 @@ export const GraphicContainer = styled.View`
 export const LineChartStyled = styled(LineChart)`
   position: absolute;
   padding-right: 10px;
+`;
+
+export const TextPercentage = styled.Text`
+  color: ${props => (props.percentage >= 0 ? '#51ae6f' : 'red')};
 `;

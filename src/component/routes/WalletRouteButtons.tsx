@@ -23,13 +23,13 @@ export const WalletButtonRoute = () => {
       <OptionsContainerWalletHeader>
         <OptionButtonAll>
           <OptionsButton onPress={handleTransaction}>
-            <TransferIcon width={30} height={30} fill={'#fff'} />
+            <TransferIcon width={40} height={40} fill={'#fff'} />
           </OptionsButton>
           <DescriptionWalletHeader>Transferir</DescriptionWalletHeader>
         </OptionButtonAll>
         <OptionButtonAll>
           <OptionsButton onPress={handleDelete}>
-            <TrashIcon width={30} height={30} fill={'#fff'} />
+            <TrashIcon width={40} height={40} fill={'#fff'} />
           </OptionsButton>
           <DescriptionWalletHeader>Deletar</DescriptionWalletHeader>
         </OptionButtonAll>

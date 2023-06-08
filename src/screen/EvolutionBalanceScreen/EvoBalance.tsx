@@ -5,9 +5,8 @@ import {EVO_SCREEN} from '../../component/strings/pt-br';
 import {Container, Description, Title} from './EvoBalance.style';
 import {ActivityIndicator} from 'react-native-paper';
 import {AuthContext} from '../../contexts/auth';
-import {IEvoBalanceProps} from '../FutureScreen/types';
 
-export function EvoBalance({route}: IEvoBalanceProps) {
+export function EvoBalance({route}: any) {
   const data = route!.params.data;
   const refetch = route!.params.refetch;
   const {isUpdate} = useContext(AuthContext);

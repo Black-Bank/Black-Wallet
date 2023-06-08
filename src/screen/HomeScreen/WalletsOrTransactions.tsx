@@ -53,7 +53,7 @@ export function WalletsOrTransactions({
         </ButtonFilterWalletsOrTransactions>
       </OptionsWalletsOrTransactions>
       {button1Pressed ? (
-        <WalletList data={data} isUpdate={isUpdated} />
+        <WalletList data={data} isUpdate={isUpdated} extract={extract} />
       ) : (
         <>
           <WalletsOrTransactionsText>Transactions</WalletsOrTransactionsText>

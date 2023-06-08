@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import {useGetWallets} from '../../component/hooks/useGetWallets';
 import {AuthContext} from '../../contexts/auth';
 import {Footer} from '../../component/footer/Footer';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -26,8 +25,11 @@ import {StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export const WalletListScreen = () => {
-  const {data} = useGetWallets();
+export const WalletListScreen = ({route}: any) => {
+  const data = route!.params.data;
+  const dollarPrice = route!.params.dollarPrice;
+  const dataBalance = route!.params.dataBalance;
+  const extract = route!.params.extract;
   const {isUpdate} = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
@@ -39,7 +41,7 @@ export const WalletListScreen = () => {
     <>
       <ScrollView>
         <ContentWalletList>
-          <ViewBanceInfo>
+          <ViewBanceInfo dataBalance={dataBalance} dollarPrice={dollarPrice}>
             <Text>Todas carteiras</Text>
           </ViewBanceInfo>
           <CardAddAndDelete />
@@ -47,7 +49,7 @@ export const WalletListScreen = () => {
           <ContainerWallets>
             <TitleWallets>Carteiras</TitleWallets>
             {data.getFormatedData.length > 0 ? (
-              <WalletList data={data} isUpdate={isUpdate} />
+              <WalletList extract={extract} data={data} isUpdate={isUpdate} />
             ) : (
               <CardCreateWallet>
                 <ContainerIconsWallet>

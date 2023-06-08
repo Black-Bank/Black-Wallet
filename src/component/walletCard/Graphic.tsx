@@ -1,16 +1,19 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
-
 import {GraphicContainer, LineChartStyled} from './walletCardItem.style';
 
-export function Graphic() {
+interface IGraphic {
+  dataSet: number[];
+}
+
+export function Graphic({dataSet}: IGraphic) {
   const chartWidth = Dimensions.get('window').width;
 
   const dataTeste = {
-    labels: ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'],
+    // labels: ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'],
     datasets: [
       {
-        data: [0, 150, 100, 60, 80, 50, 80, 50, 12, 100, 80, 9, 200],
+        data: dataSet,
       },
     ],
   };

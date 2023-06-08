@@ -16,6 +16,7 @@ export const DescriptionWalletHeader = styled.Text`
   font-weight: semi-bold;
   font-family: Helvetica;
   margin-top: 5px;
+  background-color: transparent;
 `;
 
 export const AccountHomeOptions = styled.View`
@@ -40,20 +41,20 @@ export const OptionsContainer = styled.View`
 `;
 
 export const OptionsButton = styled.TouchableOpacity`
-  background-color: #f2f3f5;
   width: 50px;
   height: 50px;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  background-color: transparent;
 `;
 
 export const OptionButtonAll = styled.View`
   height: 90px;
   width: 75px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  align-items: center;
+  background-color: transparent;
 `;
 
 export const LoadingContainer = styled.View`

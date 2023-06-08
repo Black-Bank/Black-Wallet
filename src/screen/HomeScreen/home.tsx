@@ -81,6 +81,7 @@ export function Home() {
       icon: <SendIcon width={25} height={30} fill="#212121" />,
       name: 'Enviar',
       screen: 'WalletListScreen',
+      params: {dataBalance, dollarPrice, extract, data},
     },
     {
       icon: <ToReceiveIcon width={20} height={30} fill="#212121" />,
@@ -90,7 +91,7 @@ export function Home() {
     },
     {
       icon: <TransactionIcon width={20} height={30} fill="#212121" />,
-      name: 'Transações',
+      name: 'Futuros',
       screen: 'FutureScreen',
       params: inTransactionalWallet,
     },

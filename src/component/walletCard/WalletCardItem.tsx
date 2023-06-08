@@ -10,29 +10,54 @@ import {
   ContainerWalletName,
   FooterCardWallet,
   SubtitleCard,
+  TextPercentage,
   TitleCard,
   TouchableOpacityStyled,
 } from './walletCardItem.style';
 import IconEth from '../../assets/icon-eth-wallet.svg';
 import IconBtc from '../../assets/icon-btc-wallet.svg';
-import {Text} from 'react-native';
 import {Graphic} from './Graphic';
+import {ITypeExtract} from '../transactionList/type';
 
 export const WalletCardItem = ({
   name,
   coin,
   address,
   data,
+  extract,
 }: {
   name: string;
   coin: string;
   address: string;
   data: IWalletData[];
+  extract: ITypeExtract[];
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const thisWallet = data?.find(wallet => wallet.address === address);
   const thisBalance = thisWallet?.balance;
   const thisCoinPrice = thisWallet?.coinPrice;
+  const thisExtract = extract?.filter(
+    transaction =>
+      transaction.addressFrom.toUpperCase() === address.toUpperCase(),
+  );
+
+  const dataSet: number[] = [0];
+
+  for (let i = 0; i < 10; i++) {
+    const hasExtract = Boolean(thisExtract[i]?.addressFrom);
+    if (hasExtract) {
+      dataSet.push(Math.abs(thisExtract[i]?.coinValue));
+    } else {
+      dataSet.push(dataSet[i]);
+    }
+  }
+  const thisExtractLength = Math.abs(Number(dataSet[dataSet.length - 1]));
+  const thisExtractFirst = Math.abs(Number(dataSet[1]));
+  const percentage = (
+    ((thisExtractLength - thisExtractFirst) /
+      (thisExtractFirst ? thisExtractFirst : 1)) *
+    100
+  ).toFixed(2);
 
   return (
     <TouchableOpacityStyled
@@ -53,19 +78,21 @@ export const WalletCardItem = ({
           <ContainerWalletName>
             <TitleCard>{name}</TitleCard>
             <SubtitleCard>
-              {/* {thisBalance}  */}
-              0.0006436 {coin}
+              {thisBalance}
+              {coin}
             </SubtitleCard>
           </ContainerWalletName>
         </ContainerHeaderCard>
-        <Graphic />
+        <Graphic dataSet={dataSet} />
         <FooterCardWallet>
           {thisCoinPrice && (
             <ButtonTitle black>
               US$ {numberFormatter(thisCoinPrice * Number(thisBalance))}
             </ButtonTitle>
           )}
-          <Text>7.40%</Text>
+          <TextPercentage percentage={percentage}>
+            {thisExtractFirst !== 0 ? percentage : 0}%
+          </TextPercentage>
         </FooterCardWallet>
       </CardWallet>
     </TouchableOpacityStyled>
