@@ -1,30 +1,28 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
+
+import {useGetWallets} from '../../component/hooks/useGetWallets';
+import {WalletList} from '../../component/walletList/WalletList';
+import {TransactionList} from '../../component/transactionList/TransactionList';
 import {
   ButtonFilterWalletsOrTransactions,
-  ContainerTransactionsDate,
-  Transactions,
   ContainerWalletsAndTransactions,
   OptionsWalletsOrTransactions,
-  Text1,
-  Text2,
   WalletsOrTransactionsText,
-  ContainerTransaction,
-  ViewCollumn,
-  ViewRow,
-} from './WalletsOrTransactions.style';
-import {useGetWallets} from '../../component/hooks/useGetWallets';
-import {AuthContext} from '../../contexts/auth';
-import {WalletList} from '../../component/walletList/WalletList';
-import IconPending from '../../assets/icon-pending.svg';
-import IconReceived from '../../assets/icon-received.svg';
-import IconSent from '../../assets/icon-sent.svg';
-import IconRigth from '../../assets/icon-rigth.svg';
+} from '../../component/transactionList/transaction.style';
+import {ITypeExtract} from '../../component/transactionList/type';
 
-export function WalletsOrTransactions() {
+interface IWalletsOrTransactions {
+  isUpdated: boolean;
+  extract: {getExtract: ITypeExtract[]};
+}
+
+export function WalletsOrTransactions({
+  isUpdated,
+  extract,
+}: IWalletsOrTransactions) {
   const [button1Pressed, setButton1Pressed] = useState(true);
   const [button2Pressed, setButton2Pressed] = useState(false);
   const {data} = useGetWallets();
-  const {isUpdate} = useContext(AuthContext);
 
   function handleButton1Press() {
     setButton1Pressed(true);
@@ -55,60 +53,12 @@ export function WalletsOrTransactions() {
         </ButtonFilterWalletsOrTransactions>
       </OptionsWalletsOrTransactions>
       {button1Pressed ? (
-        <WalletList data={data} isUpdate={isUpdate} />
+        <WalletList data={data} isUpdate={isUpdated} />
       ) : (
-        <ContainerTransactionsDate>
-          <Text1>24 de junho</Text1>
-          <Transactions>
-            <ContainerTransaction>
-              <ViewRow>
-                <IconPending />
-                <ViewCollumn>
-                  <Text1>Enviado</Text1>
-                  <Text2>Nome da carteira</Text2>
-                </ViewCollumn>
-              </ViewRow>
-
-              <ViewCollumn>
-                <Text1>+ 0.00099 BTC</Text1>
-                <Text2>+ 4.45 USD</Text2>
-              </ViewCollumn>
-              <IconRigth />
-            </ContainerTransaction>
-
-            <ContainerTransaction>
-              <ViewRow>
-                <IconReceived />
-                <ViewCollumn>
-                  <Text1>Recebido</Text1>
-                  <Text2>Nome da carteira</Text2>
-                </ViewCollumn>
-              </ViewRow>
-
-              <ViewCollumn>
-                <Text1>+ 0.00099 BTC</Text1>
-                <Text2>+ 4.45 USD</Text2>
-              </ViewCollumn>
-              <IconRigth />
-            </ContainerTransaction>
-
-            <ContainerTransaction>
-              <ViewRow>
-                <IconSent />
-                <ViewCollumn>
-                  <Text1>Pendente</Text1>
-                  <Text2>Nome da carteira</Text2>
-                </ViewCollumn>
-              </ViewRow>
-
-              <ViewCollumn>
-                <Text1>+ 0.00099 BTC</Text1>
-                <Text2>+ 4.45 USD</Text2>
-              </ViewCollumn>
-              <IconRigth />
-            </ContainerTransaction>
-          </Transactions>
-        </ContainerTransactionsDate>
+        <>
+          <WalletsOrTransactionsText>Transactions</WalletsOrTransactionsText>
+          <TransactionList data={extract} isUpdate={isUpdated} />
+        </>
       )}
     </ContainerWalletsAndTransactions>
   );

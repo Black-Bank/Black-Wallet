@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, {useState} from 'react';
 import LogoHomeIcon from '../../assets/LogoHome.svg';
 import MenuBurguerIcon from '../../assets/MenuBurguer.svg';
@@ -18,14 +19,36 @@ import {
   ViewPercentual,
   ViewSuport,
 } from './CardBalanceInfo.style';
-import {ButtonSeeBallance} from '../../screen/HomeScreen/WalletsOrTransactions.style';
+import {ButtonSeeBallance} from '../transactionList/transaction.style';
 
 interface IViewBalanceInfo {
   children: React.ReactNode;
+  dataBalance: {getBalance: {month: number[]; week: number[]; day: number[]}};
+  dollarPrice: number;
 }
 
-export function ViewBanceInfo({children}: IViewBalanceInfo) {
+export function ViewBanceInfo({
+  children,
+  dataBalance,
+  dollarPrice,
+}: IViewBalanceInfo) {
   const [seeBalanceInfo, setSeeBalanceInfo] = useState(true);
+  const totalBalance =
+    dataBalance?.getBalance.day[dataBalance?.getBalance.day.length - 1];
+  const monthBalance = Boolean(
+    dataBalance?.getBalance.month[dataBalance?.getBalance.month.length - 1],
+  )
+    ? dataBalance?.getBalance.month[dataBalance?.getBalance.month.length - 1]
+    : 0;
+  const divider = 1;
+
+  const percentage = Boolean(monthBalance)
+    ? (
+        ((totalBalance - monthBalance) /
+          (Boolean(monthBalance) ? monthBalance : divider)) *
+        100
+      ).toFixed(2)
+    : null;
 
   return (
     <ContentTop>
@@ -38,7 +61,11 @@ export function ViewBanceInfo({children}: IViewBalanceInfo) {
         <ContainerValue>
           <ViewSuport>
             <TextGray2Large>
-              {seeBalanceInfo ? '4.000,40' : '*****'}
+              {seeBalanceInfo
+                ? totalBalance
+                  ? totalBalance.toFixed(2)
+                  : '0,00'
+                : '*****'}
             </TextGray2Large>
             <TextGray2Small>USD</TextGray2Small>
           </ViewSuport>
@@ -48,12 +75,18 @@ export function ViewBanceInfo({children}: IViewBalanceInfo) {
         </ContainerValue>
         <ViewLastContent>
           <TextGray1Normal>
-            {seeBalanceInfo ? '≈ R$ 20.000,20' : '* * * * *'}
+            {seeBalanceInfo
+              ? totalBalance
+                ? `≈ R$ ${(totalBalance * dollarPrice).toFixed(2)}`
+                : '≈ R$ 0,00'
+              : '* * * * *'}
           </TextGray1Normal>
           <ViewPercentual>
-            <Text>Este mês:</Text>
-            <Textpercentage value={seeBalanceInfo ? -1 : 0}>
-              {seeBalanceInfo ? '-7.65%' : '* * *'}
+            {Boolean(percentage) ? <Text>Este mês:</Text> : undefined}
+            <Textpercentage value={percentage}>
+              {seeBalanceInfo
+                ? `${Boolean(percentage) ? percentage + '%' : ''}`
+                : '* * *'}
             </Textpercentage>
           </ViewPercentual>
         </ViewLastContent>

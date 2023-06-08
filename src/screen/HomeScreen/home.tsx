@@ -25,6 +25,9 @@ import {Footer} from '../../component/footer/Footer';
 import {CardInviteFriends} from './CardInviteFriends';
 import {CardsBuyCryptos} from './CardsBuyCryptos';
 import {WalletsOrTransactions} from './WalletsOrTransactions';
+import {useGetBalance} from '../../component/hooks/useGetBalance';
+import {useGetDollarPrice} from '../../component/hooks/useGetDollarPrice';
+import {useGetExtract} from '../../component/hooks/useGetExtract';
 
 interface IMenuItem {
   icon: any;
@@ -42,12 +45,14 @@ interface IRenderMenuCarouselProps {
 }
 
 export function Home() {
+  const {data: dataBalance, refetch: retry} = useGetBalance();
+  const {data, loading, refetch} = useGetWallets();
+  const {data: extract} = useGetExtract();
+  const {dollarPrice} = useGetDollarPrice();
   const {isUpdate} = useContext(AuthContext);
-
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const refetchTime = 100;
-  const {data, loading, refetch} = useGetWallets();
 
   const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>(
     data?.getFormatedData.filter(
@@ -55,14 +60,6 @@ export function Home() {
         wallets.unconfirmedBalance !== 0,
     ),
   );
-
-  // const totalBalance = data?.getFormatedData.length
-  //   ? data?.getFormatedData[0].totalBalance
-  //   : 0;
-
-  // const walletsNavigate = async () => {
-  //   navigation.navigate('WalletListScreen');
-  // };
 
   useEffect(() => {
     setTimeout(refetch, refetchTime);
@@ -87,8 +84,9 @@ export function Home() {
     },
     {
       icon: <ToReceiveIcon width={20} height={30} fill="#212121" />,
-      name: 'Receber',
+      name: 'Evolução',
       screen: 'EvoScreen',
+      params: {data: dataBalance, refetch: retry},
     },
     {
       icon: <TransactionIcon width={20} height={30} fill="#212121" />,
@@ -146,7 +144,9 @@ export function Home() {
         <>
           <ScrollView>
             <ContainerContentHome>
-              <ViewBanceInfo>
+              <ViewBanceInfo
+                dataBalance={dataBalance}
+                dollarPrice={dollarPrice}>
                 <ViewButtons />
               </ViewBanceInfo>
 
@@ -164,10 +164,9 @@ export function Home() {
               </OptionsContainer>
 
               <CardInviteFriends />
-
-              <WalletsOrTransactions />
-
               <CardsBuyCryptos />
+
+              <WalletsOrTransactions isUpdated={isUpdate} extract={extract} />
             </ContainerContentHome>
           </ScrollView>
           <Footer />

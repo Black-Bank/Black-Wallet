@@ -1,5 +1,31 @@
 import {gql} from '@apollo/client';
 
+export const GET_DOLLAR_PRICE = gql`
+  query GetDolarPrice {
+    getDolarPrice {
+      Price
+    }
+  }
+`;
+
+export const GET_EXTRACT = gql`
+  query GetExtract($email: String!) {
+    getExtract(Email: $email) {
+      hash
+      type
+      addressFrom
+      addressTo
+      value
+      coinValue
+      confirmed
+      date
+      fee
+      balance
+      prevout
+    }
+  }
+`;
+
 export const GET_BALANCE = gql`
   query GetBalance($Email: String!) {
     getBalance(Email: $Email) {

@@ -3,14 +3,15 @@ import {StatusBar} from 'react-native';
 import {Chart} from '../../component/chart/chart';
 import {EVO_SCREEN} from '../../component/strings/pt-br';
 import {Container, Description, Title} from './EvoBalance.style';
-import {useGetBalance} from '../../component/hooks/useGetBalance';
 import {ActivityIndicator} from 'react-native-paper';
 import {AuthContext} from '../../contexts/auth';
+import {IEvoBalanceProps} from '../FutureScreen/types';
 
-export function EvoBalance() {
+export function EvoBalance({route}: IEvoBalanceProps) {
+  const data = route!.params.data;
+  const refetch = route!.params.refetch;
   const {isUpdate} = useContext(AuthContext);
   const refetchTime = 100;
-  const {data, refetch} = useGetBalance();
   const dayDataFinance = data?.getBalance.day;
   const value = data
     ? dayDataFinance[dayDataFinance?.length - 1].toFixed(2)
