@@ -3,13 +3,7 @@ import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import {ForgotScreen} from '../ForgotScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {ApolloProvider} from '@apollo/client';
-import {ApolloClient, InMemoryCache} from '@apollo/client';
-import config from '../../../../config';
-
-const client = new ApolloClient({
-  uri: config.API_HEROKU, // substitua pela URL do seu servidor GraphQL
-  cache: new InMemoryCache(),
-});
+import {client} from '../../../component/client/provider/clientprovider';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => {

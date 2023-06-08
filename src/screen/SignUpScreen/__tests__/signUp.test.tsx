@@ -2,13 +2,8 @@ import React from 'react';
 import {SignupScreen} from '../SignUpScreen';
 import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-import config from '../../../../config';
-
-const client = new ApolloClient({
-  uri: config.API_HEROKU,
-  cache: new InMemoryCache(),
-});
+import {client} from '../../../component/client/provider/clientprovider';
+import {ApolloProvider} from '@apollo/client';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => {
