@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {AuthContext} from '../../contexts/auth';
 import {Footer} from '../../component/footer/Footer';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native';
 import {ViewBanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
 import {Text} from 'react-native-svg';
 import {

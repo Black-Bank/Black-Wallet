@@ -95,7 +95,6 @@ describe('Evo Balance', () => {
     <NavigationContainer>
       <ApolloProvider client={client}>
         <AuthContext.Provider value={authContextValue}>
-          {' '}
           <EvoBalance />
         </AuthContext.Provider>
       </ApolloProvider>
