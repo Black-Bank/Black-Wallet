@@ -27,22 +27,24 @@ interface IViewBalanceInfo {
   children: React.ReactNode;
 }
 
-export function ViewBanceInfo({children}: IViewBalanceInfo) {
+export function ViewBalanceInfo({children}: IViewBalanceInfo) {
   const {dollarPrice, dataBalance, balanceSelected, walletList} =
     useContext(AuthContext);
   const [seeBalanceInfo, setSeeBalanceInfo] = useState(true);
-  const totalBalance = walletList.getFormatedData[0].totalBalance;
+  const totalBalance = walletList?.getFormatedData[0]?.totalBalance
+    ? walletList?.getFormatedData[0]?.totalBalance
+    : 0;
 
   let showBalance: number = 0;
   let showSymbol = '';
 
-  const countWalletsBTCValue = walletList.getFormatedData
+  const countWalletsBTCValue = walletList?.getFormatedData
     ?.filter(wallet => wallet.WalletType === 'BTC')
     .reduce(
       (acc: number, wallet) => acc + wallet.balance * wallet.coinPrice,
       0,
     );
-  const countWalletsETHValue = walletList.getFormatedData
+  const countWalletsETHValue = walletList?.getFormatedData
     ?.filter(wallet => wallet.WalletType === 'ETH')
     .reduce(
       (acc: number, wallet) => acc + wallet.balance * wallet.coinPrice,

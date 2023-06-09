@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {AuthContext} from '../../contexts/auth';
 import {Footer} from '../../component/footer/Footer';
 import {ScrollView} from 'react-native';
-import {ViewBanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
+import {ViewBalanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
 import {Text} from 'react-native-svg';
 import {
   ButtonCreateWallet,
@@ -37,15 +37,15 @@ export const WalletListScreen = () => {
     <>
       <ScrollView>
         <ContentWalletList>
-          <ViewBanceInfo>
+          <ViewBalanceInfo>
             <Text>Todas carteiras</Text>
-          </ViewBanceInfo>
+          </ViewBalanceInfo>
           <CardAdd />
           <CardsBuyCryptos />
           <CardsDistribuition data={walletList} />
           <ContainerWallets>
             <TitleWallets>Carteiras</TitleWallets>
-            {walletList.getFormatedData.length > 0 ? (
+            {walletList?.getFormatedData.length > 0 ? (
               <WalletList
                 extract={extract}
                 data={walletList}
@@ -70,7 +70,7 @@ export const WalletListScreen = () => {
           </ContainerWallets>
         </ContentWalletList>
       </ScrollView>
-      <Footer />
+      <Footer name={'WalletListScreen'} />
     </>
   );
 };

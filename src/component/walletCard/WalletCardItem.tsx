@@ -29,7 +29,7 @@ export const WalletCardItem = ({
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {extract, walletList} = useContext(AuthContext);
-  const cardWalletsList = walletList.getFormatedData;
+  const cardWalletsList = walletList?.getFormatedData;
   const cardWalletExtractList = extract?.getExtract;
   const thisWallet = cardWalletsList?.find(
     wallet => wallet.address === address,

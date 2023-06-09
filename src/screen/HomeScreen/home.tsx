@@ -19,7 +19,7 @@ import TransactionIcon from '../../assets/transactions.svg';
 import SendIcon from '../../assets/send.svg';
 import AddIcon from '../../assets/add.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import {ViewBanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
+import {ViewBalanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
 import {ViewButtons} from './ViewButtons';
 import {Footer} from '../../component/footer/Footer';
 import {CardInviteFriends} from './CardInviteFriends';
@@ -150,9 +150,9 @@ export function Home() {
         <>
           <ScrollView>
             <ContainerContentHome>
-              <ViewBanceInfo>
+              <ViewBalanceInfo>
                 <ViewButtons />
-              </ViewBanceInfo>
+              </ViewBalanceInfo>
 
               <OptionsContainer>
                 {menuItems.map((item, index) => (
@@ -173,7 +173,7 @@ export function Home() {
               <WalletsOrTransactions isUpdated={isUpdate} />
             </ContainerContentHome>
           </ScrollView>
-          <Footer />
+          <Footer name={'Home'} />
         </>
       )}
     </>
