@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {ButtonMenu, Container} from './Footer.style';
 import HomeIcon from '../../assets/home.svg';
 import TransactionIcon from '../../assets/transactionsFooter.svg';
@@ -6,6 +6,7 @@ import UserIcon from '../../assets/user.svg';
 import WalletIcon from '../../assets/walletFooter.svg';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {AuthContext} from '../../contexts/auth';
 
 interface IFooterItems {
   icon: any;
@@ -16,6 +17,8 @@ interface IFooterItems {
 export const Footer = () => {
   const route = useRoute();
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const {dataBalance, dollarPrice, extract, walletList} =
+    useContext(AuthContext);
   const footerItems = [
     {
       icon: (
@@ -36,6 +39,7 @@ export const Footer = () => {
         />
       ),
       screen: 'WalletListScreen',
+      params: {dataBalance, dollarPrice, extract, data: walletList},
     },
     {
       icon: (

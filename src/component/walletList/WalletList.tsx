@@ -5,22 +5,12 @@ import {IWallet, IWalletData} from '../../screen/HomeScreen/interfaces';
 import {WalletCardItem} from '../walletCard/WalletCardItem';
 import {ITypeExtract} from '../transactionList/type';
 
-const renderIWalletCard = ({
-  item,
-  data,
-  extract,
-}: {
-  item: IWallet;
-  data: {getFormatedData: IWalletData[]};
-  extract: {getExtract: ITypeExtract[]};
-}) => {
+const renderIWalletCard = ({item}: {item: IWallet}) => {
   return (
     <WalletCardItem
       name={item.name || ''}
       coin={item.WalletType || ''}
       address={item.address}
-      data={data?.getFormatedData}
-      extract={extract?.getExtract}
     />
   );
 };
@@ -28,7 +18,6 @@ const renderIWalletCard = ({
 export const WalletList = ({
   data,
   isUpdate,
-  extract,
 }: {
   data: {getFormatedData: IWalletData[]};
   isUpdate: boolean;
@@ -39,7 +28,7 @@ export const WalletList = ({
       <WalletContainer>
         <FlatList
           data={data?.getFormatedData}
-          renderItem={({item}) => renderIWalletCard({item, data, extract})}
+          renderItem={({item}) => renderIWalletCard({item})}
           keyExtractor={item => item.address}
           extraData={isUpdate}
         />

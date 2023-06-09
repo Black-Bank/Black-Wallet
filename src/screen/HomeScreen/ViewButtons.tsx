@@ -1,51 +1,40 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import {
   ButtonFilterHome,
   ContainerButtonsFilter,
   TextButtonFilter,
 } from './ViewButton.styles';
+import {ECoinType} from '../../component/types/interfaces';
+import {AuthContext} from '../../contexts/auth';
 
 export function ViewButtons() {
-  const [button1Pressed, setButton1Pressed] = useState(true);
-  const [button2Pressed, setButton2Pressed] = useState(false);
-  const [button3Pressed, setButton3Pressed] = useState(false);
-
-  function handleButton1Press() {
-    setButton1Pressed(true);
-    setButton2Pressed(false);
-    setButton3Pressed(false);
+  const {balanceSelected, setBalanceSelected} = useContext(AuthContext);
+  function handleButtonPress(type: string) {
+    setBalanceSelected(type);
   }
-
-  function handleButton2Press() {
-    setButton1Pressed(false);
-    setButton2Pressed(true);
-    setButton3Pressed(false);
-  }
-
-  function handleButton3Press() {
-    setButton1Pressed(false);
-    setButton2Pressed(false);
-    setButton3Pressed(true);
-  }
+  console.log(balanceSelected);
+  const isGeneralPressed = Boolean(balanceSelected === 'geral');
+  const isBTCPressed = Boolean(balanceSelected === ECoinType.BTC);
+  const isETHPressed = Boolean(balanceSelected === ECoinType.ETH);
 
   return (
     <ContainerButtonsFilter>
       <ButtonFilterHome
-        isPressed={button1Pressed}
-        onPressIn={handleButton1Press}>
-        <TextButtonFilter isPressed={button1Pressed}>
+        isPressed={isGeneralPressed}
+        onPressIn={() => handleButtonPress('geral')}>
+        <TextButtonFilter isPressed={isGeneralPressed}>
           Saldo Geral
         </TextButtonFilter>
       </ButtonFilterHome>
       <ButtonFilterHome
-        isPressed={button2Pressed}
-        onPressIn={handleButton2Press}>
-        <TextButtonFilter isPressed={button2Pressed}>Bitcoin</TextButtonFilter>
+        isPressed={isBTCPressed}
+        onPressIn={() => handleButtonPress('BTC')}>
+        <TextButtonFilter isPressed={isBTCPressed}>Bitcoin</TextButtonFilter>
       </ButtonFilterHome>
       <ButtonFilterHome
-        isPressed={button3Pressed}
-        onPressIn={handleButton3Press}>
-        <TextButtonFilter isPressed={button3Pressed}>Ethereum</TextButtonFilter>
+        isPressed={isETHPressed}
+        onPressIn={() => handleButtonPress('ETH')}>
+        <TextButtonFilter isPressed={isETHPressed}>Ethereum</TextButtonFilter>
       </ButtonFilterHome>
     </ContainerButtonsFilter>
   );

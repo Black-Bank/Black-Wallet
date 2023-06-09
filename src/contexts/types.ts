@@ -1,3 +1,5 @@
+import {ITypeExtract} from '../component/transactionList/type';
+
 export interface IWallet {
   address: string;
   name: string;
@@ -11,4 +13,11 @@ export interface ITransaction extends IWallet {
   value: number;
   fee: number;
   convertFactor: number;
+}
+
+export interface IDataBalance {
+  getBalance: {month: number[]; week: number[]; day: number[]};
+}
+export interface IExtract {
+  getExtract: ITypeExtract[];
 }

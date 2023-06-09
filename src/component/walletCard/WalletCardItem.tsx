@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {IWalletData} from '../../screen/HomeScreen/interfaces';
 import {ButtonTitle, CardWallet} from '../styles/styles';
 import {numberFormatter} from '../utils/functions/Format';
 import {ECoinType} from '../types/interfaces';
@@ -17,47 +16,53 @@ import {
 import IconEth from '../../assets/icon-eth-wallet.svg';
 import IconBtc from '../../assets/icon-btc-wallet.svg';
 import {Graphic} from './Graphic';
-import {ITypeExtract} from '../transactionList/type';
+import {AuthContext} from '../../contexts/auth';
 
 export const WalletCardItem = ({
   name,
   coin,
   address,
-  data,
-  extract,
 }: {
   name: string;
   coin: string;
   address: string;
-  data: IWalletData[];
-  extract: ITypeExtract[];
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const thisWallet = data?.find(wallet => wallet.address === address);
+  const {extract, walletList} = useContext(AuthContext);
+  console.log(extract, '-----');
+  const cardWalletsList = walletList.getFormatedData;
+  const cardWalletExtractList = extract?.getExtract;
+  const thisWallet = cardWalletsList?.find(
+    wallet => wallet.address === address,
+  );
   const thisBalance = thisWallet?.balance;
   const thisCoinPrice = thisWallet?.coinPrice;
-  const thisExtract = extract?.filter(
+  const thisExtract = cardWalletExtractList?.filter(
     transaction =>
       transaction.addressFrom.toUpperCase() === address.toUpperCase(),
   );
 
   const dataSet: number[] = [0];
+  let percentage = '';
+  let thisExtractFirst = 1;
 
-  for (let i = 0; i < 10; i++) {
-    const hasExtract = Boolean(thisExtract[i]?.addressFrom);
-    if (hasExtract) {
-      dataSet.push(Math.abs(thisExtract[i]?.coinValue));
-    } else {
-      dataSet.push(dataSet[i]);
+  if (extract) {
+    for (let i = 0; i < 10; i++) {
+      const hasExtract = Boolean(thisExtract[i]?.addressFrom);
+      if (hasExtract) {
+        dataSet.push(Math.abs(thisExtract[i]?.coinValue));
+      } else {
+        dataSet.push(dataSet[i]);
+      }
     }
+    const thisExtractLength = Math.abs(Number(dataSet[dataSet.length - 1]));
+    thisExtractFirst = Math.abs(Number(dataSet[1]));
+    percentage = (
+      ((thisExtractLength - thisExtractFirst) /
+        (thisExtractFirst ? thisExtractFirst : 1)) *
+      100
+    ).toFixed(2);
   }
-  const thisExtractLength = Math.abs(Number(dataSet[dataSet.length - 1]));
-  const thisExtractFirst = Math.abs(Number(dataSet[1]));
-  const percentage = (
-    ((thisExtractLength - thisExtractFirst) /
-      (thisExtractFirst ? thisExtractFirst : 1)) *
-    100
-  ).toFixed(2);
 
   return (
     <TouchableOpacityStyled

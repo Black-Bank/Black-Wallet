@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 
 import {useGetWallets} from '../../component/hooks/useGetWallets';
 import {WalletList} from '../../component/walletList/WalletList';
@@ -9,17 +9,14 @@ import {
   OptionsWalletsOrTransactions,
   WalletsOrTransactionsText,
 } from '../../component/transactionList/transaction.style';
-import {ITypeExtract} from '../../component/transactionList/type';
+import {AuthContext} from '../../contexts/auth';
 
 interface IWalletsOrTransactions {
   isUpdated: boolean;
-  extract: {getExtract: ITypeExtract[]};
 }
 
-export function WalletsOrTransactions({
-  isUpdated,
-  extract,
-}: IWalletsOrTransactions) {
+export function WalletsOrTransactions({isUpdated}: IWalletsOrTransactions) {
+  const {extract} = useContext(AuthContext);
   const [button1Pressed, setButton1Pressed] = useState(true);
   const [button2Pressed, setButton2Pressed] = useState(false);
   const {data} = useGetWallets();

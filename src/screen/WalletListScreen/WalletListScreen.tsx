@@ -15,7 +15,6 @@ import {
   TitleCreateWallet,
   TitleWallets,
 } from './WalletList.styles';
-import {CardAddAndDelete} from './CardAddAndDelleteWallet';
 import {WalletList} from '../../component/walletList/WalletList';
 import {CardsBuyCryptos} from '../HomeScreen/CardsBuyCryptos';
 import {CardsDistribuition} from './CardsDistribution';
@@ -24,13 +23,11 @@ import ETHIcon from '../../assets/icon-eth-wallet.svg';
 import {StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {CardAdd} from './CardAdd';
 
-export const WalletListScreen = ({route}: any) => {
-  const data = route!.params.data;
-  const dollarPrice = route!.params.dollarPrice;
-  const dataBalance = route!.params.dataBalance;
-  const extract = route!.params.extract;
-  const {isUpdate} = useContext(AuthContext);
+export const WalletListScreen = () => {
+  const {isUpdate, dollarPrice, dataBalance, extract, walletList} =
+    useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const navigateCreateWallet = () => {
@@ -44,12 +41,17 @@ export const WalletListScreen = ({route}: any) => {
           <ViewBanceInfo dataBalance={dataBalance} dollarPrice={dollarPrice}>
             <Text>Todas carteiras</Text>
           </ViewBanceInfo>
-          <CardAddAndDelete />
-          <CardsDistribuition />
+          <CardAdd />
+          <CardsBuyCryptos />
+          <CardsDistribuition data={walletList} />
           <ContainerWallets>
             <TitleWallets>Carteiras</TitleWallets>
-            {data.getFormatedData.length > 0 ? (
-              <WalletList extract={extract} data={data} isUpdate={isUpdate} />
+            {walletList.getFormatedData.length > 0 ? (
+              <WalletList
+                extract={extract}
+                data={walletList}
+                isUpdate={isUpdate}
+              />
             ) : (
               <CardCreateWallet>
                 <ContainerIconsWallet>
@@ -67,7 +69,6 @@ export const WalletListScreen = ({route}: any) => {
               </CardCreateWallet>
             )}
           </ContainerWallets>
-          <CardsBuyCryptos />
         </ContentWalletList>
       </ScrollView>
       <Footer />

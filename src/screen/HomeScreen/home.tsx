@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
@@ -18,7 +19,6 @@ import TransactionIcon from '../../assets/transactions.svg';
 import SendIcon from '../../assets/send.svg';
 import AddIcon from '../../assets/add.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-// import {handleWhatsAppPress} from '../../component/services/wppServices';
 import {ViewBanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
 import {ViewButtons} from './ViewButtons';
 import {Footer} from '../../component/footer/Footer';
@@ -49,7 +49,9 @@ export function Home() {
   const {data, loading, refetch} = useGetWallets();
   const {data: extract} = useGetExtract();
   const {dollarPrice} = useGetDollarPrice();
-  const {isUpdate} = useContext(AuthContext);
+
+  const {isUpdate, setDataBalance, setWalletList, setDollarPrice, setExtract} =
+    useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const refetchTime = 100;
@@ -73,15 +75,18 @@ export function Home() {
             wallets.unconfirmedBalance !== 0,
         ),
       );
+      setDataBalance(dataBalance);
+      setWalletList(data);
+      setDollarPrice(dollarPrice);
+      setExtract(extract);
     }
-  }, [data]);
+  }, [data, dataBalance, extract, dollarPrice]);
 
   const menuItems: IMenuItem[] = [
     {
       icon: <SendIcon width={25} height={30} fill="#212121" />,
-      name: 'Enviar',
+      name: 'Gerenciar',
       screen: 'WalletListScreen',
-      params: {dataBalance, dollarPrice, extract, data},
     },
     {
       icon: <ToReceiveIcon width={20} height={30} fill="#212121" />,
@@ -167,7 +172,7 @@ export function Home() {
               <CardInviteFriends />
               <CardsBuyCryptos />
 
-              <WalletsOrTransactions isUpdated={isUpdate} extract={extract} />
+              <WalletsOrTransactions isUpdated={isUpdate} />
             </ContainerContentHome>
           </ScrollView>
           <Footer />
