@@ -35,7 +35,6 @@ export function ViewBanceInfo({children}: IViewBalanceInfo) {
 
   let showBalance: number = 0;
   let showSymbol = '';
-  console.log(walletList);
 
   const countWalletsBTCValue = walletList.getFormatedData
     ?.filter(wallet => wallet.WalletType === 'BTC')
