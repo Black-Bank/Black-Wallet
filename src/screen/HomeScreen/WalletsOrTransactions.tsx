@@ -53,7 +53,6 @@ export function WalletsOrTransactions({isUpdated}: IWalletsOrTransactions) {
         <WalletList data={data} isUpdate={isUpdated} extract={extract} />
       ) : (
         <>
-          <WalletsOrTransactionsText>Transactions</WalletsOrTransactionsText>
           <TransactionList data={extract} isUpdate={isUpdated} />
         </>
       )}
