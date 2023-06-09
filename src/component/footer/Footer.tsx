@@ -2,9 +2,8 @@ import React, {useContext} from 'react';
 import {ButtonMenu, Container} from './Footer.style';
 import HomeIcon from '../../assets/home.svg';
 import TransactionIcon from '../../assets/transactionsFooter.svg';
-import UserIcon from '../../assets/user.svg';
 import WalletIcon from '../../assets/walletFooter.svg';
-import {useRoute, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AuthContext} from '../../contexts/auth';
 
@@ -13,9 +12,11 @@ interface IFooterItems {
   screen: string;
   params?: any;
 }
+interface IRoute {
+  name: string;
+}
 
-export const Footer = () => {
-  const route = useRoute();
+export const Footer = ({name}: IRoute) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {dataBalance, dollarPrice, extract, walletList} =
     useContext(AuthContext);
@@ -25,7 +26,7 @@ export const Footer = () => {
         <HomeIcon
           width={25}
           height={30}
-          stroke={route.name === 'Home' ? '#624AA7' : '#BDBDBD'}
+          stroke={name === 'Home' ? '#624AA7' : '#BDBDBD'}
         />
       ),
       screen: 'Home',
@@ -35,7 +36,7 @@ export const Footer = () => {
         <WalletIcon
           width={26}
           height={30}
-          fill={route.name === 'WalletListScreen' ? '#624AA7' : '#BDBDBD'}
+          fill={name === 'WalletListScreen' ? '#624AA7' : '#BDBDBD'}
         />
       ),
       screen: 'WalletListScreen',
@@ -46,20 +47,10 @@ export const Footer = () => {
         <TransactionIcon
           width={25}
           height={30}
-          fill={route.name === 'TransactionsScreen' ? '#624AA7' : '#BDBDBD'}
+          fill={name === 'TransactionsScreen' ? '#624AA7' : '#BDBDBD'}
         />
       ),
-      screen: 'TransactionsScreen',
-    },
-    {
-      icon: (
-        <UserIcon
-          width={25}
-          height={30}
-          stroke={route.name === 'UserScreen' ? '#624AA7' : '#BDBDBD'}
-        />
-      ),
-      screen: 'UserScreen',
+      screen: 'FutureScreen',
     },
   ];
 
