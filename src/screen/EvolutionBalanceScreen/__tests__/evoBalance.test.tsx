@@ -6,7 +6,6 @@ import {render, waitFor} from '@testing-library/react-native';
 import {ApolloProvider} from '@apollo/client';
 import {client} from '../../../component/client/provider/clientprovider';
 import {AuthContext} from '../../../contexts/auth';
-import {IDataBalance} from '../../../contexts/types';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => {

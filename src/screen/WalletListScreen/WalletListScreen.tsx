@@ -26,8 +26,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CardAdd} from './CardAdd';
 
 export const WalletListScreen = () => {
-  const {isUpdate, dollarPrice, dataBalance, extract, walletList} =
-    useContext(AuthContext);
+  const {isUpdate, extract, walletList} = useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const navigateCreateWallet = () => {
@@ -38,7 +37,7 @@ export const WalletListScreen = () => {
     <>
       <ScrollView>
         <ContentWalletList>
-          <ViewBanceInfo dataBalance={dataBalance} dollarPrice={dollarPrice}>
+          <ViewBanceInfo>
             <Text>Todas carteiras</Text>
           </ViewBanceInfo>
           <CardAdd />
