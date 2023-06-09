@@ -78,6 +78,8 @@ export const AuthContext = createContext<IAuth>({
         price: 0,
         privateKey: '',
         coinPrice: 0,
+        WalletType: '',
+        totalBalance: 0,
       },
     ],
   },
@@ -95,6 +97,8 @@ function AuthProvider({children}: {children: React.ReactNode}) {
         price: 0,
         privateKey: '',
         coinPrice: 0,
+        WalletType: '',
+        totalBalance: 0,
       },
     ],
   });

@@ -15,9 +15,11 @@ export interface IWalletData {
 }
 
 export interface IWalletDataList {
+  totalBalance: number;
   address: string;
   balance: number;
   price: number;
+  WalletType: string;
   privateKey: string;
   coinPrice: number;
 }

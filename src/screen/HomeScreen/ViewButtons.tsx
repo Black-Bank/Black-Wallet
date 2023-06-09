@@ -12,8 +12,7 @@ export function ViewButtons() {
   function handleButtonPress(type: string) {
     setBalanceSelected(type);
   }
-  console.log(balanceSelected);
-  const isGeneralPressed = Boolean(balanceSelected === 'geral');
+  const isGeneralPressed = Boolean(balanceSelected === 'general');
   const isBTCPressed = Boolean(balanceSelected === ECoinType.BTC);
   const isETHPressed = Boolean(balanceSelected === ECoinType.ETH);
 
@@ -21,7 +20,7 @@ export function ViewButtons() {
     <ContainerButtonsFilter>
       <ButtonFilterHome
         isPressed={isGeneralPressed}
-        onPressIn={() => handleButtonPress('geral')}>
+        onPressIn={() => handleButtonPress('general')}>
         <TextButtonFilter isPressed={isGeneralPressed}>
           Saldo Geral
         </TextButtonFilter>

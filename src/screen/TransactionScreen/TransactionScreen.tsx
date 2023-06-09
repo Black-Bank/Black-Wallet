@@ -50,7 +50,7 @@ export function TransactionScreen() {
   const [addressError, setAddressError] = useState<boolean>(true);
   const [valueError, setValueError] = useState<boolean>(true);
   const [valueAmountError, setValueAmountError] = useState<boolean>(true);
-  const [valueBTCError, setValueBTCError] = useState<boolean>(false);
+  const [valueCoinError, setValueCoinError] = useState<boolean>(false);
   const {walletData, setTransactionData} = useContext(AuthContext);
   const {data} = useGetTransferInfo();
   const {coinPrice} = useGetCoinPrice(walletData.coin);
@@ -111,22 +111,17 @@ export function TransactionScreen() {
     if (Number(value) > 0) {
       setValueError(false);
     }
-    const isSelectedBTCError = Boolean(
-      walletData.coin === ECoinType.BTC &&
-        selectedOption === ECoinType.BTC &&
-        Number(value) < 0.0001,
-    );
-    const isSelectedUSDBTCError = Boolean(
-      walletData.coin === ECoinType.BTC &&
-        selectedOption === ECoinType.USD &&
+    const isSelectedError = Boolean(Number(value) < 0.0001);
+    const isSelectedUSDError = Boolean(
+      selectedOption === ECoinType.USD &&
         Number(Number(value) / coinPrice) < 0.0001,
     );
-    if (isSelectedBTCError) {
-      setValueBTCError(true);
-    } else if (isSelectedUSDBTCError) {
-      setValueBTCError(true);
+    if (isSelectedError) {
+      setValueCoinError(true);
+    } else if (isSelectedUSDError) {
+      setValueCoinError(true);
     } else {
-      setValueBTCError(false);
+      setValueCoinError(false);
     }
     if (selectedOption === walletData.coin) {
       setValueAmountError(
@@ -142,7 +137,7 @@ export function TransactionScreen() {
   };
 
   const handleContinue = () => {
-    const handleFormatBTCValue = (values: string): number => {
+    const handleFormatValue = (values: string): number => {
       const roundedValue = Math.floor(Number(values) * 10000) / 10000;
       return Number(roundedValue.toFixed(4));
     };
@@ -151,14 +146,9 @@ export function TransactionScreen() {
       fee: Number(taxContract[selectedTaxOption]),
       value:
         selectedOption === walletData.coin
-          ? Number(
-              walletData.coin === ECoinType.BTC
-                ? handleFormatBTCValue(value)
-                : value,
-            )
-          : walletData.coin === ECoinType.BTC
-          ? handleFormatBTCValue(String(Number(value) / coinPrice))
-          : Number(value) / coinPrice,
+          ? Number(handleFormatValue(value))
+          : handleFormatValue(String(Number(value) / coinPrice)),
+
       addressTo: address,
       convertFactor: factor,
     });
@@ -315,7 +305,7 @@ export function TransactionScreen() {
               O valor deve ser menor que o saldo mais a taxa
             </SucessMessage>
           )}
-          {valueBTCError ? (
+          {valueCoinError ? (
             <ErrorMessage>
               O valor deve ser maior ou igual á 0.0001 BTC
             </ErrorMessage>

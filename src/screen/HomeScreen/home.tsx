@@ -150,9 +150,7 @@ export function Home() {
         <>
           <ScrollView>
             <ContainerContentHome>
-              <ViewBanceInfo
-                dataBalance={dataBalance}
-                dollarPrice={dollarPrice}>
+              <ViewBanceInfo>
                 <ViewButtons />
               </ViewBanceInfo>
 

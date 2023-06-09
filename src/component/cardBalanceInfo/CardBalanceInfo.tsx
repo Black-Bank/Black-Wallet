@@ -1,5 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import LogoHomeIcon from '../../assets/LogoHome.svg';
 import MenuBurguerIcon from '../../assets/MenuBurguer.svg';
 import EyeIcon from '../../assets/Eye.svg';
@@ -20,21 +20,50 @@ import {
   ViewSuport,
 } from './CardBalanceInfo.style';
 import {ButtonSeeBallance} from '../transactionList/transaction.style';
+import {AuthContext} from '../../contexts/auth';
+import {ECoinType} from '../types/interfaces';
 
 interface IViewBalanceInfo {
   children: React.ReactNode;
-  dataBalance: {getBalance: {month: number[]; week: number[]; day: number[]}};
-  dollarPrice: number;
 }
 
-export function ViewBanceInfo({
-  children,
-  dataBalance,
-  dollarPrice,
-}: IViewBalanceInfo) {
+export function ViewBanceInfo({children}: IViewBalanceInfo) {
+  const {dollarPrice, dataBalance, balanceSelected, walletList} =
+    useContext(AuthContext);
   const [seeBalanceInfo, setSeeBalanceInfo] = useState(true);
-  const totalBalance =
-    dataBalance?.getBalance.day[dataBalance?.getBalance.day.length - 1];
+  const totalBalance = walletList.getFormatedData[0].totalBalance;
+
+  let showBalance: number = 0;
+  let showSymbol = '';
+  console.log(walletList);
+
+  const countWalletsBTCValue = walletList.getFormatedData
+    ?.filter(wallet => wallet.WalletType === 'BTC')
+    .reduce(
+      (acc: number, wallet) => acc + wallet.balance * wallet.coinPrice,
+      0,
+    );
+  const countWalletsETHValue = walletList.getFormatedData
+    ?.filter(wallet => wallet.WalletType === 'ETH')
+    .reduce(
+      (acc: number, wallet) => acc + wallet.balance * wallet.coinPrice,
+      0,
+    );
+  switch (balanceSelected) {
+    case 'general':
+      showBalance = totalBalance;
+      showSymbol = ECoinType.USD;
+      break;
+    case ECoinType.BTC:
+      showBalance = countWalletsBTCValue;
+      showSymbol = ECoinType.USD;
+      break;
+    case ECoinType.ETH:
+      showBalance = countWalletsETHValue;
+      showSymbol = ECoinType.USD;
+      break;
+  }
+
   const monthBalance = Boolean(
     dataBalance?.getBalance.month[dataBalance?.getBalance.month.length - 1],
   )
@@ -48,7 +77,7 @@ export function ViewBanceInfo({
           (Boolean(monthBalance) ? monthBalance : divider)) *
         100
       ).toFixed(2)
-    : null;
+    : undefined;
 
   return (
     <ContentTop>
@@ -62,12 +91,12 @@ export function ViewBanceInfo({
           <ViewSuport>
             <TextGray2Large>
               {seeBalanceInfo
-                ? totalBalance
-                  ? totalBalance.toFixed(2)
+                ? showBalance
+                  ? showBalance.toFixed(2)
                   : '0,00'
                 : '*****'}
             </TextGray2Large>
-            <TextGray2Small>USD</TextGray2Small>
+            <TextGray2Small>{showSymbol}</TextGray2Small>
           </ViewSuport>
           <ButtonSeeBallance onPress={() => setSeeBalanceInfo(!seeBalanceInfo)}>
             <EyeIcon />
@@ -76,8 +105,8 @@ export function ViewBanceInfo({
         <ViewLastContent>
           <TextGray1Normal>
             {seeBalanceInfo
-              ? totalBalance
-                ? `≈ R$ ${(totalBalance * dollarPrice).toFixed(2)}`
+              ? showBalance
+                ? `≈ R$ ${(showBalance * dollarPrice).toFixed(2)}`
                 : '≈ R$ 0,00'
               : '* * * * *'}
           </TextGray1Normal>
