@@ -75,9 +75,7 @@ export const CardsDistribuition = ({data}: ICard) => {
         </CardCountWallet>
       ) : (
         <ContentTextNotWallet>
-          <TextNotWallet>
-            Você ainda não possui uma carteira adicionada
-          </TextNotWallet>
+          <TextNotWallet>Você ainda não possui saldo</TextNotWallet>
           <ButtonCreateWallet onPress={() => navigateCreateWallet()}>
             <AddIcon width={35} height={35} />
           </ButtonCreateWallet>
