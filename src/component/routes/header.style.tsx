@@ -61,3 +61,15 @@ export const optionsConfirmTransactionStyle = {
   headerTitle: 'Confirmar informações',
   headerTitleAlign: 'center' as const,
 };
+
+export const optionsHeaderHomeStyle = {
+  headerStyle: {
+    backgroundColor: 'transparent',
+  },
+  headerTitleStyle: {
+    color: '#fff',
+  },
+  headerTintColor: '#fff',
+  headerTransparent: true,
+  headerTitle: '',
+};

@@ -1,23 +1,13 @@
 import styled from 'styled-components/native';
 
-export const AccountBalanceContainer = styled.View`
-  margin-left: 10px;
-`;
-
-export const BalanceText = styled.Text`
-  color: #000;
-  font-size: 16px;
-  font-weight: bold;
-  font-family: Helvetica;
-  margin-bottom: 10px;
-`;
-
 export const Description = styled.Text`
-  color: #000;
+  color: #4f4f4f;
   font-size: 14px;
   font-weight: semi-bold;
   font-family: Helvetica;
   margin-top: 5px;
+  text-align: center;
+  padding: 4px 0;
 `;
 
 export const DescriptionWalletHeader = styled.Text`
@@ -26,6 +16,7 @@ export const DescriptionWalletHeader = styled.Text`
   font-weight: semi-bold;
   font-family: Helvetica;
   margin-top: 5px;
+  background-color: transparent;
 `;
 
 export const AccountHomeOptions = styled.View`
@@ -33,14 +24,6 @@ export const AccountHomeOptions = styled.View`
   background-color: red;
 `;
 
-export const AccountContainerSupport = styled.TouchableOpacity`
-  height: 100px;
-  margin-top: 50px;
-  background-color: #f3ecec;
-  padding: 20px;
-  flex-direction: row;
-  justify-content: space-between;
-`;
 export const OptionsContainerWalletHeader = styled.View`
   flex: 0.85;
   align-items: center;
@@ -49,103 +32,38 @@ export const OptionsContainerWalletHeader = styled.View`
   justify-content: center;
 `;
 export const OptionsContainer = styled.View`
-  background-color: #f3ecec;
+  background-color: white;
   flex-direction: row;
-`;
-export const IconContainer = styled.View`
-  height: 60px;
-  justify-content: center;
+  height: 120px;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 8px;
 `;
 
 export const OptionsButton = styled.TouchableOpacity`
-  background-color: rgba(153, 153, 153, 0.3);
   width: 50px;
   height: 50px;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: 8px;
+  background-color: transparent;
 `;
 
 export const OptionButtonAll = styled.View`
-  height: 100px;
-  margin-left: 20px;
+  height: 90px;
+  width: 75px;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 `;
 
 export const LoadingContainer = styled.View`
   height: 100%;
-
   align-items: center;
   justify-content: center;
 `;
 
-export const Divider = styled.View`
-  height: 1px;
-  background-color: rgba(153, 153, 153, 0.5);
-  margin-top: 30px;
-  margin-bottom: 30px;
-`;
-
-export const FeatureCard = styled.TouchableOpacity`
-  padding: 15px;
-`;
-
-export const FeatureCardContent = styled.View`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  background-color: #e6e6e6;
-  padding: 15px;
-  border-radius: 12px;
-`;
-
-export const CardName = styled.Text`
-  margin-left: 10px;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-export const FeaturesWrapper = styled.View`
-  padding: 15px;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const FeatureBlockLarge = styled.TouchableOpacity`
-  height: 150px;
-  width: 100%;
-  border-radius: 16px;
-  background-color: #e6e6e6;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const FeatureBlockLargeText = styled.Text`
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-export const FeatureBlockSmall = styled.TouchableOpacity`
-  padding: 30px 12px;
-  width: 48%;
-  border-radius: 16px;
-  background-color: #e6e6e6;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const FeatureBlockSmallText = styled.Text`
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-export const FeaturesWrappers = styled.View`
-  padding: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 30px;
+export const ContainerContentHome = styled.View`
+  background-color: #f2f3f5;
+  padding: 15px 20px;
 `;

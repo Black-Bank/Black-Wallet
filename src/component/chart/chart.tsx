@@ -9,12 +9,9 @@ import {
 } from '../styles/styles';
 import {LineChart} from 'react-native-chart-kit';
 import {RefactorData} from './functions/chartFunctions';
-import ChartController from './controller/chartController';
 
-export function Chart() {
+export function Chart({data}: any) {
   const date = new Date();
-  const chartInstance = ChartController.getInstance();
-  const data = chartInstance?.data;
   let DataSemester = data?.getBalance.month;
   let DataWeek = data?.getBalance.week;
   let DataDay = data?.getBalance.day;

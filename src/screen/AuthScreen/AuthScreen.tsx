@@ -80,7 +80,7 @@ export function AuthScreen() {
         isAuth ? setIsAuthenticated(isAuth) : setLoginError('Senha Incorreta');
       }
     } catch (error: any) {
-      console.error('Ocorreu um erro ao executar a consulta: ', error);
+      setLoginError('Ocorreu um erro ao executar a consulta: ' + error.message);
     } finally {
       setIsLoading(false);
     }
