@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -51,12 +52,14 @@ export function TransactionScreen() {
   const [valueError, setValueError] = useState<boolean>(true);
   const [valueAmountError, setValueAmountError] = useState<boolean>(true);
   const [valueCoinError, setValueCoinError] = useState<boolean>(false);
-  const {walletData, setTransactionData} = useContext(AuthContext);
+  const {walletData, setTransactionData, setTransactionInfo, feeContract} =
+    useContext(AuthContext);
   const {data} = useGetTransferInfo();
   const {coinPrice} = useGetCoinPrice(walletData.coin);
   const [selectedOption, setSelectedOption] = useState<string>(walletData.coin);
   const [selectedTaxOption, setSelectedTaxOption] = useState<string>('midle');
   const [value, setValue] = useState<string>('0');
+  const [taxContract, setTaxContract] = useState(feeContract.getTransferInfo);
   const addressBTCRegex = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
   const addressETHRegex = /^0x[0-9a-fA-F]{40}$/;
   const isBTCWallet = Boolean(walletData.coin === ECoinType.BTC);
@@ -69,15 +72,35 @@ export function TransactionScreen() {
     : isETHWallet
     ? 1000000000000000000
     : 1;
-  const taxContract: Record<string, string> = {
-    low: data?.getTransferInfo.LowFee,
-    midle: data?.getTransferInfo.MediumFee,
-    hight: data?.getTransferInfo.fatestFee,
+
+  useEffect(() => {
+    setTaxContract(
+      Boolean(data) ? data.getTransferInfo : feeContract.getTransferInfo,
+    );
+  }, [data]);
+
+  const efectiveTax =
+    selectedTaxOption === 'hight'
+      ? taxContract.fatestFee
+      : selectedTaxOption === 'midle'
+      ? taxContract.MediumFee
+      : taxContract.LowFee;
+  const coinTax = efectiveTax / factor;
+  const usdTax = Number(((efectiveTax / factor) * coinPrice).toFixed(2));
+  const handleFormatValue = (values: string): number => {
+    const roundedValue = Math.floor(Number(values) * 10000) / 10000;
+    return Number(roundedValue.toFixed(4));
   };
-  const coinTax = Number(taxContract[selectedTaxOption]) / factor;
-  const usdTax = Number(
-    ((Number(taxContract[selectedTaxOption]) / factor) * coinPrice).toFixed(2),
-  );
+
+  useEffect(() => {
+    setTransactionInfo({
+      value:
+        selectedOption === walletData.coin
+          ? Number(handleFormatValue(value))
+          : handleFormatValue(String(Number(value) / coinPrice)),
+      addressTo: address,
+    });
+  }, [value, address]);
 
   const pasteAddress = async () => {
     const clipboardContent = await Clipboard.getString();
@@ -137,13 +160,9 @@ export function TransactionScreen() {
   };
 
   const handleContinue = () => {
-    const handleFormatValue = (values: string): number => {
-      const roundedValue = Math.floor(Number(values) * 10000) / 10000;
-      return Number(roundedValue.toFixed(4));
-    };
     setTransactionData({
       ...walletData,
-      fee: Number(taxContract[selectedTaxOption]),
+      fee: efectiveTax,
       value:
         selectedOption === walletData.coin
           ? Number(handleFormatValue(value))

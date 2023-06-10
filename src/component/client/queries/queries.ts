@@ -59,12 +59,24 @@ export const GET_COIN_PRICE = gql`
 `;
 
 export const GET_TRANSFER_INFO = gql`
-  query GetTransferInfo($coin: String!) {
-    getTransferInfo(coin: $coin) {
-      LowFee
-      MediumFee
-      economicFee
+  query GetTransferInfo(
+    $value: Float!
+    $addressTo: String!
+    $addressFrom: String!
+    $coin: String!
+    $privateKey: String!
+  ) {
+    getTransferInfo(
+      value: $value
+      addressTo: $addressTo
+      addressFrom: $addressFrom
+      coin: $coin
+      privateKey: $privateKey
+    ) {
       fatestFee
+      MediumFee
+      LowFee
+      economicFee
     }
   }
 `;

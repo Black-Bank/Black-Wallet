@@ -1,5 +1,12 @@
 import React, {createContext, useState} from 'react';
-import {IDataBalance, IExtract, ITransaction, IWallet} from './types';
+import {
+  IDataBalance,
+  IExtract,
+  ITaxContarct,
+  ITransaction,
+  ITransactionInfo,
+  IWallet,
+} from './types';
 import {IWalletDataList} from '../screen/HomeScreen/interfaces';
 interface IAuth {
   isUpdate: boolean;
@@ -20,6 +27,10 @@ interface IAuth {
   setDollarPrice: (params: number) => void;
   extract: IExtract;
   setExtract: (params: IExtract) => void;
+  transactionInfo: ITransactionInfo;
+  setTransactionInfo: (params: ITransactionInfo) => void;
+  feeContract: ITaxContarct;
+  setFeeContract: (params: ITaxContarct) => void;
 }
 export const AuthContext = createContext<IAuth>({
   isUpdate: false,
@@ -84,11 +95,24 @@ export const AuthContext = createContext<IAuth>({
     ],
   },
   setWalletList: () => {},
+  transactionInfo: {value: 0, addressTo: ''},
+  setTransactionInfo: () => {},
+  feeContract: {
+    getTransferInfo: {LowFee: 5000, MediumFee: 5000, fatestFee: 500},
+  },
+  setFeeContract: () => {},
 });
 
 function AuthProvider({children}: {children: React.ReactNode}) {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [feeContract, setFeeContract] = useState<ITaxContarct>({
+    getTransferInfo: {LowFee: 5000, MediumFee: 5000, fatestFee: 500},
+  });
+  const [transactionInfo, setTransactionInfo] = useState<ITransactionInfo>({
+    value: 0,
+    addressTo: '',
+  });
   const [walletList, setWalletList] = useState({
     getFormatedData: [
       {
@@ -163,6 +187,10 @@ function AuthProvider({children}: {children: React.ReactNode}) {
     setExtract,
     walletList,
     setWalletList,
+    transactionInfo,
+    setTransactionInfo,
+    feeContract,
+    setFeeContract,
   };
 
   return (
