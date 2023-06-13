@@ -75,7 +75,18 @@ export function AuthRoutes() {
       <Stack.Screen
         name="ConfirmationScreen"
         component={ConfirmCodeScreen}
-        options={optionsStyle}
+        options={{
+          headerStyle: {
+            backgroundColor: '#ffff',
+          },
+          headerTitleStyle: {
+            color: '#414561',
+          },
+          headerTintColor: '#828282',
+          headerTransparent: true,
+          headerTitle: 'Verifique seu E-mail',
+          headerTitleAlign: 'center',
+        }}
       />
       <Stack.Screen
         name="ConfirmationSignUpScreen"

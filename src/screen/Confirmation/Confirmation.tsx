@@ -1,19 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useRef, useEffect} from 'react';
 import {TextInput} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
   ButtonContainer,
-  CancelButton,
-  CancelButtonText,
   CodeInput,
   CodeinputContainer,
   ConfirmationButton,
   ConfirmationButtonText,
   Container,
   ContainerText,
+  Content,
   NotReceived,
   RemainderButton,
   RemainderButtonText,
+  TextEmail,
   TimeContainer,
   Title,
 } from './Confirmation.style';
@@ -24,7 +25,6 @@ import {FormatMinutes} from '../../component/utils/functions/FormatMinutes';
 import {useMutation} from '@apollo/client';
 import {SEND_CODE_EMAIL} from '../../component/client/queries/queries';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
-import {ActivityIndicator} from 'react-native-paper';
 
 interface ConfirmationScreenProps {
   route?: {
@@ -43,7 +43,7 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
   const [RemaindCode, setRemaindCode] = useState<string>('');
   const codeFields = useRef<(TextInput | null)[]>([]);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const expTime = 120000;
+  const expTime = 12000;
 
   const [timeRemaining, setTimeRemaining] = useState<number>(expTime);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -143,55 +143,57 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
   };
   return (
     <Container>
-      <Title>Código de confirmação</Title>
-      <Description>
-        Para sua segurança, por favor, confirme o código enviado para: {email}
-      </Description>
+      <Content>
+        <Title>Enviamos um código de segurança para o email</Title>
+        <TextEmail>{email}</TextEmail>
+        <Description>
+          Nos informe o código para recuperar a sua senha
+        </Description>
 
-      <CodeinputContainer>
-        {Array.from({length: 6}, (_, index) => (
-          <CodeInput
-            key={index}
-            value={codeInput[index]}
-            onChangeText={(text: string) => handleCodeChange(text, index)}
-            maxLength={1}
-            ref={(input: TextInput | null) =>
-              (codeFields.current[index] = input)
-            }
-            onDelete={() => handleDelete(index)}
-            onKeyPress={({nativeEvent}: {nativeEvent: any}) => {
-              if (nativeEvent.key === 'Backspace' && !codeInput[index]) {
-                handleDelete(index);
+        <CodeinputContainer>
+          {Array.from({length: 6}, (_, index) => (
+            <CodeInput
+              key={index}
+              value={codeInput[index]}
+              onChangeText={(text: string) => handleCodeChange(text, index)}
+              maxLength={1}
+              ref={(input: TextInput | null) =>
+                (codeFields.current[index] = input)
               }
-            }}
-          />
-        ))}
-      </CodeinputContainer>
+              onDelete={() => handleDelete(index)}
+              onKeyPress={({nativeEvent}: {nativeEvent: any}) => {
+                if (nativeEvent.key === 'Backspace' && !codeInput[index]) {
+                  handleDelete(index);
+                }
+              }}
+            />
+          ))}
+        </CodeinputContainer>
 
-      <ButtonContainer>
-        {timeRemaining > 0 ? (
-          <ConfirmationButton onPress={handleConfirmCode}>
+        <ButtonContainer>
+          <ConfirmationButton
+            onPress={handleConfirmCode}
+            disabled={codeInput.length < 6}
+            style={{
+              backgroundColor: codeInput.length === 6 ? '#624AA7' : '#624AA770',
+            }}>
             <ConfirmationButtonText>Confirmar</ConfirmationButtonText>
           </ConfirmationButton>
-        ) : isLoading ? (
-          <ActivityIndicator />
-        ) : (
+        </ButtonContainer>
+
+        <TimeContainer>
+          <ContainerText>{FormatMinutes(timeRemaining)}</ContainerText>
+        </TimeContainer>
+
+        <NotReceived>
+          Não Recebeu seu código? Verifique na caixa de span ou tente novamente.
+        </NotReceived>
+        {timeRemaining === 0 && (
           <RemainderButton onPress={handleReSendCode}>
-            <RemainderButtonText>Reenviar Código</RemainderButtonText>
+            <RemainderButtonText>Reenviar</RemainderButtonText>
           </RemainderButton>
         )}
-        <CancelButton onPress={handleCancel}>
-          <CancelButtonText>Cancelar</CancelButtonText>
-        </CancelButton>
-      </ButtonContainer>
-
-      <TimeContainer>
-        <ContainerText>{FormatMinutes(timeRemaining)}</ContainerText>
-      </TimeContainer>
-
-      <NotReceived>
-        Não Recebeu seu código? Verifique na caixa de span ou tente novamente.
-      </NotReceived>
+      </Content>
     </Container>
   );
 }
