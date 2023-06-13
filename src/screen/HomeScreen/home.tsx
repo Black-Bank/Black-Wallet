@@ -1,43 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, StatusBar, ScrollView} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import {useGetWallets} from '../../component/hooks/useGetWallets';
-
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {
-  AccountBalanceContainer,
-  AccountContainerSupport,
-  BalanceText,
   Description,
-  IconContainer,
   LoadingContainer,
   OptionButtonAll,
   OptionsButton,
   OptionsContainer,
-  Divider,
-  FeatureCard,
-  FeatureCardContent,
-  CardName,
-  FeatureBlockLarge,
-  FeaturesWrapper,
-  FeatureBlockLargeText,
-  FeatureBlockSmall,
-  FeatureBlockSmallText,
-  FeaturesWrappers,
+  ContainerContentHome,
 } from './Home.styles';
-import BankIcon from '../../assets/bank.svg';
-import TransferIcon from '../../assets/transfer.svg';
-import WalletIcon from '../../assets/wallet.svg';
-import PlusIcon from '../../assets/plus.svg';
-import CaretRightIcon from '../../assets/caret-right.svg';
+import ToReceiveIcon from '../../assets/toReceive.svg';
+import TransactionIcon from '../../assets/transactions.svg';
+import SendIcon from '../../assets/send.svg';
+import AddIcon from '../../assets/add.svg';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import BTCIcon from '../../assets/bitcoin.svg';
-import ETHIcon from '../../assets/ethereum.svg';
-import FriendIcon from '../../assets/friend.svg';
-import InfoIcon from '../../assets/info.svg';
-import {handleWhatsAppPress} from '../../component/services/wppServices';
+import {ViewBalanceInfo} from '../../component/cardBalanceInfo/CardBalanceInfo';
+import {ViewButtons} from './ViewButtons';
+import {Footer} from '../../component/footer/Footer';
+import {CardInviteFriends} from './CardInviteFriends';
+import {CardsBuyCryptos} from './CardsBuyCryptos';
+import {WalletsOrTransactions} from './WalletsOrTransactions';
+import {useGetBalance} from '../../component/hooks/useGetBalance';
+import {useGetDollarPrice} from '../../component/hooks/useGetDollarPrice';
+import {useGetExtract} from '../../component/hooks/useGetExtract';
 
 interface IMenuItem {
   icon: any;
@@ -55,12 +45,16 @@ interface IRenderMenuCarouselProps {
 }
 
 export function Home() {
-  const {isUpdate} = useContext(AuthContext);
+  const {data: dataBalance, refetch: retry} = useGetBalance();
+  const {data, loading, refetch} = useGetWallets();
+  const {data: extract} = useGetExtract();
+  const {dollarPrice} = useGetDollarPrice();
 
+  const {isUpdate, setDataBalance, setWalletList, setDollarPrice, setExtract} =
+    useContext(AuthContext);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const refetchTime = 100;
-  const {data, loading, refetch} = useGetWallets();
 
   const [inTransactionalWallet, setInTransactionalWallet] = useState<any[]>(
     data?.getFormatedData.filter(
@@ -68,14 +62,6 @@ export function Home() {
         wallets.unconfirmedBalance !== 0,
     ),
   );
-
-  const totalBalance = data?.getFormatedData.length
-    ? data?.getFormatedData[0].totalBalance
-    : 0;
-
-  const walletsNavigate = async () => {
-    navigation.navigate('WalletListScreen');
-  };
 
   useEffect(() => {
     setTimeout(refetch, refetchTime);
@@ -89,30 +75,35 @@ export function Home() {
             wallets.unconfirmedBalance !== 0,
         ),
       );
+      setDataBalance(dataBalance);
+      setWalletList(data);
+      setDollarPrice(dollarPrice);
+      setExtract(extract);
     }
-  }, [data]);
+  }, [data, dataBalance, extract, dollarPrice]);
 
   const menuItems: IMenuItem[] = [
     {
-      icon: <BankIcon width={20} height={30} fill="#212121" />,
+      icon: <SendIcon width={25} height={30} fill="#212121" />,
+      name: 'Gerenciar',
+      screen: 'WalletListScreen',
+    },
+    {
+      icon: <ToReceiveIcon width={20} height={30} fill="#212121" />,
       name: 'Evolução',
       screen: 'EvoScreen',
+      params: {data: dataBalance, refetch: retry},
     },
     {
-      icon: <PlusIcon width={20} height={30} fill="#212121" />,
-      name: 'Adicionar',
-      screen: 'CreateWallet',
-    },
-    {
-      icon: <TransferIcon width={30} height={40} fill="#212121" />,
+      icon: <TransactionIcon width={20} height={30} fill="#212121" />,
       name: 'Futuros',
       screen: 'FutureScreen',
       params: inTransactionalWallet,
     },
     {
-      icon: <TransferIcon width={30} height={40} fill="#212121" />,
-      name: 'Transferir',
-      screen: 'WalletListScreen',
+      icon: <AddIcon width={20} height={30} fill="#212121" />,
+      name: 'Nova Carteira',
+      screen: 'CreateWallet',
     },
   ];
 
@@ -150,85 +141,40 @@ export function Home() {
 
   return (
     <>
-      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       {loading && !data ? (
         <LoadingContainer>
           <ActivityIndicator size="large" color="#0a0909" />
         </LoadingContainer>
       ) : (
-        <ScrollView>
-          <>
-            <AccountContainerSupport
-              onPress={() => navigation.navigate('EvoScreen')}>
-              <AccountBalanceContainer>
-                <BalanceText>Conta</BalanceText>
-                <BalanceText>
-                  {totalBalance?.toFixed(2) || '0.00'} USD
-                </BalanceText>
-              </AccountBalanceContainer>
-              <IconContainer>
-                <CaretRightIcon width={20} height={20} fill="#202020" />
-              </IconContainer>
-            </AccountContainerSupport>
+        <>
+          <ScrollView>
+            <ContainerContentHome>
+              <ViewBalanceInfo>
+                <ViewButtons />
+              </ViewBalanceInfo>
 
-            <OptionsContainer>
-              {menuItems.map((item, index) => (
-                <RenderMenuCarousel
-                  icon={item.icon}
-                  name={item.name}
-                  index={index}
-                  key={index}
-                  screen={item.screen}
-                  params={item.params}
-                />
-              ))}
-            </OptionsContainer>
+              <OptionsContainer>
+                {menuItems.map((item, index) => (
+                  <RenderMenuCarousel
+                    icon={item.icon}
+                    name={item.name}
+                    index={index}
+                    key={index}
+                    screen={item.screen}
+                    params={item.params}
+                  />
+                ))}
+              </OptionsContainer>
 
-            <Divider />
+              <CardInviteFriends />
+              <CardsBuyCryptos />
 
-            <FeatureCard onPress={walletsNavigate}>
-              <FeatureCardContent>
-                <WalletIcon height={30} width={30} fill={'#272727'} />
-
-                <CardName>Carteiras</CardName>
-              </FeatureCardContent>
-            </FeatureCard>
-
-            <FeaturesWrapper>
-              <FeatureBlockLarge>
-                <FriendIcon width={64} height={64} fill={'black'} />
-
-                <FeatureBlockLargeText>
-                  Convide seus amigos!
-                </FeatureBlockLargeText>
-              </FeatureBlockLarge>
-            </FeaturesWrapper>
-
-            <FeaturesWrappers>
-              <FeatureBlockSmall
-                onPress={() => handleWhatsAppPress('5521983206963')}>
-                <BTCIcon width={64} height={64} fill={'black'} />
-                <FeatureBlockSmallText>Compre bitcoin</FeatureBlockSmallText>
-              </FeatureBlockSmall>
-
-              <FeatureBlockSmall
-                onPress={() => handleWhatsAppPress('5521983206963')}>
-                <ETHIcon width={64} height={64} fill={'black'} />
-
-                <FeatureBlockSmallText>Compre ethereum</FeatureBlockSmallText>
-              </FeatureBlockSmall>
-            </FeaturesWrappers>
-
-            <FeaturesWrapper>
-              <FeatureBlockLarge
-                onPress={() => handleWhatsAppPress('5521983206963')}>
-                <InfoIcon width={64} height={64} fill={'black'} />
-
-                <FeatureBlockLargeText>Precisa de ajuda?</FeatureBlockLargeText>
-              </FeatureBlockLarge>
-            </FeaturesWrapper>
-          </>
-        </ScrollView>
+              <WalletsOrTransactions isUpdated={isUpdate} />
+            </ContainerContentHome>
+          </ScrollView>
+          <Footer name={'Home'} />
+        </>
       )}
     </>
   );

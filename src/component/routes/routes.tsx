@@ -15,6 +15,7 @@ import {FutureScreen} from '../../screen/FutureScreen/FutureScreen';
 import {DeleteWallet} from '../../screen/WalletScreen/DeleteWallet';
 import {
   optionsConfirmTransactionStyle,
+  optionsHeaderHomeStyle,
   optionsHomeStyle,
   optionsHomeTransactionStyle,
   optionsStyle,
@@ -36,7 +37,7 @@ export function Routes() {
           <Stack.Screen
             name="Home"
             component={Home}
-            options={optionsHomeStyle}
+            options={optionsHeaderHomeStyle}
           />
           <Stack.Screen
             name="EvoScreen"
@@ -86,7 +87,7 @@ export function Routes() {
           <Stack.Screen
             name="WalletListScreen"
             component={WalletListScreen}
-            options={optionsHomeStyle}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="FutureScreen"
