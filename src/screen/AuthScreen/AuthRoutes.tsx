@@ -59,7 +59,18 @@ export function AuthRoutes() {
       <Stack.Screen
         name="ForgotScreen"
         component={ForgotScreen}
-        options={optionsStyle}
+        options={{
+          headerStyle: {
+            backgroundColor: '#ffff',
+          },
+          headerTitleStyle: {
+            color: '#414561',
+          },
+          headerTintColor: '#828282',
+          headerTransparent: true,
+          headerTitle: 'Esqueceu a senha?',
+          headerTitleAlign: 'center',
+        }}
       />
       <Stack.Screen
         name="ConfirmationScreen"

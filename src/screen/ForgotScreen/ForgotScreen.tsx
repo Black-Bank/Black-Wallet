@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {
-  Button,
+  ButtonSend,
   ButtonText,
   Container,
   InputContainer,
   InputStyled,
-  Title,
+  Text,
   Error,
-} from '../SignUpScreen/SignUpScreen.style';
+  ButtonCancel,
+  ButtonTextCancel,
+  TextLabel,
+} from './ForgotScreen.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {ActivityIndicator, StatusBar} from 'react-native';
@@ -18,6 +21,7 @@ import Toast from 'react-native-toast-message';
 import {useMutation} from '@apollo/client';
 import {SEND_CODE_EMAIL} from '../../component/client/queries/queries';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
+import CreditBlackIcon from '../../assets/logo-creditBlack.svg';
 
 const crypto = new Crypto();
 const validationSchema = yup.object().shape({
@@ -78,34 +82,43 @@ export function ForgotScreen() {
 
   return (
     <>
-      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <StatusBar backgroundColor="#ffff" barStyle="dark-content" />
       <Formik
         initialValues={{email: ''}}
         onSubmit={handleSendCode}
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
           <Container marginTop={StatusBar.currentHeight}>
-            <Title>Digite seu Email abaixo</Title>
+            <CreditBlackIcon width={110} height={110} />
+            <Text>
+              Digite seu endereço de e-mail e enviaremos instruções de
+              redefinição de senha.
+            </Text>
             <InputContainer>
+              <TextLabel>Email</TextLabel>
               <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Email"
                 value={values.email}
                 onChangeText={handleChange('email')}
                 autoCapitalize="none"
               />
               {errors.email && touched.email && <Error>{errors.email}</Error>}
             </InputContainer>
-            <Button onPress={handleSubmit}>
+            <ButtonSend
+              onPress={handleSubmit}
+              disabled={values.email.length === 0}
+              style={{
+                backgroundColor:
+                  values.email.length === 0 ? '#624AA770' : '#624AA7',
+              }}>
               {isLoading ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" />
               ) : (
-                <ButtonText>Enviar código</ButtonText>
+                <ButtonText>Recupera senha</ButtonText>
               )}
-            </Button>
-            <Button onPress={handleCancel}>
-              <ButtonText>Cancelar</ButtonText>
-            </Button>
+            </ButtonSend>
+            <ButtonCancel onPress={handleCancel}>
+              <ButtonTextCancel>Cancelar</ButtonTextCancel>
+            </ButtonCancel>
           </Container>
         )}
       </Formik>
