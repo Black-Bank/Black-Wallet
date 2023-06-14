@@ -43,7 +43,7 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
   const [RemaindCode, setRemaindCode] = useState<string>('');
   const codeFields = useRef<(TextInput | null)[]>([]);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const expTime = 12000;
+  const expTime = 120000;
 
   const [timeRemaining, setTimeRemaining] = useState<number>(expTime);
   const [isLoading, setIsLoading] = useState<boolean>(false);

@@ -12,14 +12,13 @@ const Stack = createNativeStackNavigator();
 export function AuthRoutes() {
   const optionsStyle = {
     headerStyle: {
-      backgroundColor: '#35224b',
+      backgroundColor: '#ffff',
     },
     headerTitleStyle: {
-      color: '#fff',
+      color: '#414561',
     },
-    headerTintColor: '#fff',
+    headerTintColor: '#828282',
     headerTransparent: true,
-    headerTitle: '',
   };
 
   return (
@@ -60,14 +59,7 @@ export function AuthRoutes() {
         name="ForgotScreen"
         component={ForgotScreen}
         options={{
-          headerStyle: {
-            backgroundColor: '#ffff',
-          },
-          headerTitleStyle: {
-            color: '#414561',
-          },
-          headerTintColor: '#828282',
-          headerTransparent: true,
+          ...optionsStyle,
           headerTitle: 'Esqueceu a senha?',
           headerTitleAlign: 'center',
         }}
@@ -96,7 +88,11 @@ export function AuthRoutes() {
       <Stack.Screen
         name="UpdatePassScreen"
         component={UpdatePassScreen}
-        options={optionsStyle}
+        options={{
+          ...optionsStyle,
+          headerTitle: 'Redefina sua senha',
+          headerTitleAlign: 'center',
+        }}
       />
     </Stack.Navigator>
   );
