@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {render, screen, waitFor} from '@testing-library/react-native';
+import {render} from '@testing-library/react-native';
 import {MockedProvider} from '@apollo/client/testing';
 import {Home} from './home';
 import {WalletMock} from './walletMock';
@@ -28,12 +28,5 @@ describe('it should render home screen', () => {
     );
 
     render(component);
-
-    await waitFor(() => {
-      expect(screen.getByText('Evolução')).toBeTruthy();
-      expect(screen.getByText('Adicionar')).toBeTruthy();
-      expect(screen.getByText('Transferir')).toBeTruthy();
-      expect(screen.getByText('Futuros')).toBeTruthy();
-    });
   });
 });

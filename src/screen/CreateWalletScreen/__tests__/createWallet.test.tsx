@@ -2,13 +2,8 @@ import React from 'react';
 import {render} from '@testing-library/react-native';
 import {CreateWallet} from '../CreateWallet';
 import {NavigationContainer} from '@react-navigation/native';
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-import config from '../../../../config';
-
-const client = new ApolloClient({
-  uri: config.API_HEROKU, // substitua pela URL do seu servidor GraphQL
-  cache: new InMemoryCache(),
-});
+import {ApolloProvider} from '@apollo/client';
+import {client} from '../../../component/client/provider/clientprovider';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => {

@@ -18,7 +18,7 @@ import ArrowUpIcon from '../../assets/Arrow.svg';
 import ArrowDownIcon from '../../assets/ArrowDown.svg';
 
 export function FutureScreen({route}: IUnconfirmedWallet) {
-  const wallets = route.params;
+  const wallets = route!.params;
 
   const btcWallets = Array.isArray(wallets)
     ? wallets?.filter(wallet => wallet?.WalletType === 'BTC')
