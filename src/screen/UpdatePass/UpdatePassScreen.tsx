@@ -59,7 +59,7 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
   const [uppercase, setUppercase] = useState<boolean>(false);
   const [special, setSpecial] = useState<boolean>(false);
   const [number, setNumber] = useState<boolean>(false);
-  const params = {quantity, lowercase, uppercase, special, number};
+  const params = {quantity, lowercase, uppercase, special, number, password};
 
   useEffect(() => {
     const data = {

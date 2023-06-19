@@ -2,6 +2,7 @@
 import React from 'react';
 import TickIcon from '../../assets/Tick.svg';
 import TickGreenIcon from '../../assets/TickGreen.svg';
+import CrossIcon from '../../assets/Cross.svg';
 import {ContainerRules, ContentRules, TextRules} from './rulesForm.style';
 
 interface IParamsProps {
@@ -11,60 +12,116 @@ interface IParamsProps {
     uppercase: boolean;
     special: boolean;
     number: boolean;
+    password: String;
   };
 }
 
 const RulesForm = ({params}: IParamsProps) => {
-  const {lowercase, number, quantity, special, uppercase} = params;
+  const {lowercase, number, quantity, special, uppercase, password} = params;
 
   return (
     <ContainerRules>
       <ContentRules>
-        {quantity ? <TickGreenIcon /> : <TickIcon />}
+        {password.length === 0 ? (
+          <TickIcon />
+        ) : quantity ? (
+          <TickGreenIcon />
+        ) : (
+          <CrossIcon />
+        )}
         <TextRules
           style={{
-            color: quantity ? '#27AE60' : '#828282',
-            fontWeight: quantity ? '600' : '300',
+            color:
+              password.length === 0
+                ? '#828282'
+                : quantity
+                ? '#27AE60'
+                : '#EB5757',
+            fontWeight: password.length === 0 ? '300' : '600',
           }}>
           Deve conter no mínimo 8 caracteres
         </TextRules>
       </ContentRules>
       <ContentRules>
-        {number ? <TickGreenIcon /> : <TickIcon />}
+        {password.length === 0 ? (
+          <TickIcon />
+        ) : number ? (
+          <TickGreenIcon />
+        ) : (
+          <CrossIcon />
+        )}
         <TextRules
           style={{
-            color: number ? '#27AE60' : '#828282',
-            fontWeight: number ? '600' : '300',
+            color:
+              password.length === 0
+                ? '#828282'
+                : number
+                ? '#27AE60'
+                : '#EB5757',
+            fontWeight: password.length === 0 ? '300' : '600',
           }}>
           Deve conter no mínimo um número
         </TextRules>
       </ContentRules>
       <ContentRules>
-        {lowercase ? <TickGreenIcon /> : <TickIcon />}
+        {password.length === 0 ? (
+          <TickIcon />
+        ) : lowercase ? (
+          <TickGreenIcon />
+        ) : (
+          <CrossIcon />
+        )}
         <TextRules
           style={{
-            color: lowercase ? '#27AE60' : '#828282',
-            fontWeight: lowercase ? '600' : '300',
+            color:
+              password.length === 0
+                ? '#828282'
+                : lowercase
+                ? '#27AE60'
+                : '#EB5757',
+            fontWeight: password.length === 0 ? '300' : '600',
           }}>
           Deve conter no mínimo uma letra minúscula
         </TextRules>
       </ContentRules>
       <ContentRules>
-        {uppercase ? <TickGreenIcon /> : <TickIcon />}
+        {password.length === 0 ? (
+          <TickIcon />
+        ) : uppercase ? (
+          <TickGreenIcon />
+        ) : (
+          <CrossIcon />
+        )}
         <TextRules
           style={{
-            color: uppercase ? '#27AE60' : '#828282',
-            fontWeight: uppercase ? '600' : '300',
+            color:
+              password.length === 0
+                ? '#828282'
+                : uppercase
+                ? '#27AE60'
+                : '#EB5757',
+            fontWeight: password.length === 0 ? '300' : '600',
           }}>
           Deve conter no mínimo uma letra maíscula
         </TextRules>
       </ContentRules>
       <ContentRules>
-        {special ? <TickGreenIcon /> : <TickIcon />}
+        {password.length === 0 ? (
+          <TickIcon />
+        ) : special ? (
+          <TickGreenIcon />
+        ) : (
+          <CrossIcon />
+        )}
         <TextRules
           style={{
-            color: special ? '#27AE60' : '#828282',
-            fontWeight: special ? '600' : '300',
+            color:
+              password.length === 0
+                ? '#828282'
+                : special
+                ? '#27AE60'
+                : '#EB5757',
+            fontWeight: password.length === 0 ? '300' : '600',
           }}>
           Deve conter no mínimo um caracter especial
         </TextRules>
