@@ -113,7 +113,7 @@ export function ForgotScreen() {
               {isLoading ? (
                 <ActivityIndicator size="small" />
               ) : (
-                <ButtonText>Recupera senha</ButtonText>
+                <ButtonText>Recuperar senha</ButtonText>
               )}
             </ButtonSend>
             <ButtonCancel onPress={handleCancel}>
