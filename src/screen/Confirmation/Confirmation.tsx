@@ -107,9 +107,6 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
       });
     }
   };
-  const handleCancel = () => {
-    navigation.navigate('AuthScreen');
-  };
 
   const handleReSendCode = async () => {
     setIsLoading(true);
@@ -186,7 +183,8 @@ export function ConfirmCodeScreen({route}: ConfirmationScreenProps) {
         </TimeContainer>
 
         <NotReceived>
-          Não Recebeu seu código? Verifique na caixa de span ou tente novamente.
+          Não recebeu o seu código? Verifique na caixa de spam ou tente
+          novamente
         </NotReceived>
         {timeRemaining === 0 && (
           <RemainderButton onPress={handleReSendCode}>

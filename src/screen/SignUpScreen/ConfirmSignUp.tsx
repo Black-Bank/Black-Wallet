@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useRef, useEffect} from 'react';
 import {TextInput} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
   ButtonContainer,
-  CancelButton,
-  CancelButtonText,
   CodeInput,
   CodeinputContainer,
   ConfirmationButton,
@@ -17,6 +16,8 @@ import {
   TimeContainer,
   Title,
   Description,
+  TextEmail,
+  Content,
 } from './ConfirmationSignUp.style';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
@@ -150,9 +151,6 @@ export function ConfirmSignUpScreen({route}: ConfirmationScreenProps) {
       });
     }
   };
-  const handleCancel = () => {
-    navigation.navigate('AuthScreen');
-  };
 
   const handleReSendCode = async () => {
     setIsLoading(true);
@@ -186,59 +184,58 @@ export function ConfirmSignUpScreen({route}: ConfirmationScreenProps) {
   };
   return (
     <Container>
-      <Title>Código de confirmação</Title>
-      <Description>
-        Para sua segurança, por favor, confirme o código enviado para: {email}
-      </Description>
+      <Content>
+        <Title>Enviamos um código de segurança para o email</Title>
+        <TextEmail>{email}</TextEmail>
+        <Description>
+          Nos informe o código para continuar o seu cadastro
+        </Description>
 
-      <CodeinputContainer>
-        {Array.from({length: 6}, (_, index) => (
-          <CodeInput
-            key={index}
-            value={codeInput[index]}
-            onChangeText={(text: string) => handleCodeChange(text, index)}
-            maxLength={1}
-            ref={(input: TextInput | null) =>
-              (codeFields.current[index] = input)
-            }
-            onDelete={() => handleDelete(index)}
-            onKeyPress={({nativeEvent}: {nativeEvent: any}) => {
-              if (nativeEvent.key === 'Backspace' && !codeInput[index]) {
-                handleDelete(index);
+        <CodeinputContainer>
+          {Array.from({length: 6}, (_, index) => (
+            <CodeInput
+              key={index}
+              value={codeInput[index]}
+              onChangeText={(text: string) => handleCodeChange(text, index)}
+              maxLength={1}
+              ref={(input: TextInput | null) =>
+                (codeFields.current[index] = input)
               }
-            }}
-          />
-        ))}
-      </CodeinputContainer>
+              onDelete={() => handleDelete(index)}
+              onKeyPress={({nativeEvent}: {nativeEvent: any}) => {
+                if (nativeEvent.key === 'Backspace' && !codeInput[index]) {
+                  handleDelete(index);
+                }
+              }}
+            />
+          ))}
+        </CodeinputContainer>
 
-      <ButtonContainer>
-        {timeRemaining > 0 ? (
-          isLoading ? (
-            <ActivityIndicator />
-          ) : (
-            <ConfirmationButton onPress={handleConfirmCode}>
-              <ConfirmationButtonText>Cadastrar</ConfirmationButtonText>
-            </ConfirmationButton>
-          )
-        ) : isLoading ? (
-          <ActivityIndicator />
-        ) : (
+        <ButtonContainer>
+          <ConfirmationButton
+            onPress={handleConfirmCode}
+            disabled={codeInput.length < 6}
+            style={{
+              backgroundColor: codeInput.length === 6 ? '#624AA7' : '#624AA770',
+            }}>
+            <ConfirmationButtonText>Confirmar</ConfirmationButtonText>
+          </ConfirmationButton>
+        </ButtonContainer>
+
+        <TimeContainer>
+          <ContainerText>{FormatMinutes(timeRemaining)}</ContainerText>
+        </TimeContainer>
+
+        <NotReceived>
+          Não recebeu o seu código? Verifique na caixa de spam ou tente
+          novamente
+        </NotReceived>
+        {timeRemaining === 0 && (
           <RemainderButton onPress={handleReSendCode}>
-            <RemainderButtonText>Reenviar Código</RemainderButtonText>
+            <RemainderButtonText>Reenviar</RemainderButtonText>
           </RemainderButton>
         )}
-        <CancelButton onPress={handleCancel}>
-          <CancelButtonText>Cancelar</CancelButtonText>
-        </CancelButton>
-      </ButtonContainer>
-
-      <TimeContainer>
-        <ContainerText>{FormatMinutes(timeRemaining)}</ContainerText>
-      </TimeContainer>
-
-      <NotReceived>
-        Não Recebeu seu código? Verifique na caixa de span ou tente novamente.
-      </NotReceived>
+      </Content>
     </Container>
   );
 }

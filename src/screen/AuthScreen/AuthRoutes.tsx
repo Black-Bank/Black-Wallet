@@ -77,7 +77,11 @@ export function AuthRoutes() {
       <Stack.Screen
         name="ConfirmationSignUpScreen"
         component={ConfirmSignUpScreen}
-        options={optionsStyle}
+        options={{
+          ...optionsStyle,
+          headerTitle: 'Verifique seu E-mail',
+          headerTitleAlign: 'center',
+        }}
       />
       <Stack.Screen
         name="UpdatePassScreen"
