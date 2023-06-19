@@ -44,15 +44,9 @@ export function AuthRoutes() {
         name="SignUpScreen"
         component={SignupScreen}
         options={{
-          headerStyle: {
-            backgroundColor: '#35224b',
-          },
-          headerTitleStyle: {
-            color: '#fff',
-          },
-          headerTintColor: '#fff',
-          headerTransparent: true,
-          headerTitle: 'Login',
+          ...optionsStyle,
+          headerTitle: 'Cadastre-se',
+          headerTitleAlign: 'center',
         }}
       />
       <Stack.Screen

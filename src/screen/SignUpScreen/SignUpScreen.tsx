@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {
@@ -5,9 +6,11 @@ import {
   ButtonText,
   Container,
   InputContainer,
-  InputStyled,
-  Title,
   Error,
+  InputStyled,
+  InputContent,
+  InputStyledEmail,
+  TextLabel,
 } from './SignUpScreen.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -18,13 +21,19 @@ import {SEND_CODE_SIGNUP_EMAIL} from '../../component/client/queries/queries';
 import {useMutation} from '@apollo/client';
 import Crypto from '../../component/services/ComunicationSystemsAuth';
 import Toast from 'react-native-toast-message';
+import CreditBlackIcon from '../../assets/logo-creditBlack.svg';
+import EyeIcon from '../../assets/Eye.svg';
+import RulesForm from '../../component/rulesForm/RulesForm';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Email Inválido').required('O email é obrigatório'),
   password: yup
     .string()
-    .min(8, 'Senha precisa ter pelo menos 8 caracteres')
-    .matches(/[@#$%^&+=]/, 'Senha precisa ter pelo menos um caractere especial')
+    .min(8, '8')
+    .matches(/[@#$%^&+=]/, 'especial')
+    .matches(/[A-Z]/, 'maiuscula')
+    .matches(/[a-z]/, 'minuscula')
+    .matches(/[0-9]/, 'numero')
     .required('A senha é obrigatória'),
   confirmPassword: yup
     .string()
@@ -40,6 +49,31 @@ export function SignupScreen() {
   const [code, setCode] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<String>('');
+  const [quantity, setQuantity] = useState<boolean>(false);
+  const [lowercase, setLowercase] = useState<boolean>(false);
+  const [uppercase, setUppercase] = useState<boolean>(false);
+  const [special, setSpecial] = useState<boolean>(false);
+  const [number, setNumber] = useState<boolean>(false);
+  const params = {quantity, lowercase, uppercase, special, number, password};
+
+  useEffect(() => {
+    const data = {
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+    validationSchema
+      .validate(data, {abortEarly: false})
+      .catch(validationError => {
+        const errors = validationError.errors;
+        setQuantity(!errors.includes('8'));
+        setSpecial(!errors.includes('especial'));
+        setUppercase(!errors.includes('maiuscula'));
+        setLowercase(!errors.includes('minuscula'));
+        setNumber(!errors.includes('numero'));
+      });
+  }, [password, confirmPassword]);
+
   const handleContinue = async (values: {password: string; email: string}) => {
     setIsLoading(true);
 
@@ -91,49 +125,66 @@ export function SignupScreen() {
 
   return (
     <>
-      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <StatusBar backgroundColor="#ffff" barStyle="dark-content" />
       <Formik
         initialValues={{email: '', password: '', confirmPassword: ''}}
         onSubmit={handleContinue}
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
           <Container marginTop={StatusBar.currentHeight}>
-            <Title>Cadastro</Title>
+            <CreditBlackIcon width={80} height={80} />
             <InputContainer>
-              <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Email"
+              <TextLabel>Email</TextLabel>
+              <InputStyledEmail
                 value={values.email}
                 onChangeText={handleChange('email')}
                 autoCapitalize="none"
               />
               {errors.email && touched.email && <Error>{errors.email}</Error>}
             </InputContainer>
-            <InputContainer>
-              <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Senha"
-                value={values.password}
-                onChangeText={handleChange('password')}
-                secureTextEntry
-              />
-              {errors.password && touched.password && (
-                <Error>{errors.password}</Error>
-              )}
+            <InputContainer style={{marginBottom: -15, marginTop: 10}}>
+              <TextLabel>Senha</TextLabel>
+              <InputContent>
+                <InputStyled
+                  value={values.password}
+                  onChangeText={(text: string) => {
+                    handleChange('password')(text);
+                    setPassword(text);
+                  }}
+                  secureTextEntry
+                />
+                <EyeIcon width={25} />
+              </InputContent>
             </InputContainer>
-            <InputContainer>
-              <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Confirme a senha"
-                value={values.confirmPassword}
-                onChangeText={handleChange('confirmPassword')}
-                secureTextEntry
-              />
+            <RulesForm params={params} />
+            <InputContainer style={{marginTop: -18}}>
+              <TextLabel>Confirme a sua senha</TextLabel>
+              <InputContent>
+                <InputStyled
+                  value={values.confirmPassword}
+                  onChangeText={(text: string) => {
+                    handleChange('confirmPassword')(text);
+                    setConfirmPassword(text);
+                  }}
+                  secureTextEntry
+                />
+                <EyeIcon width={25} />
+              </InputContent>
               {errors.confirmPassword && touched.confirmPassword && (
                 <Error>{errors.confirmPassword}</Error>
               )}
             </InputContainer>
-            <Button onPress={handleSubmit}>
+            <Button
+              disabled={confirmPassword.length === 0}
+              onPress={handleSubmit}
+              style={{
+                backgroundColor:
+                  values.email.length > 0 &&
+                  password.length > 0 &&
+                  confirmPassword.length > 0
+                    ? '#624AA7'
+                    : '#624AA770',
+              }}>
               {isLoading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
@@ -141,7 +192,9 @@ export function SignupScreen() {
               )}
             </Button>
             <Button onPress={handleCancel}>
-              <ButtonText>Cancelar</ButtonText>
+              <ButtonText style={{color: '#624AA7'}}>
+                Já possuo uma conta
+              </ButtonText>
             </Button>
           </Container>
         )}
