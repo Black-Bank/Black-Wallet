@@ -37,7 +37,6 @@ export const Description = styled.Text`
   margin-top: 8px;
   font-size: 14px;
   text-align: center;
-  font-weight: 300;
   color: #414561;
   line-height: 20px;
   width: 70%;
@@ -113,7 +112,6 @@ export const RemainderButtonText = styled.Text`
 export const NotReceived = styled.Text`
   margin: 20px 0;
   text-align: center;
-  font-weight: 300;
   color: #414561;
   line-height: 20px;
   width: 85%;
