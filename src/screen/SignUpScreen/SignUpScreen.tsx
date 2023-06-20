@@ -191,7 +191,11 @@ export function SignupScreen() {
               )}
             </InputContainer>
             <Button
-              disabled={confirmPassword.length === 0}
+              disabled={Boolean(
+                confirmPassword.length > 0 &&
+                  password.length > 0 &&
+                  email.length > 0,
+              )}
               onPress={handleSubmit}
               style={{
                 backgroundColor:

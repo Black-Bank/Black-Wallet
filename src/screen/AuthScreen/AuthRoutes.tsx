@@ -27,16 +27,7 @@ export function AuthRoutes() {
         name="AuthScreen"
         component={AuthScreen}
         options={{
-          headerStyle: {
-            backgroundColor: '#35224b',
-          },
-          headerTitleStyle: {
-            color: '#fff',
-          },
-          headerTintColor: '#fff',
-          headerTransparent: true,
-          headerTitle: 'Black',
-          headerTitleAlign: 'center',
+          headerShown: false,
         }}
       />
 
