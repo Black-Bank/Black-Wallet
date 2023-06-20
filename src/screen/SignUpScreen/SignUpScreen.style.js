@@ -65,3 +65,5 @@ export const Error = styled.Text`
   color: #eb5757;
   font-size: 14px;
 `;
+
+export const EyeContainer = styled.TouchableOpacity``;

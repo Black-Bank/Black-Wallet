@@ -10,6 +10,7 @@ import {
   TextLabel,
   ButtonCancel,
   ButtonTextCancel,
+  EyeContainer,
 } from './UpdatePass.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -21,6 +22,7 @@ import {useMutation} from '@apollo/client';
 import Toast from 'react-native-toast-message';
 import {Cypher} from '../AuthScreen/Cypher';
 import EyeIcon from '../../assets/Eye.svg';
+import EyeClosedIcon from '../../assets/eye-closed.svg';
 import RulesForm from '../../component/rulesForm/RulesForm';
 
 const validationSchema = yup.object().shape({
@@ -51,6 +53,7 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
   const [UpdatePass] = useMutation(UPDATE_PASS);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [eyeClosed, setEyeClosed] = useState<boolean>(true);
 
   const [password, setPassword] = useState<String>('');
   const [confirmPassword, setConfirmPassword] = useState<String>('');
@@ -136,9 +139,15 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
                     handleChange('password')(text);
                     setPassword(text);
                   }}
-                  secureTextEntry
+                  secureTextEntry={eyeClosed}
                 />
-                <EyeIcon width={25} />
+                <EyeContainer onPress={() => setEyeClosed(!eyeClosed)}>
+                  {eyeClosed ? (
+                    <EyeClosedIcon width={25} />
+                  ) : (
+                    <EyeIcon width={25} />
+                  )}
+                </EyeContainer>
               </InputContent>
             </InputContainer>
             <RulesForm params={params} />
@@ -151,9 +160,15 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
                     handleChange('confirmPassword')(text);
                     setConfirmPassword(text);
                   }}
-                  secureTextEntry
+                  secureTextEntry={eyeClosed}
                 />
-                <EyeIcon width={25} />
+                <EyeContainer onPress={() => setEyeClosed(!eyeClosed)}>
+                  {eyeClosed ? (
+                    <EyeClosedIcon width={25} />
+                  ) : (
+                    <EyeIcon width={25} />
+                  )}
+                </EyeContainer>
               </InputContent>
               {errors.confirmPassword && touched.confirmPassword && (
                 <Error>{errors.confirmPassword}</Error>

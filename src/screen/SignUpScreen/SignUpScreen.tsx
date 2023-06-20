@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
@@ -11,6 +12,7 @@ import {
   InputContent,
   InputStyledEmail,
   TextLabel,
+  EyeContainer,
 } from './SignUpScreen.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -24,6 +26,7 @@ import Toast from 'react-native-toast-message';
 import CreditBlackIcon from '../../assets/logo-creditBlack.svg';
 import EyeIcon from '../../assets/Eye.svg';
 import RulesForm from '../../component/rulesForm/RulesForm';
+import EyeClosedIcon from '../../assets/eye-closed.svg';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Email Inválido').required('O email é obrigatório'),
@@ -46,6 +49,7 @@ export function SignupScreen() {
   const [SendCode] = useMutation(SEND_CODE_SIGNUP_EMAIL);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [eyeClosed, setEyeClosed] = useState<boolean>(true);
   const [code, setCode] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -151,9 +155,15 @@ export function SignupScreen() {
                     handleChange('password')(text);
                     setPassword(text);
                   }}
-                  secureTextEntry
+                  secureTextEntry={eyeClosed}
                 />
-                <EyeIcon width={25} />
+                <EyeContainer onPress={() => setEyeClosed(!eyeClosed)}>
+                  {eyeClosed ? (
+                    <EyeClosedIcon width={25} />
+                  ) : (
+                    <EyeIcon width={25} />
+                  )}
+                </EyeContainer>
               </InputContent>
             </InputContainer>
             <RulesForm params={params} />
@@ -166,9 +176,15 @@ export function SignupScreen() {
                     handleChange('confirmPassword')(text);
                     setConfirmPassword(text);
                   }}
-                  secureTextEntry
+                  secureTextEntry={eyeClosed}
                 />
-                <EyeIcon width={25} />
+                <EyeContainer onPress={() => setEyeClosed(!eyeClosed)}>
+                  {eyeClosed ? (
+                    <EyeClosedIcon width={25} />
+                  ) : (
+                    <EyeIcon width={25} />
+                  )}
+                </EyeContainer>
               </InputContent>
               {errors.confirmPassword && touched.confirmPassword && (
                 <Error>{errors.confirmPassword}</Error>

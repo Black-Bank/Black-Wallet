@@ -76,3 +76,5 @@ export const Error = styled.Text`
   font-size: 14px;
   margin-top: 4px;
 `;
+
+export const EyeContainer = styled.TouchableOpacity``;
