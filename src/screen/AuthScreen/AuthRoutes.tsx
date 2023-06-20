@@ -12,14 +12,13 @@ const Stack = createNativeStackNavigator();
 export function AuthRoutes() {
   const optionsStyle = {
     headerStyle: {
-      backgroundColor: '#35224b',
+      backgroundColor: '#ffff',
     },
     headerTitleStyle: {
-      color: '#fff',
+      color: '#414561',
     },
-    headerTintColor: '#fff',
+    headerTintColor: '#828282',
     headerTransparent: true,
-    headerTitle: '',
   };
 
   return (
@@ -28,16 +27,7 @@ export function AuthRoutes() {
         name="AuthScreen"
         component={AuthScreen}
         options={{
-          headerStyle: {
-            backgroundColor: '#35224b',
-          },
-          headerTitleStyle: {
-            color: '#fff',
-          },
-          headerTintColor: '#fff',
-          headerTransparent: true,
-          headerTitle: 'Black',
-          headerTitleAlign: 'center',
+          headerShown: false,
         }}
       />
 
@@ -45,36 +35,53 @@ export function AuthRoutes() {
         name="SignUpScreen"
         component={SignupScreen}
         options={{
-          headerStyle: {
-            backgroundColor: '#35224b',
-          },
-          headerTitleStyle: {
-            color: '#fff',
-          },
-          headerTintColor: '#fff',
-          headerTransparent: true,
-          headerTitle: 'Login',
+          ...optionsStyle,
+          headerTitle: 'Cadastre-se',
+          headerTitleAlign: 'center',
         }}
       />
       <Stack.Screen
         name="ForgotScreen"
         component={ForgotScreen}
-        options={optionsStyle}
+        options={{
+          ...optionsStyle,
+          headerTitle: 'Esqueceu a senha?',
+          headerTitleAlign: 'center',
+        }}
       />
       <Stack.Screen
         name="ConfirmationScreen"
         component={ConfirmCodeScreen}
-        options={optionsStyle}
+        options={{
+          headerStyle: {
+            backgroundColor: '#ffff',
+          },
+          headerTitleStyle: {
+            color: '#414561',
+          },
+          headerTintColor: '#828282',
+          headerTransparent: true,
+          headerTitle: 'Verifique seu E-mail',
+          headerTitleAlign: 'center',
+        }}
       />
       <Stack.Screen
         name="ConfirmationSignUpScreen"
         component={ConfirmSignUpScreen}
-        options={optionsStyle}
+        options={{
+          ...optionsStyle,
+          headerTitle: 'Verifique seu E-mail',
+          headerTitleAlign: 'center',
+        }}
       />
       <Stack.Screen
         name="UpdatePassScreen"
         component={UpdatePassScreen}
-        options={optionsStyle}
+        options={{
+          ...optionsStyle,
+          headerTitle: 'Redefina sua senha',
+          headerTitleAlign: 'center',
+        }}
       />
     </Stack.Navigator>
   );

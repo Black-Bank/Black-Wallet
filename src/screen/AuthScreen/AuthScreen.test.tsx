@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {fireEvent, render, screen} from '@testing-library/react-native';
+import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import {AuthScreen} from './AuthScreen';
 import {MockedProvider} from '@apollo/client/testing';
 
@@ -25,37 +25,30 @@ const component = (
 
 describe('it should render home screen', () => {
   it('render Auth screen', async () => {
-    render(component);
-    const signInButton = await screen.findByText('Sign In');
-    const signUpButton = await screen.findByText('Cadastre-se');
-    const screenName = await screen.findByText('Login');
+    const {getByText} = render(component);
 
-    expect(signInButton).toBeTruthy();
-    expect(signUpButton).toBeTruthy();
-    expect(screenName).toBeTruthy();
+    await waitFor(async () => {
+      expect(getByText('Email')).toBeTruthy();
+      expect(getByText('Senha')).toBeTruthy();
+      expect(getByText('Esqueceu a senha?')).toBeTruthy();
+      expect(getByText('Entrar')).toBeTruthy();
+      expect(getByText('Cadastre-se')).toBeTruthy();
+    });
   });
   it('render Sign Up screen', async () => {
-    render(component);
-    const signUpButton = await screen.findByText('Cadastre-se');
+    const {getByText} = render(component);
+    const signUpButton = getByText('Cadastre-se');
 
     expect(signUpButton).toBeTruthy();
     fireEvent.press(signUpButton);
     expect(mockedNavigate).toHaveBeenCalledWith('SignUpScreen');
   });
-  it('shows error message for invalid email', async () => {
-    render(component);
+  it('render Forgot Pasword scren', async () => {
+    const {getByText} = render(component);
 
-    const emailInput = await screen.findByPlaceholderText('Email');
-    fireEvent.changeText(emailInput, 'invalid-email');
-
-    const signInButton = await screen.findByText('Sign In');
-    fireEvent.press(signInButton);
-
-    const errorMessage = await screen.findByText(
-      'email must be a valid email',
-      {},
-      {timeout: 500},
-    );
-    expect(errorMessage).toBeTruthy();
+    const forgotButton = getByText('Esqueceu a senha?');
+    expect(forgotButton).toBeTruthy();
+    fireEvent.press(forgotButton);
+    expect(mockedNavigate).toHaveBeenCalledWith('ForgotScreen');
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent, render, waitFor} from '@testing-library/react-native';
+import {fireEvent, render} from '@testing-library/react-native';
 import {ForgotScreen} from '../ForgotScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {ApolloProvider} from '@apollo/client';
@@ -25,11 +25,14 @@ describe('Forgot Screen', () => {
   it('render forgot screen', async () => {
     const {getByText} = render(component);
 
-    await waitFor(() => {
-      expect(getByText('Digite seu Email abaixo')).toBeTruthy();
-      expect(getByText('Enviar código')).toBeTruthy();
-      expect(getByText('Cancelar')).toBeTruthy();
-    });
+    expect(
+      getByText(
+        'Digite seu endereço de e-mail e enviaremos instruções de redefinição de senha.',
+      ),
+    ).toBeTruthy();
+    expect(getByText('Email')).toBeTruthy();
+    expect(getByText('Recuperar senha')).toBeTruthy();
+    expect(getByText('Cancelar')).toBeTruthy();
   });
 
   it('Voltar para tela de login', () => {

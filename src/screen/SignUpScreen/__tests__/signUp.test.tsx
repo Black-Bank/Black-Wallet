@@ -26,16 +26,18 @@ describe('Sign Up screen', () => {
     const {getByText} = render(component);
 
     await waitFor(() => {
-      expect(getByText('Cadastro')).toBeTruthy();
+      expect(getByText('Email')).toBeTruthy();
+      expect(getByText('Senha')).toBeTruthy();
+      expect(getByText('Confirme a sua senha')).toBeTruthy();
       expect(getByText('Seguir')).toBeTruthy();
-      expect(getByText('Cancelar')).toBeTruthy();
+      expect(getByText('Já possuo uma conta')).toBeTruthy();
     });
   });
 
   it('Voltar para tela de login', () => {
     const {getByText} = render(component);
 
-    const buttonCancelar = getByText('Cancelar');
+    const buttonCancelar = getByText('Já possuo uma conta');
 
     fireEvent.press(buttonCancelar);
 
