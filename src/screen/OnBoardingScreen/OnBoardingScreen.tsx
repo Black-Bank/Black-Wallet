@@ -54,8 +54,8 @@ export function OnBoardingScreen() {
         <ImageBackgroundStyled source={require(img1)}>
           <DarkOverlay />
           <TextSwiper>
-            Proteja sua privacidade ao realizar transações com criptomoedas,
-            preservando seus dados pessoais e financeiros.
+            Faça transações entre as principais criptomoedas de forma simples e
+            segura com alguns cliques
           </TextSwiper>
         </ImageBackgroundStyled>
 
