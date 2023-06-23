@@ -32,6 +32,7 @@ export const TextSwiper = styled.Text`
   text-align: center;
   padding: 0 10px;
   padding-top: 180px;
+  font-family: 'AvertaStd-Regular';
 `;
 
 export const ContainerButton = styled.View`
@@ -55,14 +56,14 @@ export const ActiveDotContainer = styled.View`
   border: 2px solid #624aa7;
   padding: 8px;
   border-radius: 50px;
-  margin-bottom: 150px;
+  margin-bottom: 170px;
 `;
 
 export const InactiveDotContainer = styled.View`
   border: 2px solid transparent;
   padding: 5px;
   border-radius: 50px;
-  margin-bottom: 150px;
+  margin-bottom: 170px;
 `;
 
 export const Dot = styled.View`
