@@ -46,7 +46,10 @@ export function OnBoardingScreen() {
         <Logo width={100} height={100} />
       </ContainerLogo>
       <DarkOverlay />
-      <Swiper dot={<InactiveDot />} activeDot={<ActiveDot />}>
+      <Swiper
+        dot={<InactiveDot />}
+        activeDot={<ActiveDot />}
+        testID="swiper-test">
         <ImageBackgroundStyled source={require(img1)}>
           <DarkOverlay />
           <TextSwiper>
