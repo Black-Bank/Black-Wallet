@@ -6,6 +6,7 @@ import {ForgotScreen} from '../ForgotScreen/ForgotScreen';
 import {ConfirmCodeScreen} from '../Confirmation/Confirmation';
 import {UpdatePassScreen} from '../UpdatePass/UpdatePassScreen';
 import {ConfirmSignUpScreen} from '../SignUpScreen/ConfirmSignUp';
+import {OnBoardingScreen} from '../OnBoardingScreen/OnBoardingScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,14 @@ export function AuthRoutes() {
 
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="OnBoardingScreen"
+        component={OnBoardingScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+
       <Stack.Screen
         name="AuthScreen"
         component={AuthScreen}
