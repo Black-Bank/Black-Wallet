@@ -5,7 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Routes} from './src/component/routes/routes';
 import AuthProvider from './src/contexts/auth';
 import Toast from 'react-native-toast-message';
-import {SplashScreen} from './src/component/SplashScreen/SplashScreen';
+import {SplashScreen} from './src/screen/SplashScreen/SplashScreen';
 
 const App = () => {
   const [showSplash, setShowSplash] = React.useState(true);
