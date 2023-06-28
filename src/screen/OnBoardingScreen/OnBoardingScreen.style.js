@@ -28,7 +28,8 @@ export const ContainerLogo = styled.View`
 
 export const TextSwiper = styled.Text`
   color: #ffffff;
-  font-size: 40px;
+
+  font-size: ${props => (props.h <= 750 ? '30px' : '40px')};
   text-align: center;
   padding: 0 10px;
   padding-top: 180px;
@@ -56,14 +57,14 @@ export const ActiveDotContainer = styled.View`
   border: 2px solid #624aa7;
   padding: 8px;
   border-radius: 50px;
-  margin-bottom: 170px;
+  margin-bottom: 140px;
 `;
 
 export const InactiveDotContainer = styled.View`
   border: 2px solid transparent;
   padding: 5px;
   border-radius: 50px;
-  margin-bottom: 170px;
+  margin-bottom: 140px;
 `;
 
 export const Dot = styled.View`

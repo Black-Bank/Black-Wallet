@@ -1,5 +1,6 @@
 import React from 'react';
 import {StatusBar, TouchableOpacity} from 'react-native';
+import {Dimensions} from 'react-native';
 import {
   ImageBackgroundStyled,
   ActiveDotContainer,
@@ -30,6 +31,7 @@ const InactiveDot = () => (
 
 export function OnBoardingScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const {height} = Dimensions.get('window');
   const img1 = '../../assets/bgimage1-onboarding.png';
   const img2 = '../../assets/bgimage2-onboarding.png';
   const img3 = '../../assets/bgimage3-onboarding.png';
@@ -52,7 +54,7 @@ export function OnBoardingScreen() {
         testID="swiper-test">
         <ImageBackgroundStyled source={require(img1)}>
           <DarkOverlay />
-          <TextSwiper>
+          <TextSwiper h={height}>
             Faça transações entre as principais criptomoedas de forma simples e
             segura com alguns cliques
           </TextSwiper>
@@ -60,7 +62,7 @@ export function OnBoardingScreen() {
 
         <ImageBackgroundStyled source={require(img2)}>
           <DarkOverlay />
-          <TextSwiper>
+          <TextSwiper h={height}>
             Descubra a liberdade financeira ao ter controle total sobre seus
             ativos digitais, sem restrições geográficas ou burocracias
           </TextSwiper>
@@ -68,7 +70,7 @@ export function OnBoardingScreen() {
 
         <ImageBackgroundStyled source={require(img3)}>
           <DarkOverlay />
-          <TextSwiper>
+          <TextSwiper h={height}>
             Explore um universo de possibilidades financeiras com as
             criptomoedas, abrindo portas para novas oportunidades
           </TextSwiper>
@@ -76,7 +78,7 @@ export function OnBoardingScreen() {
 
         <ImageBackgroundStyled source={require(img4)}>
           <DarkOverlay />
-          <TextSwiper>
+          <TextSwiper h={height}>
             Realize transações instantâneas, 24 horas por dia, 7 dias por
             semana, sem depender de horários bancários tradicionais
           </TextSwiper>
