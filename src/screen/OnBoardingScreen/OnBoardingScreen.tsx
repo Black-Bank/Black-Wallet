@@ -1,6 +1,5 @@
 import React from 'react';
 import {StatusBar, TouchableOpacity} from 'react-native';
-import {Dimensions} from 'react-native';
 import {
   ImageBackgroundStyled,
   ActiveDotContainer,
@@ -32,11 +31,6 @@ const InactiveDot = () => (
 
 export function OnBoardingScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {height} = Dimensions.get('window');
-  const img1 = '../../assets/bgimage1-onboarding.png';
-  const img2 = '../../assets/bgimage2-onboarding.png';
-  const img3 = '../../assets/bgimage3-onboarding.png';
-  const img4 = '../../assets/bgimage4-onboarding.png';
 
   const handleSignIn = () => {
     navigation.navigate('AuthScreen');
@@ -54,33 +48,37 @@ export function OnBoardingScreen() {
           dot={<InactiveDot />}
           activeDot={<ActiveDot />}
           testID="swiper-test">
-          <ImageBackgroundStyled source={require(img1)}>
+          <ImageBackgroundStyled
+            source={require('../../assets/bgimage1-onboarding.png')}>
             <DarkOverlay />
-            <TextSwiper h={height}>
+            <TextSwiper>
               Faça transações entre as principais criptomoedas de forma simples
               e segura com alguns cliques
             </TextSwiper>
           </ImageBackgroundStyled>
 
-          <ImageBackgroundStyled source={require(img2)}>
+          <ImageBackgroundStyled
+            source={require('../../assets/bgimage2-onboarding.png')}>
             <DarkOverlay />
-            <TextSwiper h={height}>
+            <TextSwiper>
               Descubra a liberdade financeira ao ter controle total sobre seus
               ativos digitais, sem restrições geográficas ou burocracias
             </TextSwiper>
           </ImageBackgroundStyled>
 
-          <ImageBackgroundStyled source={require(img3)}>
+          <ImageBackgroundStyled
+            source={require('../../assets/bgimage3-onboarding.png')}>
             <DarkOverlay />
-            <TextSwiper h={height}>
+            <TextSwiper>
               Explore um universo de possibilidades financeiras com as
               criptomoedas, abrindo portas para novas oportunidades
             </TextSwiper>
           </ImageBackgroundStyled>
 
-          <ImageBackgroundStyled source={require(img4)}>
+          <ImageBackgroundStyled
+            source={require('../../assets/bgimage4-onboarding.png')}>
             <DarkOverlay />
-            <TextSwiper h={height}>
+            <TextSwiper>
               Realize transações instantâneas, 24 horas por dia, 7 dias por
               semana, sem depender de horários bancários tradicionais
             </TextSwiper>
