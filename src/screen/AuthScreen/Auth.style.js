@@ -4,7 +4,7 @@ export const Container = styled.View`
   flex: 1;
   background-color: #f2f3f5;
   align-items: center;
-  padding-top: 30px;
+  padding-top: 50px;
 `;
 
 export const InputContainer = styled.View`

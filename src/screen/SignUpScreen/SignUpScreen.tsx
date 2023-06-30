@@ -135,7 +135,7 @@ export function SignupScreen() {
         onSubmit={handleContinue}
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
-          <Container marginTop={StatusBar.currentHeight}>
+          <Container>
             <CreditBlackIcon width={80} height={80} />
             <InputContainer>
               <TextLabel>Email</TextLabel>
