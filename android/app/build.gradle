@@ -76,10 +76,17 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
-
-project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing
+ project.ext.react = [
+    entryFile: "index.js",
+    enableHermes: false,  // Habilitar se você estiver usando o Hermes como engine JavaScript
 ]
+
+// Adicione o código abaixo:
+project.ext.vectoricons = [
+    iconFontNames: ['AvertaStd-Regular.ttf'], // Adicione as fontes que você deseja incluir
+]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 apply from: "../../node_modules/react-native/react.gradle"
 

@@ -1,13 +1,16 @@
-/* eslint-disable no-extra-boolean-cast */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   ButtonText,
   Container,
   InputContainer,
   InputStyled,
-  Title,
   Error,
+  InputContent,
+  TextLabel,
+  ButtonCancel,
+  ButtonTextCancel,
+  EyeContainer,
 } from './UpdatePass.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -18,12 +21,18 @@ import {UPDATE_PASS} from '../../component/client/queries/queries';
 import {useMutation} from '@apollo/client';
 import Toast from 'react-native-toast-message';
 import {Cypher} from '../AuthScreen/Cypher';
+import EyeIcon from '../../assets/Eye.svg';
+import EyeClosedIcon from '../../assets/eye-closed.svg';
+import RulesForm from '../../component/rulesForm/RulesForm';
 
 const validationSchema = yup.object().shape({
   password: yup
     .string()
-    .min(8, 'Senha precisa ter pelo menos 8 caracteres')
-    .matches(/[@#$%^&+=]/, 'Senha precisa ter pelo menos um caractere especial')
+    .min(8, '8')
+    .matches(/[@#$%^&+=]/, 'especial')
+    .matches(/[A-Z]/, 'maiuscula')
+    .matches(/[a-z]/, 'minuscula')
+    .matches(/[0-9]/, 'numero')
     .required('A senha é obrigatória'),
   confirmPassword: yup
     .string()
@@ -44,6 +53,33 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
   const [UpdatePass] = useMutation(UPDATE_PASS);
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [eyeClosed, setEyeClosed] = useState<boolean>(true);
+
+  const [password, setPassword] = useState<String>('');
+  const [confirmPassword, setConfirmPassword] = useState<String>('');
+  const [quantity, setQuantity] = useState<boolean>(false);
+  const [lowercase, setLowercase] = useState<boolean>(false);
+  const [uppercase, setUppercase] = useState<boolean>(false);
+  const [special, setSpecial] = useState<boolean>(false);
+  const [number, setNumber] = useState<boolean>(false);
+  const params = {quantity, lowercase, uppercase, special, number, password};
+
+  useEffect(() => {
+    const data = {
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+    validationSchema
+      .validate(data, {abortEarly: false})
+      .catch(validationError => {
+        const errors = validationError.errors;
+        setQuantity(!errors.includes('8'));
+        setSpecial(!errors.includes('especial'));
+        setUppercase(!errors.includes('maiuscula'));
+        setLowercase(!errors.includes('minuscula'));
+        setNumber(!errors.includes('numero'));
+      });
+  }, [password, confirmPassword]);
 
   const handleChangePass = async (values: any) => {
     setIsLoading(true);
@@ -87,35 +123,53 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
 
   return (
     <>
-      <StatusBar backgroundColor="#35224b" barStyle="dark-content" />
+      <StatusBar backgroundColor="#ffff" barStyle="dark-content" />
       <Formik
         initialValues={{email: '', password: '', confirmPassword: ''}}
         onSubmit={handleChangePass}
         validationSchema={validationSchema}>
         {({handleChange, handleSubmit, values, errors, touched}) => (
           <Container marginTop={StatusBar.currentHeight}>
-            <Title>Redefinir senha</Title>
-
             <InputContainer>
-              <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Senha"
-                value={values.password}
-                onChangeText={handleChange('password')}
-                secureTextEntry
-              />
-              {errors.password && touched.password && (
-                <Error>{errors.password}</Error>
-              )}
+              <TextLabel>Nova Senha</TextLabel>
+              <InputContent>
+                <InputStyled
+                  value={values.password}
+                  onChangeText={(text: any) => {
+                    handleChange('password')(text);
+                    setPassword(text);
+                  }}
+                  secureTextEntry={eyeClosed}
+                />
+                <EyeContainer onPress={() => setEyeClosed(!eyeClosed)}>
+                  {eyeClosed ? (
+                    <EyeClosedIcon width={25} />
+                  ) : (
+                    <EyeIcon width={25} />
+                  )}
+                </EyeContainer>
+              </InputContent>
             </InputContainer>
+            <RulesForm params={params} />
             <InputContainer>
-              <InputStyled
-                placeholderTextColor="#ccc"
-                placeholder="Confirme a senha"
-                value={values.confirmPassword}
-                onChangeText={handleChange('confirmPassword')}
-                secureTextEntry
-              />
+              <TextLabel>Confirme a sua senha</TextLabel>
+              <InputContent>
+                <InputStyled
+                  value={values.confirmPassword}
+                  onChangeText={(text: any) => {
+                    handleChange('confirmPassword')(text);
+                    setConfirmPassword(text);
+                  }}
+                  secureTextEntry={eyeClosed}
+                />
+                <EyeContainer onPress={() => setEyeClosed(!eyeClosed)}>
+                  {eyeClosed ? (
+                    <EyeClosedIcon width={25} />
+                  ) : (
+                    <EyeIcon width={25} />
+                  )}
+                </EyeContainer>
+              </InputContent>
               {errors.confirmPassword && touched.confirmPassword && (
                 <Error>{errors.confirmPassword}</Error>
               )}
@@ -127,9 +181,9 @@ export function UpdatePassScreen({route}: UpdateScreenProps) {
                 <ButtonText>Redefinir Senha</ButtonText>
               )}
             </Button>
-            <Button onPress={handleCancel}>
-              <ButtonText>Cancelar</ButtonText>
-            </Button>
+            <ButtonCancel onPress={handleCancel}>
+              <ButtonTextCancel>Cancelar</ButtonTextCancel>
+            </ButtonCancel>
           </Container>
         )}
       </Formik>
