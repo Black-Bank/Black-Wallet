@@ -21,7 +21,7 @@ export function CardsBuyCryptos() {
         <ContentBuyCoins>
           <TitleContent>Compre Ethereum</TitleContent>
           <DescriptionContent>
-            Your new way for all familiar payments
+            Seu novo caminho para a liberdade financeira
           </DescriptionContent>
         </ContentBuyCoins>
         <RightIcon width={30} height={30} />
@@ -34,7 +34,7 @@ export function CardsBuyCryptos() {
         <ContentBuyCoins>
           <TitleContent>Compre Bitcoin</TitleContent>
           <DescriptionContent>
-            Your new way for all familiar payments
+            Seu novo caminho para a liberdade financeira
           </DescriptionContent>
         </ContentBuyCoins>
         <RightIcon width={30} height={30} />
