@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
+  justify-content: center;
   flex: 1;
   background-color: #f2f3f5;
   align-items: center;
-  padding-top: 30px;
 `;
 
 export const InputContainer = styled.View`
