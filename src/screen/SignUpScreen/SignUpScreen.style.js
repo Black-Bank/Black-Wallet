@@ -36,6 +36,7 @@ export const InputStyled = styled.TextInput`
   height: 56px;
   border-radius: 8px;
   padding: 8px;
+  color: black;
 `;
 
 export const InputStyledEmail = styled.TextInput`
@@ -46,6 +47,7 @@ export const InputStyledEmail = styled.TextInput`
   padding: 8px;
   border-width: 1px;
   border-color: #ccc;
+  color: black;
 `;
 
 export const Button = styled.TouchableOpacity`

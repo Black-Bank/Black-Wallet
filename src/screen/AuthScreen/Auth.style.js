@@ -18,6 +18,7 @@ export const InputStyled = styled.TextInput`
   border-width: 1px;
   border-color: #ccc;
   padding: 8px;
+  color: black;
 `;
 
 export const InputContent = styled.View`
@@ -37,6 +38,7 @@ export const InputStyledPassword = styled.TextInput`
   height: 56px;
   border-radius: 8px;
   padding: 8px;
+  color: black;
 `;
 
 export const TextLabel = styled.Text`
