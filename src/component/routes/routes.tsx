@@ -24,6 +24,7 @@ import {
 import {ConfirmTransaction} from '../../screen/TransactionScreen/ConfirmTransaction';
 import {ConfirmTransfer} from '../../screen/ConfirmTransfer/ConfirmTokenTransfer';
 import {ExtractScreen} from '../../screen/TransactionScreen/ExtractScreen';
+import {PrincipalScreen} from '../../screen/PrincipalScreen/PrincipalScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,11 @@ export function Routes() {
     <Stack.Navigator>
       {isAuthenticated ? (
         <>
+          <Stack.Screen
+            name="PrincipalScreen"
+            component={PrincipalScreen}
+            options={optionsHeaderHomeStyle}
+          />
           <Stack.Screen
             name="Home"
             component={Home}
