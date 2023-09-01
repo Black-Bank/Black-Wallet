@@ -81,6 +81,15 @@ export const GET_TRANSFER_INFO = gql`
   }
 `;
 
+export const GET_CONTRACT_BALANCE = gql`
+  query GetContractBalance($email: String!, $name: String!) {
+    getContractBalance(email: $email, name: $name) {
+      contractType
+      value
+    }
+  }
+`;
+
 export const CREAT_ETH_WALLET = gql`
   mutation ($Email: String!, $name: String!) {
     createEthWallet(Email: $Email, name: $name)
